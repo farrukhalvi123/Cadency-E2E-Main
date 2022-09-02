@@ -18,4 +18,4 @@ class InvoicePage(invoiceelements, customerelements):
         print("Click hogya bhai")
 
     def ClickOnAddButton(self):
-        self.click_using_js(self.ADDINVOICE)
+        self.click_using_js(self.ADDINVOICEBTN)
