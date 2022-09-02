@@ -11,4 +11,4 @@ def step_impl(context):
 
 @then("User Clicks On Add Invoice Button")
 def step_impl(context):
-    context.Invoice.ClickOnAddButton()
+    context.invoice.ClickOnAddButton()
