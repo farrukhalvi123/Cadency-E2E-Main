@@ -5,4 +5,4 @@ allure-behave
 behave-html-formatter
 Pillow
 requests
-
+talha
