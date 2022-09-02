@@ -1,0 +1,22 @@
+{
+    "id" : 229,
+    "firstName": "Farrukh",
+    "lastName": "Alvi",
+    "userName": "fjalvi",
+    "phoneNumber": "+921212124321",
+    "email": "farrukh.alv@datasoft.com.pk",
+    "entityId": 1,
+    "userType": 1,
+    "status": 1,
+    "authenticationType": 1,
+    "versionNumber" : 1,
+    "teams": [
+        {
+            "Id": 1
+        },
+        {
+            "Id": 2
+        }
+    ],
+    "enable2Fa": true
+}
