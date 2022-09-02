@@ -13,9 +13,9 @@ class InvoicePage(invoiceelements, customerelements):
         super().__init__(driver)
 
     def ClickOnInvoiceTab(self):
-        self.click_element(self.CUSTOMERANDRECEIVABLETAB)
-        self.click_element(self.INVOICETAB)
+        self.click_using_js(self.CUSTOMERANDRECEIVABLETAB)
+        self.click_using_js(self.INVOICETAB)
         print("Click hogya bhai")
 
     def ClickOnAddButton(self):
-        self.click_element(self.ADDINVOICE)
+        self.click_using_js(self.ADDINVOICE)
