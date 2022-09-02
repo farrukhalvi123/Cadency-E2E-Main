@@ -1,0 +1,8 @@
+behave
+selenium
+webdriver-manager
+allure-behave
+behave-html-formatter
+Pillow
+requests
+
