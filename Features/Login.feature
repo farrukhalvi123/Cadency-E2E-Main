@@ -28,6 +28,6 @@ Feature: As an end user i want to login to the cadency and view the dashboard pa
       Then User Clicks on Login Button
       Then Click on Profile Thumbnail
       Then Logout
-
+    Scenario: test
 
 
