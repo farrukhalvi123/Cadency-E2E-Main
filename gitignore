@@ -1,0 +1,17 @@
+/allure/reports
+/allure/results
+/allure-report/
+/allure/surefire-reports
+/surefire-reports
+/venv
+/local.log
+/.idea
+/config
+/tmp
+/wait-for-it.sh
+*/__pycache__
+*.pyc
+/geckodriver.log
+.idea/
+/allure
+
