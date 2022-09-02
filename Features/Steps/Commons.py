@@ -10,6 +10,7 @@ import time
 from Constants.URLS import TestData
 from Pages.CustomerPages import CustomerPages
 from Pages.LoginPage import LoginPage
+from Pages.InvoicePage import InvoicePage
 
 
 @given("Launch the Browser")
@@ -66,6 +67,7 @@ def open_login_page(context):
         context.driver.get(TestData.CADENCY_MAIN)
         context.loginPage = LoginPage(context.driver)
         context.customadd = CustomerPages(context.driver)
+        context.invoice = InvoicePage(context.driver)
     except Exception as e:
         print(e)
         context.driver.close()
