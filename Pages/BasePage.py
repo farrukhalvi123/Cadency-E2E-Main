@@ -53,7 +53,7 @@ class BasePage:
         time.sleep(seconds)
 
     def move_to_element(self, locator):
-        element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(locator))
+        element = WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located(locator))
         actions = ActionChains(self.driver)
         actions.move_to_element(element).perform()
 

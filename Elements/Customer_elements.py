@@ -3,9 +3,10 @@ from selenium.webdriver.common.by import By
 
 
 class customerelements(BasePage):
+    hamburger_icon = (By.XPATH,"//div[@class='tree-container ng-star-inserted']")
     CUSTOMERANDRECEIVABLETAB = (By.XPATH,"//p[normalize-space()='Customers & Receivables']")
     CUSTOMERTAB  =(By.XPATH,"//p[normalize-space()='Customers']")
-    ADDCUSTOMER = (By.XPATH,"//button[@class='p-element p-button-primary button-with-icon btn-150 p-button p-component']")
+    ADDCUSTOMER = (By.XPATH,"(//button[@class='p-element p-button-primary button-with-icon btn-150 p-button p-component ng-star-inserted'])[1]")
     TITLE_ADD_CUSTOMER = (By.XPATH,"//span[normalize-space()='Add Customer']")
     CUSTOMERNUMBER = (By.XPATH,"//input[@placeholder='Enter customer number']")
     CUSTOMER_DISPLAY_NAME = (By.ID,"customerDisplayName")
@@ -34,6 +35,7 @@ class customerelements(BasePage):
     CITYID = (By.ID,"cityId")
     CITYKARACHI = (By.XPATH,"//li[@aria-label='Karachi']")
     CUSTOMERNUMBER_VIEW  = (By.XPATH,"//*[@id='pr_id_2-table']/tbody/tr[1]/td[2]/div/span")
+    CUSTOMER_LIST_EMAIL = "paragraph-text-4.wrap-text-all"
     THREEDOTSBUTTON = (By.XPATH,"//tbody/tr[1]/td[7]/div[1]/button[1]")
     EDITCUSTOMER = (By.XPATH,"(//a[normalize-space()='Edit'])[1]")
     EDITCUSTOMERTEXT = (By.XPATH,"//span[normalize-space()='Edit Customer']")
@@ -48,7 +50,8 @@ class customerelements(BasePage):
     SELECTCUSTOMSTATUS = (By.XPATH,"//span[@class='ng-tns-c43-49 p-dropdown-label p-inputtext p-placeholder ng-star-inserted']")
     SELECTACTIVE = (By.XPATH,"//span[normalize-space()='Active']")
     FILTERAPPLY = (By.XPATH,"//button[@class='p-element p-button-primary button-with-icon btn-100 p-button p-component']")
-    VIEWCOUNTRY = '//tbody/tr[1]/td[3]/div[1]/div[1]/span[1]'
+    VIEWCOUNTRY = 'title-heading-4 text-secondary-2 wrap-text-all'
+    no_record_text = (By.XPATH,"//td[normalize-space()='No records found']")
 
 
 
