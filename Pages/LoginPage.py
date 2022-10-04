@@ -34,7 +34,7 @@ class LoginPage(loginelements):
 
     def click_login(self):
         try:
-            self.click_element(self.loginbtn)
+            self.click_using_js(self.loginbtn)
         except Exception as e:
             attach(str("username field is not displayed"), name=str("Not Displayed"),
                    attachment_type=AttachmentType.TEXT)

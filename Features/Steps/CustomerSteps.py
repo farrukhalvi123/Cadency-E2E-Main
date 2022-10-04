@@ -3,9 +3,16 @@ import time
 from allure_commons._allure import attach
 from allure_commons.types import AttachmentType
 from behave import *
+
+@then("Open Right Side Panel")
+def step_impl(context):
+    time.sleep(10)
+    context.customadd.hover_hamburger()
+
 @then("Go to Customer Tab")
 def step_impl(context):
     try:
+
         context.customadd.Go_to_customerTab()
     except Exception as e:
         attach(context.driver.get_screenshot_as_png(),
@@ -22,6 +29,7 @@ def step_impl(context):
 @then("Click on Add Button")
 def step_impl(context):
     try:
+        time.sleep(2)
         context.customadd.click_addbutton()
         context.customadd.verify_customerform()
     except Exception as e:
@@ -37,10 +45,10 @@ def step_impl(context):
         assert False, "Test Failed on Create Customer form"
 
 
-@then("Add Customer Details {custom_disp_name} and {firsname} and {lsname} and {phone} and {mail} and {website} and {ccemail}")
-def step_impl(context,custom_disp_name, firsname,lsname, phone,mail,website, ccemail):
+@then("Add Customer Details {custom_disp_name} and {firsname} and {lsname} and {phone} and {website} and {ccemail}")
+def step_impl(context,custom_disp_name, firsname,lsname, phone,website, ccemail):
     try:
-        context.customadd.enter_customerDetails(custom_disp_name, firsname,lsname, phone,mail,website, ccemail)
+        context.customadd.enter_customerDetails(custom_disp_name, firsname,lsname, phone,website, ccemail)
     except Exception as e:
         attach(context.driver.get_screenshot_as_png(),
                name=str(e + "Test Failed on customer form"),
@@ -96,9 +104,9 @@ def step_impl(context):
 def step_impl(context):
     context.customadd.verify_new_user_successfully_added()
 
-@then("Verify Customer Number")
+@then("Verify Customer Email")
 def step_impl(context):
-    context.customadd.customer_number()
+    context.customadd.customer_email()
 
 
 @then("Customer is already added in the system")
@@ -115,7 +123,7 @@ def step_impl(context):
 @then("Edit Customer Details")
 def step_impl(context):
     context.execute_steps("""Then Verify Customer Number 
-    Then Add Customer Details amir and amir and alv and 0300 4589876 and aa@aaj.com and https://www.hogoogle.com and aa@aaj.com
+    Then Add Customer Details amir and amir and alv and 0300 4589876 and https://www.hogoogle.com and aa@aaj.com
     Then Upload Picture Logo
     Then Add Address Details 13231teststreet abcxystreet 2254
     And Click on Save Button""")

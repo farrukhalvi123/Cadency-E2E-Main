@@ -4,7 +4,7 @@ from Pages.BasePage import BasePage
 class loginelements(BasePage):
     emailfield = (By.ID,"EmailID")
     password = (By.ID,"EmailPassword")
-    loginbtn = (By.XPATH,"//button[@type='button']")
+    loginbtn = (By.XPATH,"//button[@type='submit']")
     homepage_logo = (By.XPATH,"//img[@class='svg-icon svg-logo']")
     HomePage = (By.XPATH,"//span[@class='breadcrumb-title']")
     HomePage_sidenavbar = "//div[@class='side-navigation-menu-container half-content']"
