@@ -40,15 +40,22 @@ def step_impl(context):
 
 @then("Select InvoiceDate")
 def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    raise NotImplementedError(u'STEP: Then Select InvoiceDate')
+    context.invoice.invoice_date()
 
 
 @then("Select DueDate")
 def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    raise NotImplementedError(u'STEP: Then Select DueDate')
+    context.invoice.invoice_duedate()
+
+
+@then("Verify Email is prefilled and disabled")
+def step_impl(context):
+    context.invoice.Add_inv_items()
+
+
+@then("Verify Invoice Number is disabled")
+def step_impl(context):
+    context.invoice.invoice_num_status()
+@then("Add an Item")
+def step_impl(context):
+    context.invoice.Add_inv_items()
