@@ -28,15 +28,16 @@ Feature: As an end user i want to login to the cadency and view the dashboard pa
       Then User Clicks on Login Button
       Then Click on Profile Thumbnail
       Then Logout
-    Scenario: testing forgot password functionality
-      Then click on forgot password
-      Then Enter Email to recover password
-      Then Click on Send button
-      Then Verify Forgot Password Email
-      Then Fetch New OTP Code
-      Then Enter New Password
-      Then Enter Current Password
-      Then Click on Change password Button
+
+#    Scenario: testing forgot password functionality
+#      Then click on forgot password
+#      Then Enter Email to recover password
+#      Then Click on Send button
+#      Then Verify Forgot Password Email
+#      Then Fetch New OTP Code
+#      Then Enter New Password
+#      Then Enter Current Password
+#      Then Click on Change password Button
 
 
 

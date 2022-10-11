@@ -47,12 +47,19 @@ class CustomerPages(customerelements):
         self.input_element(self.FIRSTNAME, fname)
         self.input_element(self.LASTNAME, lname)
         self.input_element(self.PHONE, phno)
-        global phonenum, emailadd
+        global phonenum
         phonenum = phno
         self.input_element(self.WEBSITE, web)
         self.input_element(self.CCEMAIL, ccemail)
+
+    def select_customer_currency(self):
         self.click_element(self.CURRENCY_FIELD)
         self.click_using_js(self.CURRENCY_SELECT)
+    def verify_currency_added(self):
+        self.get_element_text(self.CURRENCY_FIELD)
+        self.verify_element_disabled(self.CURRENCY_FIELD)
+        # self.verify_element_disabled(self.CURRENCY_FIELD)
+
 
     def upload_logo(self):
         path = os.getcwd()
@@ -101,11 +108,11 @@ class CustomerPages(customerelements):
         custom_email = self.get_element_text(self. CUSTOMEREMAIL_VIEW)
         print(custom_ph)
         print(custom_email)
-        print(phonenum,emailadd)
+        print(phonenum)
         self.assert_equal(phonenum,custom_ph,"Phone number cannot be viewed")
-        self.assert_equal(emailadd,custom_email,"Email Cannot be viewed")
+        # self.assert_equal(emailadd,custom_email,"Email Cannot be viewed")
     def edit_Customer(self):
-        self.wait(10)
+        self.wait(15)
         self.click_element(self.THREEDOTSBUTTON)
         time.sleep(3)
         self.click_element(self.EDITCUSTOMER)

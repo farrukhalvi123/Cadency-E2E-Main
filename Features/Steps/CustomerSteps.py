@@ -12,7 +12,6 @@ def step_impl(context):
 @then("Go to Customer Tab")
 def step_impl(context):
     try:
-
         context.customadd.Go_to_customerTab()
     except Exception as e:
         attach(context.driver.get_screenshot_as_png(),
@@ -122,8 +121,8 @@ def step_impl(context):
 
 @then("Edit Customer Details")
 def step_impl(context):
-    context.execute_steps("""Then Verify Customer Number 
-    Then Add Customer Details amir and amir and alv and 0300 4589876 and https://www.hogoogle.com and aa@aaj.com
+    context.execute_steps("""
+    Then Add Customer Details amir and amir and alv and 0300 4589878 and https://www.hogoogle.com and aa@aaj.com
     Then Upload Picture Logo
     Then Add Address Details 13231teststreet abcxystreet 2254
     And Click on Save Button""")
@@ -180,3 +179,13 @@ def step_impl(context):
 @then("Verify Toggle Active - InActive")
 def step_impl(context):
     context.customadd.handle_toggle()
+
+
+@then("Verify Currency Selected and Disabled")
+def step_impl(context):
+    context.customadd.verify_currency_added()
+
+
+@then("Select Customer currency")
+def step_impl(context):
+    context.customadd.select_customer_currency()
