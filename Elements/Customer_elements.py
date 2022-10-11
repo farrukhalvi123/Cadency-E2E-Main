@@ -17,7 +17,7 @@ class customerelements(BasePage):
     CURRENCY = (By.ID,"currencyId")
     WEBSITE = (By.ID,"website")
     CCEMAIL = (By.ID,"ccEmail")
-    CUSTOMER_TOGGLE_ACTIVE = "//div[@class='p-inputswitch p-component p-inputswitch-checked']"
+    CUSTOMER_TOGGLE_ACTIVE = (By.XPATH,"//div[@class='p-inputswitch p-component p-inputswitch-checked']")
     CUSTOMER_TOGGLE_INACTIVE = (By.XPATH,"//div[@class='p-inputswitch p-component']")
     LOGOUPLOAD = ("//input[@type='file']")
     SAVEBUTTON = (By.XPATH,"//button[@type='submit']")

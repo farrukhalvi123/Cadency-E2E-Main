@@ -16,21 +16,21 @@ class invoiceelements(BasePage):
     PRICE = (By.XPATH, "//input[@placeholder='Price']")
     DISCOUNT = (By.XPATH, "//input[@placeholder='Disc %']")
     TAXDD = (By.XPATH, "//button[@class='p-element p-ripple p-autocomplete-dropdown ng-tns-c107-57 p-button p-component p-button-icon-only ng-star-inserted']//span[@class='p-button-icon pi pi-chevron-down']")
-    SAVEBTN = (By.XPATH, "//button[@class='p-element p-button-primary btn-150 p-button p-component']")
+    SAVEBTN = (By.XPATH, "//button[contains(@type,'submit')][2]")
     INV_EMAIL = (By.ID,"customerEmail")
     INVNUM = (By.ID,"customerName")
     INVDATE = "//input[@placeholder='Please select invoice date']"
     INVDUEDATE = "//input[@placeholder='Please select due date']"
-    INVITEMSDD = (By.XPATH,"//input[@placeholder='Item']")
+    INVITEMSDD = '//button[contains(@class,"p-element p-ripple p-autocomplete-dropdown ng-tns")]'
     ADDINVITEMS = (By.XPATH,"//span[normalize-space()='+ Add New Item']")
     ADDITEMNAME = (By.ID,"name")
     ADDITEMCODE = (By.ID,"code")
-    ADDITEMTYPEDD = (By.XPATH,"//input[@placeholder='Enter type']")
+    ADDITEMTYPEDD = '//*[contains(@class,"p-dropdown-trigger ng-tns")]'
     ADDITEMTYPE = (By.XPATH,"//li[@aria-label='Inventory']")
-    ADDITEMUNITPRICEID = "name"
+    ADDITEMUNITPRICEID = 'name'
     ADDITEMUNITPRICETAGNAME = "type"
     ADDITEMSAVEBUTTON = (By.XPATH,"(//button[@type='submit'])[3]")
-    SELECTITEM = (By.XPATH,"//span[contains(text(), '"+WORDS+"')]")
+    # SELECTITEM = (By.XPATH,"//span[contains(text(), '"+WORDS+"')]")
 
 
 

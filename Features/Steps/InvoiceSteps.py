@@ -50,7 +50,7 @@ def step_impl(context):
 
 @then("Verify Email is prefilled and disabled")
 def step_impl(context):
-    context.invoice.Add_inv_items()
+    context.invoice.emailfield_status()
 
 
 @then("Verify Invoice Number is disabled")
@@ -59,3 +59,8 @@ def step_impl(context):
 @then("Add an Item")
 def step_impl(context):
     context.invoice.Add_inv_items()
+
+
+@then("click on Invoice Save Button")
+def step_impl(context):
+    context.invoice.Save_invoice()
