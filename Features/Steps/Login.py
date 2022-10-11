@@ -81,3 +81,67 @@ def step_impl(context):
 @then("Logout")
 def step_impl(context):
     context.loginPage.click_logout()
+
+
+@then("click on forgot password")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    raise NotImplementedError(u'STEP: Then click on forgot password')
+
+
+@then("Enter Email to recover password")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    raise NotImplementedError(u'STEP: Then Enter Email to recover password')
+
+
+@then("Click on Send button")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    raise NotImplementedError(u'STEP: Then Click on Send button')
+
+
+@then("Verify Forgot Password Email")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    raise NotImplementedError(u'STEP: Then Verify Forgot Password Email')
+
+
+@then("Fetch New OTP Code")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    raise NotImplementedError(u'STEP: Then Fetch New OTP Code')
+
+
+@then("Enter New Password")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    raise NotImplementedError(u'STEP: Then Enter New Password')
+
+
+@then("Enter Current Password")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    raise NotImplementedError(u'STEP: Then Enter Current Password')
+
+
+@then("Click on Change password Button")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    raise NotImplementedError(u'STEP: Then Click on Change password Button')

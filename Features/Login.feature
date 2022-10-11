@@ -8,7 +8,7 @@ Feature: As an end user i want to login to the cadency and view the dashboard pa
 
     @login @smoke
     Scenario: Successful login with valid scenarios
-    Then User Enters samiullah.sadruddin@datasoft.com.pk and Unlimit3d
+    Then User Enters farrukh.alvi@datasoft.com.pk and xSnbEu7eIjVJ
     Then User Clicks on Login Button
 
     @login
@@ -24,11 +24,22 @@ Feature: As an end user i want to login to the cadency and view the dashboard pa
       | samiullah.sadruddin@datasoft.com.pk | abc xyz|
 
     Scenario: Testing Logout
-      Then User Enters samiullah.sadruddin@datasoft.com.pk and Unlimit3d
+      Then User Enters farrukh.alvi@datasoft.com.pk and xSnbEu7eIjVJ
       Then User Clicks on Login Button
       Then Click on Profile Thumbnail
       Then Logout
-    Scenario: test
+    Scenario: testing forgot password functionality
+      Then click on forgot password
+      Then Enter Email to recover password
+      Then Click on Send button
+      Then Verify Forgot Password Email
+      Then Fetch New OTP Code
+      Then Enter New Password
+      Then Enter Current Password
+      Then Click on Change password Button
+
+
+
 
 
 

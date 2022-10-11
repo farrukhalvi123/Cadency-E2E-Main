@@ -1,7 +1,8 @@
 from random import *
 import time
 from datetime import date, datetime, timedelta
-import requests
+import random
+import string
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from Constants.URLS import TestData
@@ -15,11 +16,6 @@ class InvoicePage(invoiceelements, customerelements):
         super().__init__(driver)
 
     def ClickOnInvoiceTab(self):
-        try:
-            assert "template" in self.driver.current_url
-            self.driver.get(TestData.CUSTOMERINVOICES)
-            self.wait(5)
-        except:
             self.click_using_js(self.CUSTOMERANDRECEIVABLETAB)
             self.click_using_js(self.INVOICETAB)
             print("Click hogya bhai")
@@ -77,23 +73,27 @@ class InvoicePage(invoiceelements, customerelements):
 
 
     def Add_inv_items(self):
-        self.click_using_js(self.INVITEMSDD)
-        self.click_using_js(self.ADDINVITEMS)
-        word_site = "https://www.mit.edu/~ecprice/wordlist.10000"
-        response = requests.get(word_site)
-        WORDS = response.content.splitlines()
-        worditem = "%s%",WORDS
+        itemdrop = self.driver.find_elements(By.XPATH,self.INVITEMSDD)
+        itemdrop[1].click()
+        self.click_element(self.ADDINVITEMS)
+        WORDS = "".join((random.choice(string.ascii_letters) for i in range(10)))
         self.input_element(self.ADDITEMNAME,WORDS)
         n = 5
         self.randinteger = ''.join(["{}".format(randint(0, 9)) for num in range(0, n)])
         self.input_element(self.ADDITEMCODE,self.randinteger)
-        self.click_element(self.ADDITEMTYPEDD)
+        type_drop = self.driver.find_elements(By.XPATH,self.ADDITEMTYPEDD)
+        type_drop[3].click()
         self.click_element(self.ADDITEMTYPE)
-        up = self.driver.find_element(By.ID,self.ADDITEMUNITPRICEID)
-        up.self.driver.find_element(By.TAG_NAME,self.ADDITEMUNITPRICEID).send_keys(self.randinteger)
+        up = self.driver.find_elements(By.ID,self.ADDITEMUNITPRICEID)
+        up[1].send_keys(self.randinteger)
+        # up[3].send_keys(self.randinteger)
         self.click_element(self.ADDITEMSAVEBUTTON)
-        self.driver.find_element(By.XPATH,"//span[contains(text(),'"+worditem+"')]").click()
-
+        self.wait(2)
+        # itemdrop = self.driver.find_elements(By.XPATH, self.INVITEMSDD)
+        # itemdrop[1].click()
+        # self.driver.find_element(By.XPATH,"//span[contains(text(),'"+WORDS+"')]").click()
+    def Save_invoice(self):
+        self.click_using_js(self.SAVEBTN)
         # self.wait(2)
         # additem  = self.driver.find_element(By.CLASS_NAME,self.ADDINVITEMS )
         # print(itemlist)

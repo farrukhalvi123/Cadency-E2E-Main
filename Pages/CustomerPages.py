@@ -19,11 +19,6 @@ class CustomerPages(customerelements):
     def hover_hamburger(self):
         self.wait(2)
         self.move_to_element(self.hamburger_icon)
-        # self.action = ActionChains(self.driver)
-        # # self.hover = self.verify_element_enable(self.hamburger_icon)
-        # self.hover = self.driver.find_element(By.XPATH,self.hamburger_icon)
-        # self.action.move_to_element(self.hover).perform()
-
     def Go_to_customerTab(self):
         self.click_element(self.CUSTOMERANDRECEIVABLETAB)
         self.click_using_js(self.CUSTOMERTAB)
@@ -154,7 +149,7 @@ class CustomerPages(customerelements):
         try:
             self.click_element(self.CUSTOMER_TOGGLE_INACTIVE)
         except:
-            self.driver.find_element(By.XPATH,self.CUSTOMER_TOGGLE_ACTIVE)
+            self.get_web_element(self.CUSTOMER_TOGGLE_ACTIVE)
             print("Customer already active")
 
 

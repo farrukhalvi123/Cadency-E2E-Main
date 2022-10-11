@@ -20,6 +20,7 @@ Feature: As a admin i want to add a new invoice
     Then Select InvoiceDate
     Then Select DueDate
     Then Add an Item
+    Then click on Invoice Save Button
      Then Close the Browser
 
 
