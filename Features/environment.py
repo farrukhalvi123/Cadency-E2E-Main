@@ -1,20 +1,25 @@
-from behave import *
+import time
+
+from selenium import webdriver
+from selenium.webdriver import DesiredCapabilities
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import os
-import time
+import glob
+import subprocess
 
 from Constants.URLS import TestData
-from Pages.CustomerPages import CustomerPages
 from Pages.LoginPage import LoginPage
-from Pages.InvoicePage import InvoicePage
 
 
-@given("Launch the Browser")
-def step_impl(context):
+def before_scenario(context,scenario):
+    launch_browser(context,scenario)
+
+def after_scenario(context, scenario):
+    context.driver.quit()
+
+def launch_browser(context,scenario):
     if TestData.BROWSER == 'chrome':
         options = webdriver.ChromeOptions()
         prefs = {"profile.default_content_setting_values.notifications": 2}
@@ -31,17 +36,18 @@ def step_impl(context):
         options.add_experimental_option("prefs", prefs)
         options.add_argument("--disable-blink-features=AutomationControlled")
         if TestData.PLATFORM == 'Browser Stack':
-            desired_cap ={
-            'os_version': '10',
-            'resolution': '1920x1080',
-            'browser': 'Firefox',
-            'browser_version': '90.0',
-            'os': 'Windows',
-            'name': '1st Parallel test',  # test name
-            'build': 'BStack Build Number 1'  # CI/CD job or build name
+            desired_cap = {
+                'os_version': '10',
+                'resolution': '1920x1080',
+                'browser': 'Firefox',
+                'browser_version': '90.0',
+                'os': 'Windows',
+                'name': '1st Parallel test',  # test name
+                'build': 'BStack Build Number 1'  # CI/CD job or build name
             }
             context.driver = webdriver.Remote(
-            command_executor = 'https://speedhomebrowser_tiWF2J:s9coaxk36do24scdqy5Q@hub-cloud.browserstack.com/wd/hub',desired_capabilities = desired_cap) #we need to add the account url on which we want to run this test
+                command_executor='https://speedhomebrowser_tiWF2J:s9coaxk36do24scdqy5Q@hub-cloud.browserstack.com/wd/hub',
+                desired_capabilities=desired_cap)  # we need to add the account url on which we want to run this test
         elif TestData.PLATFORM == 'local':
             context.driver = webdriver.Chrome(options=options, executable_path=ChromeDriverManager().install())
         elif TestData.PLATFORM == 'docker':
@@ -49,7 +55,7 @@ def step_impl(context):
             # os.environ['DISPLAY'] = ':0'
             time.sleep(5)
             context.driver = webdriver.Remote(command_executor=f'http://172.21.0.3:5555/wd/hub',
-            desired_capabilities = DesiredCapabilities.CHROME, options = options)
+                                              desired_capabilities=DesiredCapabilities.CHROME, options=options)
         context.driver.maximize_window()
     elif TestData.BROWSER == 'firefox':
         options = webdriver.FirefoxOptions()
@@ -58,23 +64,8 @@ def step_impl(context):
     elif TestData.BROWSER == 'edge':
         context.driver = webdriver.Edge(executable_path=EdgeChromiumDriverManager().install())
         context.driver.maximize_window()
-
-@when(u'User is at login Page')
-def open_login_page(context):
-    try:
-        # url = context.config.userdata['url']
-        # context.driver.get(url)
-        # context.driver.get(TestData.CADENCY_MAIN)
-        context.logpage = LoginPage(context.driver)
-        context.customadd = CustomerPages(context.driver)
-        context.invoice = InvoicePage(context.driver)
-    except Exception as e:
-        print(e)
-        context.driver.close()
-        assert False, "Test failed in opening Cadency"
-
-
-@then("Close the Browser")
-def step_impl(context):
-   context.driver.close()
-   context.driver.quit()
+    context.driver.get(TestData.CADENCY_MAIN)
+    LoginPage(context.driver).enter_username("farrukh.alvi@datasoft.com.pk")
+    LoginPage(context.driver).enter_password("12345")
+    LoginPage(context.driver).click_login()
+    time.sleep(10)

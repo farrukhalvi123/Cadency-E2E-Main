@@ -7,7 +7,7 @@ from behave import *
 @then("Open Right Side Panel")
 def step_impl(context):
     time.sleep(10)
-    context.customadd.hover_hamburger()
+    context.cadency.customadd.hover_hamburger()
 
 @then("Go to Customer Tab")
 def step_impl(context):

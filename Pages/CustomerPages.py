@@ -26,7 +26,10 @@ class CustomerPages(customerelements):
 
 
     def click_addbutton(self):
-        self.click_using_js(self.ADDCUSTOMER)
+        try:
+            self.click_element(self.ADDFIRSTCUSTOMER)
+        except:
+            self.click_using_js(self.ADDCUSTOMER)
 
     def verify_customerform(self):
         self.verify_element_display(self.TITLE_ADD_CUSTOMER)
@@ -105,9 +108,9 @@ class CustomerPages(customerelements):
     def updated_customerdata(self):
         self.wait(8)
         custom_ph = self.get_element_text(self.CUSTOMERPHONE_VIEW)
-        custom_email = self.get_element_text(self. CUSTOMEREMAIL_VIEW)
+        # custom_email = self.get_element_text(self.CUSTOMEREMAIL_VIEW)
         print(custom_ph)
-        print(custom_email)
+        # print(custom_email)
         print(phonenum)
         self.assert_equal(phonenum,custom_ph,"Phone number cannot be viewed")
         # self.assert_equal(emailadd,custom_email,"Email Cannot be viewed")

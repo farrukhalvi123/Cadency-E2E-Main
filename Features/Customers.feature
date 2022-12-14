@@ -4,7 +4,7 @@ Feature: As an Admin User I want to Manage a new Customer
   Background:
     Given Launch the Browser
     When User is at login Page
-    Then User Enters farrukh.alvi@datasoft.com.pk and xSnbEu7eIjVJ
+    Then User Enters farukhalvi1988@gmail.com and 12345
     Then User Clicks on Login Button
 
   Scenario Outline: Add a Customer
@@ -20,10 +20,9 @@ Feature: As an Admin User I want to Manage a new Customer
     And Click on Save Button
     Then Verify New User has been added
 #    Then Verify Details have been updated
-    Then Close the Browser
     Examples:
     |custom_disp_name|firsname|lsname|phone|website|ccemail|Street1 | street2| pscode|
-    |Farrukh Doe|Farrukh|Alvi|03404456789|https://www.gmail.com |fja@jaf.com| teststreet123!@#| teststreet2##@| 123456|
+    |Farrukh Doe|Farrukh|Alvi|+923404456789|https://www.gmail.com |fja@jaf.com| teststreet123!@#| teststreet2##@| 123456|
 
 
   @edit_customer

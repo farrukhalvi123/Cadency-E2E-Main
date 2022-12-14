@@ -54,3 +54,12 @@ class LoginPage(loginelements):
         self.click_using_js(self.PROFILETHUMBNAIL)
     def click_logout(self):
         self.click_using_js(self.LOGOUT)
+
+    def click_forgetpass(self):
+        self.click_element(self.FORGETPASS)
+
+    def enter_email(self,mail):
+        self.input_element(self.EMAILFIELD,mail)
+
+    def click_send(self):
+        self.click_element(self.CLICKSEND)

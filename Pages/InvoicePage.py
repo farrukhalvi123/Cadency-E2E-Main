@@ -94,6 +94,7 @@ class InvoicePage(invoiceelements, customerelements):
         # self.driver.find_element(By.XPATH,"//span[contains(text(),'"+WORDS+"')]").click()
     def Save_invoice(self):
         self.click_using_js(self.SAVEBTN)
+        self.wait(2)
         # self.wait(2)
         # additem  = self.driver.find_element(By.CLASS_NAME,self.ADDINVITEMS )
         # print(itemlist)
