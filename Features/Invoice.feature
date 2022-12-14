@@ -4,7 +4,7 @@ Feature: As a admin i want to add a new invoice
   Background: Login & Redirect To Invoice Page
     Given Launch the Browser
     When User is at login Page
-    Then User Enters farukh_alvi88@hotmail.com and 12345
+    Then User Enters farukhalvi1988@gmail.com and 12345
     Then User Clicks on Login Button
     Then Open Right Side Panel
     Then User Navigate To Invoice Tab
@@ -21,7 +21,6 @@ Feature: As a admin i want to add a new invoice
     Then Select DueDate
     Then Add an Item
     Then click on Invoice Save Button
-     Then Close the Browser
 
 
 

@@ -46,7 +46,7 @@ class BasePage:
         return element.is_enabled()
 
     def get_web_element(self, by_locator):
-        element = WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(by_locator))
+        element = WebDriverWait(self.driver, 35).until(EC.visibility_of_element_located(by_locator))
         return element
 
     def wait(self, seconds=3):
@@ -58,6 +58,7 @@ class BasePage:
         actions.move_to_element(element).perform()
 
     def assert_equal(self, actual_value, expected_value, Message):
+        self.wait(30)
         assert actual_value == expected_value, Message
 
     def verify_element_disabled(self, by_locator):
