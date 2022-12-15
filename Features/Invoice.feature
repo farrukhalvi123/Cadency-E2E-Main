@@ -2,15 +2,14 @@
 Feature: As a admin i want to add a new invoice
 
   Background: Login & Redirect To Invoice Page
-    Given Launch the Browser
-    When User is at login Page
-    Then User Enters farukhalvi1988@gmail.com and 12345
+    Then User Navigates to Merchant Portal
+    Then User Enters farukh_alvi88@hotmail.com and 9ntUIsAv8imS
     Then User Clicks on Login Button
+
+  Scenario: Add Invoice
     Then Open Right Side Panel
     Then User Navigate To Invoice Tab
     Then User Clicks On Add Invoice Button
-
-  Scenario: Add Invoice
     Then Add Customer
     Then Select Currency
     Then Verify Email is prefilled and disabled

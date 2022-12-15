@@ -8,8 +8,8 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 import os
 import glob
 import subprocess
-
 from Constants.URLS import TestData
+from Features.Steps.Commons import cadencyweb
 from Pages.LoginPage import LoginPage
 
 
@@ -17,6 +17,7 @@ def before_scenario(context,scenario):
     launch_browser(context,scenario)
 
 def after_scenario(context, scenario):
+    context.driver.close()
     context.driver.quit()
 
 def launch_browser(context,scenario):
@@ -64,8 +65,4 @@ def launch_browser(context,scenario):
     elif TestData.BROWSER == 'edge':
         context.driver = webdriver.Edge(executable_path=EdgeChromiumDriverManager().install())
         context.driver.maximize_window()
-    context.driver.get(TestData.CADENCY_MAIN)
-    LoginPage(context.driver).enter_username("farrukh.alvi@datasoft.com.pk")
-    LoginPage(context.driver).enter_password("12345")
-    LoginPage(context.driver).click_login()
-    time.sleep(10)
+    context.cadency = cadencyweb(context.driver)

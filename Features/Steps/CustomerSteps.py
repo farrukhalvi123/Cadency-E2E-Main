@@ -12,7 +12,7 @@ def step_impl(context):
 @then("Go to Customer Tab")
 def step_impl(context):
     try:
-        context.customadd.Go_to_customerTab()
+        context.cadency.customadd.Go_to_customerTab()
     except Exception as e:
         attach(context.driver.get_screenshot_as_png(),
                name=str(e + "Test Failed on Customer Tab"),
@@ -29,8 +29,8 @@ def step_impl(context):
 def step_impl(context):
     try:
         time.sleep(2)
-        context.customadd.click_addbutton()
-        context.customadd.verify_customerform()
+        context.cadency.customadd.click_addbutton()
+        context.cadency.customadd.verify_customerform()
     except Exception as e:
         attach(context.driver.get_screenshot_as_png(),
                name=str(e + "Test Failed on Create Customer form"),
@@ -47,7 +47,7 @@ def step_impl(context):
 @then("Add Customer Details {custom_disp_name} and {firsname} and {lsname} and {phone} and {website} and {ccemail}")
 def step_impl(context,custom_disp_name, firsname,lsname, phone,website, ccemail):
     try:
-        context.customadd.enter_customerDetails(custom_disp_name, firsname,lsname, phone,website, ccemail)
+        context.cadency.customadd.enter_customerDetails(custom_disp_name, firsname,lsname, phone,website, ccemail)
     except Exception as e:
         attach(context.driver.get_screenshot_as_png(),
                name=str(e + "Test Failed on customer form"),
@@ -63,7 +63,7 @@ def step_impl(context,custom_disp_name, firsname,lsname, phone,website, ccemail)
 @then("Upload Picture Logo")
 def step_impl(context):
     try:
-         context.customadd.upload_logo()
+         context.cadency.customadd.upload_logo()
     except Exception as e:
         attach(context.driver.get_screenshot_as_png(),
                name=str(e + "Test Failed on Upload Picture"),
@@ -80,7 +80,7 @@ def step_impl(context):
 @then("Add Address Details {Street1} {street2} {pscode}")
 def step_impl(context, Street1, street2, pscode):
     try:
-        context.customadd.enter_address(Street1, street2, pscode)
+        context.cadency.customadd.enter_address(Street1, street2, pscode)
     except Exception as e:
         attach(context.driver.get_screenshot_as_png(),
                name=str(e + "Test Failed on Addres Details"),
@@ -96,26 +96,26 @@ def step_impl(context, Street1, street2, pscode):
 
 @step("Click on Save Button")
 def step_impl(context):
-    context.customadd.click_save()
+    context.cadency.customadd.click_save()
 
 
 @then("Verify New User has been added")
 def step_impl(context):
-    context.customadd.verify_new_user_successfully_added()
+    context.cadency.customadd.verify_new_user_successfully_added()
 
 @then("Verify Customer Email")
 def step_impl(context):
-    context.customadd.customer_email()
+    context.cadency.customadd.customer_email()
 
 
 @then("Customer is already added in the system")
 def step_impl(context):
-    context.customadd.verify_customers_present()
+    context.cadency.customadd.verify_customers_present()
 
 
 @then("Click on 3 dots and open edit customer form")
 def step_impl(context):
-    context.customadd.edit_Customer()
+    context.cadency.customadd.edit_Customer()
 
 
 
@@ -131,19 +131,18 @@ def step_impl(context):
 
 @then("Verify Details have been updated")
 def step_impl(context):
-    context.customadd.updated_customerdata()
+    context.cadency.customadd.updated_customerdata()
 
 
 @then("click on Filter")
 def step_impl(context):
 
-    context.customadd.select_filter()
+    context.cadency.customadd.select_filter()
 
 
 @then("Select Country")
 def step_impl(context):
-
-    context.customadd.select_country()
+    context.cadency.customadd.select_country()
 
 
 # @then("Select Invoice Status")
@@ -172,20 +171,20 @@ def step_impl(context):
 
 @then("Verify Filter is applied")
 def step_impl(context):
-    context.customadd.click_applybutton()
-    context.customadd.verify_customers_of_selected_countries()
+    context.cadency.customadd.click_applybutton()
+    context.cadency.customadd.verify_customers_of_selected_countries()
 
 
 @then("Verify Toggle Active - InActive")
 def step_impl(context):
-    context.customadd.handle_toggle()
+    context.cadency.customadd.handle_toggle()
 
 
 @then("Verify Currency Selected and Disabled")
 def step_impl(context):
-    context.customadd.verify_currency_added()
+    context.cadency.customadd.verify_currency_added()
 
 
 @then("Select Customer currency")
 def step_impl(context):
-    context.customadd.select_customer_currency()
+    context.cadency.customadd.select_customer_currency()

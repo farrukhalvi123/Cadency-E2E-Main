@@ -8,12 +8,16 @@ from selenium.webdriver.support.select import Select
 from Elements.LoginElements import loginelements
 from allure_commons._allure import attach
 from allure_commons.types import AttachmentType
+from Constants.URLS import TestData
 
 
 class LoginPage(loginelements):
 
     def __init__(self, driver):
         super().__init__(driver)
+
+    def go_to_main(self):
+        self.driver.get(TestData.CADENCY_MAIN)
 
     def verify_hompage(self):
         assert self.homepage_logo in self.driver.page_source
@@ -56,7 +60,7 @@ class LoginPage(loginelements):
         self.click_using_js(self.LOGOUT)
 
     def click_forgetpass(self):
-        self.click_element(self.FORGETPASS)
+        self.click_using_js(self.FORGETPASS)
 
     def enter_email(self,mail):
         self.input_element(self.EMAILFIELD,mail)

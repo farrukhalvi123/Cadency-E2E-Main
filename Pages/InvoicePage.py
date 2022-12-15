@@ -24,15 +24,28 @@ class InvoicePage(invoiceelements, customerelements):
     def ClickOnAddButton(self):
         self.click_using_js(self.ADDINVOICEBTN)
         self.wait(5)
+    def open_customer_selection_dd(self):
+        self.click_element(self.CUSTNAMEDD)
 
     def select_customer(self):
-        self.click_element(self.CUSTNAMEDD)
-        self.wait(3)
-        customername = self.driver.find_elements(By.XPATH,self.CUSTNAMEDD_VALUE)
-        for cust in customername:
-            cust.click()
-            print(cust.text)
-            break
+        self.click_element(self.CUSTNAMEDD_VALUE)
+        time.sleep(2)
+
+    def add_new_customer(self):
+        self.click_element(self.CUSTNAMEDD_VALUE1)
+        # if len(self.get_all_elements(self.CUSTNAMEDD_VALUE)) > 0 :
+        #     customers = self.driver.find_element(By.CLASS_NAME,self.CUSTNAMEDD_VALUE)
+        #     print(customers.text)
+        #     customers[1].click()
+        #
+        # self.wait(3)
+        # customername = self.driver.find_elements(By.XPATH,self.CUSTNAMEDD_VALUE)
+        # for cust in customername:
+        #     cust.click()
+        #     print(cust.text)
+        #     break
+
+
 
 
 
@@ -42,9 +55,12 @@ class InvoicePage(invoiceelements, customerelements):
 
 
     def select_Currency(self):
-        self.click_using_js(self.CURRENCYDD)
-        self.wait(2)
-        self.click_using_js(self.CAD)
+        self.click_element(self.CURRENCYDD)
+        self.wait(5)
+        currencies = self.driver.find_elements(By.CLASS_NAME,self.CAD)
+        for cur in currencies:
+            if cur.text == 'CAD':
+                cur.click()
         # currencyselect[1].click()
 
     def emailfield_status(self):

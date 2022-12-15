@@ -64,3 +64,9 @@ class BasePage:
     def verify_element_disabled(self, by_locator):
         element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(by_locator))
         return element.is_enabled()
+
+
+    def get_all_elements(self,by_locator):
+        elements = WebDriverWait(self.driver,10).until(EC.visibility_of_all_elements_located(by_locator))
+        for ele in elements:
+            return ele.text

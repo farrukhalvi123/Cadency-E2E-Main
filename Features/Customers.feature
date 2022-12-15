@@ -1,11 +1,11 @@
 # Created by Lenovo at 8/23/2022
 @regression
 Feature: As an Admin User I want to Manage a new Customer
-  Background:
-    Given Launch the Browser
-    When User is at login Page
-    Then User Enters farukhalvi1988@gmail.com and 12345
-    Then User Clicks on Login Button
+#  Background:
+#    Given Launch the Browser
+#    When User is at login Page
+#    Then User Enters farukhalvi1988@gmail.com and 12345
+#    Then User Clicks on Login Button
 
   Scenario Outline: Add a Customer
     Then Open Right Side Panel

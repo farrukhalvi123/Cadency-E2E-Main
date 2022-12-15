@@ -4,10 +4,11 @@ from selenium.webdriver.common.by import By
 class invoiceelements(BasePage):
     INVOICETAB = (By.XPATH, "//p[normalize-space()='Invoices']")
     ADDINVOICEBTN = (By.XPATH, "//button[@class='p-element p-button-primary button-with-icon btn-150 p-button p-component']")
-    CUSTNAMEDD = (By.XPATH, "//span[@class='p-button-icon pi pi-chevron-down']")
-    CUSTNAMEDD_VALUE = '//*[starts-with(@class,"p-ripple p-element p-autocomplete-item ng-tns")]'
+    CUSTNAMEDD = (By.XPATH, "(//span[@class='p-button-icon pi pi-chevron-down'])[1]")
+    CUSTNAMEDD_VALUE = (By.XPATH,"(//li[@role='option'])[2]")
+    CUSTNAMEDD_VALUE1 = (By.XPATH, "//span[normalize-space()='+ Add New Customer']")
     CURRENCYDD = (By.ID, "currency")
-    CAD = (By.CLASS_NAME,"country-item.ng-star-inserted")
+    CAD = "p-ripple.p-element.p-dropdown-item"
     EXCHANGERATE = (By.XPATH, "//a[normalize-space()='Modify Rate']")
     REFERENCE = (By.XPATH, "//textarea[@placeholder='Enter reference']")
     ITEMSELECTION = (By.XPATH, "//button[@class='p-element p-ripple p-autocomplete-dropdown ng-tns-c107-56 p-button p-component p-button-icon-only ng-star-inserted']//span[@class='p-button-icon pi pi-chevron-down']")
