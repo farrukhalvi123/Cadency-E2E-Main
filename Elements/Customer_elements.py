@@ -3,9 +3,13 @@ from selenium.webdriver.common.by import By
 
 
 class customerelements(BasePage):
+    hamburger_icon = (By.XPATH,"//div[@class='tree-container ng-star-inserted']")
     CUSTOMERANDRECEIVABLETAB = (By.XPATH,"//p[normalize-space()='Customers & Receivables']")
     CUSTOMERTAB  =(By.XPATH,"//p[normalize-space()='Customers']")
-    ADDCUSTOMER = (By.XPATH,"//button[@class='p-element p-button-primary button-with-icon btn-150 p-button p-component']")
+    CUSTOMERNAME = (By.CLASS_NAME,"title-heading-3 text-primary-3")
+    NOCUSTOMERFOUND = (By.XPATH,"//div[@class='title-heading-5']")
+    ADDFIRSTCUSTOMER = (By.XPATH,"//button[@class='p-element p-button-primary button-with-icon btn-120 p-button p-component']")
+    ADDCUSTOMER = (By.XPATH,"(//button[@class='p-element p-button-primary button-with-icon btn-150 p-button p-component ng-star-inserted'])[1]")
     TITLE_ADD_CUSTOMER = (By.XPATH,"//span[normalize-space()='Add Customer']")
     CUSTOMERNUMBER = (By.XPATH,"//input[@placeholder='Enter customer number']")
     CUSTOMER_DISPLAY_NAME = (By.ID,"customerDisplayName")
@@ -16,7 +20,7 @@ class customerelements(BasePage):
     CURRENCY = (By.ID,"currencyId")
     WEBSITE = (By.ID,"website")
     CCEMAIL = (By.ID,"ccEmail")
-    CUSTOMER_TOGGLE_ACTIVE = "//div[@class='p-inputswitch p-component p-inputswitch-checked']"
+    CUSTOMER_TOGGLE_ACTIVE = (By.XPATH,"//div[@class='p-inputswitch p-component p-inputswitch-checked']")
     CUSTOMER_TOGGLE_INACTIVE = (By.XPATH,"//div[@class='p-inputswitch p-component']")
     LOGOUPLOAD = ("//input[@type='file']")
     SAVEBUTTON = (By.XPATH,"//button[@type='submit']")
@@ -29,15 +33,16 @@ class customerelements(BasePage):
     POSTALCODE = (By.ID,"postalCode")
     COUNTRY_FIELD = (By.ID,"countryId")
     COUNTRY_PAK = (By.XPATH,"//div[contains(text(),'Pakistan')]")
-    STATEFIELD = (By.ID,"stateId")
+    STATEFIELD = (By.XPATH,"/html/body/cadency-root/cadency-features/div/div/div/div/cadency-customers-list/div/cadency-add-customer/div/form/p-sidebar/div/div[2]/div/div[2]/p-tabview/div/div[2]/p-tabpanel[2]/div/form/div/div[4]/div/p-dropdown/div/div[2]")
     STATEFIELD_SINDH = (By.XPATH,"//li[@aria-label='Sindh']")
-    CITYID = (By.ID,"cityId")
+    CITYID = (By.XPATH,"/html/body/cadency-root/cadency-features/div/div/div/div/cadency-customers-list/div/cadency-add-customer/div/form/p-sidebar/div/div[2]/div/div[2]/p-tabview/div/div[2]/p-tabpanel[2]/div/form/div/div[5]/div/p-dropdown/div/div[2]")
     CITYKARACHI = (By.XPATH,"//li[@aria-label='Karachi']")
     CUSTOMERNUMBER_VIEW  = (By.XPATH,"//*[@id='pr_id_2-table']/tbody/tr[1]/td[2]/div/span")
+    CUSTOMER_LIST_EMAIL = "paragraph-text-4.wrap-text-all"
     THREEDOTSBUTTON = (By.XPATH,"//tbody/tr[1]/td[7]/div[1]/button[1]")
     EDITCUSTOMER = (By.XPATH,"(//a[normalize-space()='Edit'])[1]")
     EDITCUSTOMERTEXT = (By.XPATH,"//span[normalize-space()='Edit Customer']")
-    CUSTOMERPHONE_VIEW = (By.XPATH,'/html/body/cadency-root/cadency-features/div/div/div/div/cadency-customers-list/div/div[2]/p-table/div/div[2]/table/tbody/tr[1]/td[4]/div/div[1]/span')
+    CUSTOMERPHONE_VIEW = (By.XPATH,'/html/body/cadency-root/cadency-features/div/div/div/div/cadency-customers-list/div/div/div[2]/p-table/div/div[2]/table/tbody/tr[1]/td[4]/div/div[1]/span')
     CUSTOMEREMAIL_VIEW = (By.XPATH,'/html/body/cadency-root/cadency-features/div/div/div/div/cadency-customers-list/div/div[2]/p-table/div/div[2]/table/tbody/tr[1]/td[4]/div/div[2]/span')
     CUSTOMER_LIST = (By.XPATH,"//tbody")
     FILTERBUTTON = (By.XPATH,"//button[@class='p-element p-button-secondary filter-btn-count button-with-icon btn-150 p-button p-component']")
@@ -48,7 +53,8 @@ class customerelements(BasePage):
     SELECTCUSTOMSTATUS = (By.XPATH,"//span[@class='ng-tns-c43-49 p-dropdown-label p-inputtext p-placeholder ng-star-inserted']")
     SELECTACTIVE = (By.XPATH,"//span[normalize-space()='Active']")
     FILTERAPPLY = (By.XPATH,"//button[@class='p-element p-button-primary button-with-icon btn-100 p-button p-component']")
-    VIEWCOUNTRY = '//tbody/tr[1]/td[3]/div[1]/div[1]/span[1]'
+    VIEWCOUNTRY = 'title-heading-4 text-secondary-2 wrap-text-all'
+    no_record_text = (By.XPATH,"//td[normalize-space()='No records found']")
 
 
 

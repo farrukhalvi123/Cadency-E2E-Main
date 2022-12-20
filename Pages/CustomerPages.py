@@ -1,6 +1,8 @@
 import os
 import time
-from random import randint
+import random
+import string
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from Constants.URLS import TestData
 
@@ -14,48 +16,55 @@ class CustomerPages(customerelements):
     def __init__(self, driver):
         super().__init__(driver)
 
-
+    def hover_hamburger(self):
+        self.wait(2)
+        self.move_to_element(self.hamburger_icon)
     def Go_to_customerTab(self):
-        self.wait(10)
-        try:
-            assert "template" in self.driver.current_url
-            self.driver.get(TestData.CUSTOMERMANAGEMENT)
-        except:
-            self.click_using_js(self.CUSTOMERANDRECEIVABLETAB)
-            self.wait(1)
-            self.click_using_js(self.CUSTOMERTAB)
+        self.click_element(self.CUSTOMERANDRECEIVABLETAB)
+        self.click_using_js(self.CUSTOMERTAB)
+
 
 
     def click_addbutton(self):
-
-        self.click_using_js(self.ADDCUSTOMER)
+        try:
+            self.click_element(self.ADDFIRSTCUSTOMER)
+        except:
+            self.click_using_js(self.ADDCUSTOMER)
 
     def verify_customerform(self):
         self.verify_element_display(self.TITLE_ADD_CUSTOMER)
-    def customer_number(self):
+    def customer_email(self):
+        # try:
+        #     self.verify_element_enable(self.CUSTOMERNUMBER)
+        # except:
         # if self.result_str == "": This needs to change when the customer number will be auto generated
-            self.result_str = 'CUS-0000-' + ''.join(["{}".format(randint(0, 7)) for num in range(0, 5)])
-            self.input_element(self.CUSTOMERNUMBER,self.result_str)
-            global cus_number
-            cus_number = self.result_str
-            print(cus_number)
+            self.result_str = "".join((random.choice(string.ascii_letters) for i in range(10))) + "@yopmail.com"
+            print(self.result_str)
+            self.input_element(self.EMAIL,self.result_str)
+            global email_address
+            email_address = self.result_str
+            print(email_address)
 
-    def enter_customerDetails(self, cus_dis_name,fname,lname,phno,email,web,ccemail):
+    def enter_customerDetails(self, cus_dis_name,fname,lname,phno,web,ccemail):
         self.input_element(self.CUSTOMER_DISPLAY_NAME, cus_dis_name)
         self.input_element(self.FIRSTNAME, fname)
         self.input_element(self.LASTNAME, lname)
         self.input_element(self.PHONE, phno)
-        global phonenum, emailadd
+        global phonenum
         phonenum = phno
-        emailadd = email
-        self.input_element(self.EMAIL, email)
         self.input_element(self.WEBSITE, web)
         self.input_element(self.CCEMAIL, ccemail)
+
+    def select_customer_currency(self):
         self.click_element(self.CURRENCY_FIELD)
         self.click_using_js(self.CURRENCY_SELECT)
+    def verify_currency_added(self):
+        self.get_element_text(self.CURRENCY_FIELD)
+        self.verify_element_disabled(self.CURRENCY_FIELD)
+        # self.verify_element_disabled(self.CURRENCY_FIELD)
+
 
     def upload_logo(self):
-        self.wait(2)
         path = os.getcwd()
         element = self.driver.find_element(By.XPATH,self.LOGOUPLOAD)
         self.driver.execute_script("arguments[0].style.display = 'block';", element)
@@ -90,22 +99,23 @@ class CustomerPages(customerelements):
 
     def verify_new_user_successfully_added(self):
        self.wait(5)
-
-       cust_numb =  self.get_element_text(self.CUSTOMERNUMBER_VIEW)
-       print(cust_numb)
-       self.assert_equal(cus_number,cust_numb,"New customer is not added")
+       cust_email = []
+       cust_email =  self.driver.find_elements(By.CLASS_NAME,self.CUSTOMER_LIST_EMAIL)
+       # for value in cust_email:
+       print(cust_email[2].text)
+       self.assert_equal(cust_email[2].text,email_address,"New customer is not added")
 
     def updated_customerdata(self):
         self.wait(8)
         custom_ph = self.get_element_text(self.CUSTOMERPHONE_VIEW)
-        custom_email = self.get_element_text(self. CUSTOMEREMAIL_VIEW)
+        # custom_email = self.get_element_text(self.CUSTOMEREMAIL_VIEW)
         print(custom_ph)
-        print(custom_email)
-        print(phonenum,emailadd)
+        # print(custom_email)
+        print(phonenum)
         self.assert_equal(phonenum,custom_ph,"Phone number cannot be viewed")
-        self.assert_equal(emailadd,custom_email,"Email Cannot be viewed")
+        # self.assert_equal(emailadd,custom_email,"Email Cannot be viewed")
     def edit_Customer(self):
-        self.wait(10)
+        self.wait(15)
         self.click_element(self.THREEDOTSBUTTON)
         time.sleep(3)
         self.click_element(self.EDITCUSTOMER)
@@ -128,18 +138,28 @@ class CustomerPages(customerelements):
 
     def click_applybutton(self):
         self.click_element(self.FILTERAPPLY)
+        self.wait(3)
 
     def verify_customers_of_selected_countries(self):
-       countrylist =  self.driver.find_element(By.XPATH,self.VIEWCOUNTRY)
-       print(countrylist.text)
-       print(countryname)
-       self.assert_equal(countrylist.text,countryname,"Selected Country not found")
+        # countrylist = []
+            countrylist = self.driver.find_elements(By.CLASS_NAME,self.VIEWCOUNTRY)
+            print("Number of customer shown is", len(countrylist))
+            for listcount in countrylist:
+                print(listcount.text)
+                print(countryname)
+                self.assert_equal(listcount, countryname, "Selected Country not found")
+
+
+       # countrylist =  self.driver.find_element(By.XPATH,self.VIEWCOUNTRY)
+       # print(countrylist.text)
+       # print(countryname)
+
 
     def handle_toggle(self):
         try:
             self.click_element(self.CUSTOMER_TOGGLE_INACTIVE)
         except:
-            self.driver.find_element(By.XPATH,self.CUSTOMER_TOGGLE_ACTIVE)
+            self.get_web_element(self.CUSTOMER_TOGGLE_ACTIVE)
             print("Customer already active")
 
 

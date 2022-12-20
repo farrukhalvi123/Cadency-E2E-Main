@@ -46,20 +46,27 @@ class BasePage:
         return element.is_enabled()
 
     def get_web_element(self, by_locator):
-        element = WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(by_locator))
+        element = WebDriverWait(self.driver, 35).until(EC.visibility_of_element_located(by_locator))
         return element
 
     def wait(self, seconds=3):
         time.sleep(seconds)
 
     def move_to_element(self, locator):
-        element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(locator))
+        element = WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located(locator))
         actions = ActionChains(self.driver)
         actions.move_to_element(element).perform()
 
     def assert_equal(self, actual_value, expected_value, Message):
+        self.wait(30)
         assert actual_value == expected_value, Message
 
     def verify_element_disabled(self, by_locator):
         element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(by_locator))
         return element.is_enabled()
+
+
+    def get_all_elements(self,by_locator):
+        elements = WebDriverWait(self.driver,10).until(EC.visibility_of_all_elements_located(by_locator))
+        for ele in elements:
+            return ele.text

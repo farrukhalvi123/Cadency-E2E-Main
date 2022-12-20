@@ -4,7 +4,7 @@ from Pages.BasePage import BasePage
 class loginelements(BasePage):
     emailfield = (By.ID,"EmailID")
     password = (By.ID,"EmailPassword")
-    loginbtn = (By.XPATH,"//button[@type='button']")
+    loginbtn = (By.XPATH,"//button[@type='submit']")
     homepage_logo = (By.XPATH,"//img[@class='svg-icon svg-logo']")
     HomePage = (By.XPATH,"//span[@class='breadcrumb-title']")
     HomePage_sidenavbar = "//div[@class='side-navigation-menu-container half-content']"
@@ -12,6 +12,14 @@ class loginelements(BasePage):
     login_unsuccessful_popup = (By.XPATH,"//*[@id='toast-container']/div/div[1]")
     PROFILETHUMBNAIL = (By.XPATH,"//p-avatar[@class='p-element avatar-square-54']//div[@class='p-avatar p-component']")
     LOGOUT = (By.XPATH,"//span[normalize-space()='Logout']")
+    FORGETPASS = (By.XPATH,"//a[normalize-space()='Forgot Password?']")
+    EMAILFIELD = (By.ID,"Email")
+    CLICKSEND = (By.XPATH,"//button[@type='button']")
+    CODEID = (By.ID,"token")
+
+
+
+
 
 
 
