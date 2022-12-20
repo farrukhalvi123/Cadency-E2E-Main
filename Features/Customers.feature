@@ -42,4 +42,6 @@ Feature: As an Admin User I want to Manage a new Customer
     Then Select Country
     Then Verify Filter is applied
 
+  Scenario:
+
 

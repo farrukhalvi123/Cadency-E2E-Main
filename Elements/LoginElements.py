@@ -15,6 +15,7 @@ class loginelements(BasePage):
     FORGETPASS = (By.XPATH,"//a[normalize-space()='Forgot Password?']")
     EMAILFIELD = (By.ID,"Email")
     CLICKSEND = (By.XPATH,"//button[@type='button']")
+    CODEID = (By.ID,"token")
 
 
 

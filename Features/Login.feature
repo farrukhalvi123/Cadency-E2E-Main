@@ -24,17 +24,18 @@ Feature: As an end user i want to login to the cadency and view the dashboard pa
       Then Click on Profile Thumbnail
       Then Logout
 
-    Scenario: testing forgot password functionality
-      Then Click on Profile Thumbnail
-      Then Logout
-      Then click on forgot password
-#      Then Enter farukhalvi1988@gmail.com to recover password
-#      Then Click on Send button
-      Then Verify Forgot Password farukhalvi1988@gmail.com
-      Then Fetch New OTP Code
-      Then Enter New Password
-      Then Enter Current Password
-      Then Click on Change password Button
+#    Scenario: testing forgot password functionality     # will do this later
+#      Then Click on Profile Thumbnail
+#      Then Logout
+#      Then click on forgot password
+##      Then Enter farukhalvi1988@gmail.com to recover password
+##      Then Click on Send button
+#      Then Verify Forgot Password farukh_alvi88@hotmail.com
+##      Then Fetch New OTP Code
+#      Then Enter New Password
+#      Then Enter Current Password
+#      Then Click on Change password Button
+
 
 
 

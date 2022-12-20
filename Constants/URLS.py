@@ -1,4 +1,5 @@
 class TestData:
+
     BROWSER = "chrome"
     PLATFORM = "local"
     CADENCY_MAIN = "http://10.4.4.20:6120/login"
