@@ -6,7 +6,7 @@ Feature: As a admin i want to add a new invoice
     Then User Enters farukh_alvi88@hotmail.com and 9ntUIsAv8imS
     Then User Clicks on Login Button
 
-  Scenario: Add Invoice
+  Scenario: Add Normal Invoice
     Then Open Right Side Panel
     Then User Navigate To Invoice Tab
     Then User Clicks On Add Invoice Button
@@ -15,7 +15,7 @@ Feature: As a admin i want to add a new invoice
     Then Verify Email is prefilled and disabled
     Then Verify Invoice Number is disabled
 #    Then Select Exchange Rate
-#    Then Enter Reference
+    Then Enter Reference
     Then Select InvoiceDate
     Then Select DueDate
     Then Add an Item

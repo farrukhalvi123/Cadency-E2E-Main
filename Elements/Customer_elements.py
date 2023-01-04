@@ -22,6 +22,7 @@ class customerelements(BasePage):
     CCEMAIL = (By.ID,"ccEmail")
     CUSTOMER_TOGGLE_ACTIVE = (By.XPATH,"//div[@class='p-inputswitch p-component p-inputswitch-checked']")
     CUSTOMER_TOGGLE_INACTIVE = (By.XPATH,"//div[@class='p-inputswitch p-component']")
+    SHOWATTACH = (By.XPATH,"//a[normalize-space()='+ Show/Add attachment']")
     LOGOUPLOAD = ("//input[@type='file']")
     SAVEBUTTON = (By.XPATH,"//button[@type='submit']")
     UPLOADED_IMAGE = (By.XPATH,"//button[@class='p-element p-button p-component p-button-icon-only']")
@@ -55,7 +56,13 @@ class customerelements(BasePage):
     FILTERAPPLY = (By.XPATH,"//button[@class='p-element p-button-primary button-with-icon btn-100 p-button p-component']")
     VIEWCOUNTRY = 'title-heading-4 text-secondary-2 wrap-text-all'
     no_record_text = (By.XPATH,"//td[normalize-space()='No records found']")
-
+    VIEWCUSTOMER = (By.XPATH,"//a[normalize-space()='View']")
+    INVOICETILES = (By.XPATH,"//ul[@role='tablist']")
+    OPENINVOICES = (By.XPATH,"//span[contains(text(),'Open Invoices')]")
+    CLOSEDINVOICES = (By.XPATH,"//span[contains(text(),'Closed Invoices')]")
+    INVOICESLIST = (By.CLASS_NAME,"max-width-300.ng-star-inserted")
+    STATUSTILE =By.CLASS_NAME,"status-container status-orange3 ng-star-inserted"
+    CUSTOMERGRID = "td-contact-info.max-width-300.min-width-250"
 
 
 

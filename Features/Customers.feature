@@ -1,15 +1,16 @@
 # Created by Lenovo at 8/23/2022
 @regression
 Feature: As an Admin User I want to Manage a new Customer
-#  Background:
-#    Given Launch the Browser
-#    When User is at login Page
-#    Then User Enters farukhalvi1988@gmail.com and 12345
-#    Then User Clicks on Login Button
+
+  Background: Login
+    Then User Navigates to Merchant Portal
+    Then User Enters clarkkent and Cadency123!
+    Then User Clicks on Login Button
 
   Scenario Outline: Add a Customer
     Then Open Right Side Panel
     Then Go to Customer Tab
+    Then Identify Number of Existing Customers
     Then Click on Add Button
     Then Verify Customer Email
     Then Add Customer Details <custom_disp_name> and <firsname> and <lsname> and <phone> and <website> and <ccemail>
@@ -18,7 +19,7 @@ Feature: As an Admin User I want to Manage a new Customer
     Then Upload Picture Logo
     Then Add Address Details <Street1> <street2> <pscode>
     And Click on Save Button
-    Then Verify New User has been added
+    Then Identify Number of Existing Customers
 #    Then Verify Details have been updated
     Examples:
     |custom_disp_name|firsname|lsname|phone|website|ccemail|Street1 | street2| pscode|
@@ -42,6 +43,15 @@ Feature: As an Admin User I want to Manage a new Customer
     Then Select Country
     Then Verify Filter is applied
 
-  Scenario:
+
+
+  Scenario: Verify Invoice Tiles on Customer Details
+    Then Open Right Side Panel
+    Then Go to Customer Tab
+    Then View Customer Details
+    Then Verify Invoice Tiles
+    Then Verify Open Invoices
+
+
 
 

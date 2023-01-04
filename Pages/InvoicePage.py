@@ -118,3 +118,6 @@ class InvoicePage(invoiceelements, customerelements):
         #     print(items.text)
         #     items.click()
         # # random_item = random.choice(itemlist)
+
+    def enter_references(self):
+        self.input_element(self.REFERENCE,referid)
