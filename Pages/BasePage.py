@@ -19,7 +19,7 @@ class BasePage:
         element = WebDriverWait(self.driver, 45).until(EC.visibility_of_element_located(by_locator))
         self.driver.execute_script("arguments[0].click();", element)
 
-    def input_element(self, by_locator, text):
+    def input_element(self, by_locator: object, text: object) -> object:
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(by_locator)).clear()
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(by_locator)).send_keys(text)
 
@@ -65,8 +65,8 @@ class BasePage:
         element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(by_locator))
         return element.is_enabled()
 
-
-    def get_all_elements(self,by_locator):
-        elements = WebDriverWait(self.driver,10).until(EC.visibility_of_all_elements_located(by_locator))
+    def get_all_elements(self, by_locator):
+        elements = WebDriverWait(self.driver, 10).until(EC.visibility_of_all_elements_located(by_locator))
         for ele in elements:
             return ele.text
+
