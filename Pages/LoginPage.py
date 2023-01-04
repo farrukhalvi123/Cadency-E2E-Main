@@ -21,17 +21,17 @@ class LoginPage(loginelements):
 
     def verify_hompage(self):
         assert self.homepage_logo in self.driver.page_source
-    def enter_username(self,mail):
+
+    def enter_username(self, mail):
         try:
-            self.input_element(self.emailfield,mail)
+            self.input_element(self.emailfield, mail)
         except Exception as e:
             attach(str("username field is not displayed"), name=str("Not Displayed"),
                    attachment_type=AttachmentType.TEXT)
 
-
-    def enter_password(self,pwd):
+    def enter_password(self, pwd):
         try:
-            self.input_element(self.password,pwd)
+            self.input_element(self.password, pwd)
         except Exception as e:
             attach(str("username field is not displayed"), name=str("Not Displayed"),
                    attachment_type=AttachmentType.TEXT)
@@ -54,19 +54,21 @@ class LoginPage(loginelements):
                 assert self.popup_text == " Invalid Email Or Password,Please try again "
         except:
             print("no text found")
+
     def click_profilethumbnail(self):
         self.click_using_js(self.PROFILETHUMBNAIL)
+
     def click_logout(self):
         self.click_using_js(self.LOGOUT)
 
     def click_forgetpass(self):
         self.click_using_js(self.FORGETPASS)
 
-    def enter_email(self,mail):
-        self.input_element(self.EMAILFIELD,mail)
+    def enter_email(self, mail):
+        self.input_element(self.EMAILFIELD, mail)
 
     def click_send(self):
         self.click_element(self.CLICKSEND)
 
-    def enter_code(self,code):
+    def enter_code(self, code):
         self.input_element(self.CODEID)
