@@ -5,7 +5,7 @@ from allure_commons._allure import attach
 from allure_commons.types import AttachmentType
 from behave import *
 from socket import *
-import pandas as pd
+# import pandas as pd
 from webdriver_manager.chrome import ChromeDriverManager
 
 from Pages.LoginPage import LoginPage

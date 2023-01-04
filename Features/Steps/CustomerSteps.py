@@ -188,3 +188,24 @@ def step_impl(context):
 @then("Select Customer currency")
 def step_impl(context):
     context.cadency.customadd.select_customer_currency()
+
+
+@then("View Customer Details")
+def step_impl(context):
+    context.cadency.customadd.click_view()
+
+
+
+@then("Verify Invoice Tiles")
+def step_impl(context):
+    context.cadency.customadd.verify_invoice_tiles()
+
+
+@then("Verify Open Invoices")
+def step_impl(context):
+    context.cadency.customadd.verify_openInvoices()
+
+
+@then("Identify Number of Existing Customers")
+def step_impl(context):
+    context.cadency.customadd.customer_number()

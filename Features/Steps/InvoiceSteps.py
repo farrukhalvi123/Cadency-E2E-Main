@@ -41,13 +41,9 @@ def step_impl(context):
     raise NotImplementedError(u'STEP: Then Select Exchange Rate')
 
 
-@then("Enter Reference")
-def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    raise NotImplementedError(u'STEP: Then Enter Reference')
-
+# @then("Enter Reference")
+# def step_impl(context):
+#
 
 @then("Select InvoiceDate")
 def step_impl(context):

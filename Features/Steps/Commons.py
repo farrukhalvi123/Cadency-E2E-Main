@@ -11,11 +11,14 @@ from Constants.URLS import TestData
 from Pages.CustomerPages import CustomerPages
 from Pages.LoginPage import LoginPage
 from Pages.InvoicePage import InvoicePage
+from Pages.TemplatePages import TemplatePage
+
 
 class cadencyweb:
     def __init__(self,driver):
         self.logpage = LoginPage(driver)
         self.customadd = CustomerPages(driver)
         self.invoice = InvoicePage(driver)
+        self.template = TemplatePage(driver)
 
 
