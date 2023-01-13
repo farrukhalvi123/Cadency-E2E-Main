@@ -41,9 +41,10 @@ def step_impl(context):
     raise NotImplementedError(u'STEP: Then Select Exchange Rate')
 
 
-# @then("Enter Reference")
-# def step_impl(context):
-#
+@then("Enter Reference")
+def step_impl(context):
+    context.cadency.invoice.enter_references()
+
 
 @then("Select InvoiceDate")
 def step_impl(context):
@@ -63,7 +64,7 @@ def step_impl(context):
 @then("Verify Invoice Number is disabled")
 def step_impl(context):
     context.cadency.invoice.invoice_num_status()
-@then("Add an Item")
+@then("Select an Item")
 def step_impl(context):
     context.cadency.invoice.Add_inv_items()
 
@@ -71,3 +72,41 @@ def step_impl(context):
 @then("click on Invoice Save Button")
 def step_impl(context):
     context.cadency.invoice.Save_invoice()
+
+
+@then("Verify Invoice has been Created")
+def step_impl(context):
+    context.cadency.invoice.verify_invoiceCreated()
+
+
+@then("Add Item {Description}")
+def step_impl(context, Description):
+    context.cadency.invoice.add_item_description(Description)
+    time.sleep(2)
+
+
+
+@step("Add Items Quantity")
+def step_impl(context):
+   context.cadency.invoice.enter_quantity()
+   time.sleep(2)
+
+
+@step("Adding Item Price")
+def step_impl(context):
+    context.cadency.invoice.enter_price()
+
+
+@step("Adding Items Discount")
+def step_impl(context):
+    context.cadency.invoice.enter_discount()
+
+
+@step("Select Tax")
+def step_impl(context):
+    context.cadency.invoice.select_tax("gst", "20%")
+
+
+@then("Verify Amount")
+def step_impl(context):
+    context.cadency.invoice.invoice_amount()
