@@ -9,6 +9,7 @@ from Constants.URLS import TestData
 from Elements.InvoiceElements import invoiceelements
 from Elements.Customer_elements import customerelements
 from selenium.common import exceptions
+import re
 
 WORDS = "".join((random.choice(string.ascii_letters) for i in range(10)))
 randinteger = ''.join(["{}".format(randint(0, 9)) for num in range(0, 6)])
@@ -93,6 +94,7 @@ class InvoicePage(invoiceelements, customerelements):
         dudate = (current_time+day).strftime('%m/%d/%Y')
         datefield = self.driver.find_element(By.XPATH,self.INVDUEDATE)
         datefield.send_keys(Keys.CONTROL + 'a' + Keys.NULL, dudate, Keys.ENTER)
+        time.sleep(2)
     def add_an_item(self):
         items = self.driver.find_elements(By.CLASS_NAME, self.ADDINVITEMS)
         self.input_element(self.ADDITEMNAME, WORDS)
@@ -113,7 +115,7 @@ class InvoicePage(invoiceelements, customerelements):
         # self.driver.find_element(By.XPATH,"//span[contains(text(),'"+WORDS+"')]").click()
 
     def Add_inv_items(self):
-        taxdd = self.driver.find_elements(By.CLASS_NAME, self.TAXDD)
+        taxdd = self.driver.find_elements(By.XPATH, self.TAXDD)
         taxdd[1].click()
         time.sleep(2)
         try:
@@ -140,27 +142,37 @@ class InvoicePage(invoiceelements, customerelements):
         self.input_element(self.DESCRIPTION,desc)
 
     def enter_quantity(self):
-        self.randinteger = ''.join(["{}".format(randint(0, 9)) for num in range(0, 3)])
-        self.input_element(self.QUANTITY, 30)
+        global quantity
+        self.randinteger = ''.join(["{}".format(randint(0, 9)) for num in range(0, 2)])
+        quantity = int (self.randinteger)
+        self.input_element(self.QUANTITY, quantity)
 
     def enter_price(self):
-            priceamnt = self.driver.find_element(By.XPATH,self.PRICE)
-            if priceamnt.text == 0.00:
-                self.input_element(self.PRICE,randinteger)
-            else:
-                print("The amount is prefilled",priceamnt.text)
+            global amnt
+            # # priceamnt = self.get_element_text(self.PRICE)
+            # print("this is the price amount",priceamnt)
+            # if priceamnt == 0.00:
+            amnt = int (randinteger)
+            self.input_element(self.PRICE,amnt)
+            # else:
+            #     print("The amount is prefilled",priceamnt)
 
     def enter_discount(self):
+        global disc
         self.randinteger = ''.join(["{}".format(randint(0, 9)) for num in range(0, 2)])
-        self.input_element(self.DISCOUNT,20)
+        disc = int (self.randinteger)
+        self.input_element(self.DISCOUNT,disc)
 
     def select_tax(self,tcomp,trate):
-        taxdd = self.driver.find_elements(By.CLASS_NAME,self.TAXDD)
+        taxdd = self.driver.find_elements(By.XPATH,self.TAXDD)
         taxdd[2].click()
-        time.sleep(2)
+        time.sleep(5)
         try:
             taxes = self.driver.find_elements(By.XPATH,self.TAXSELECT)
+            print("This is the selected tax",taxes[1].text)
             taxes[1].click()
+            global select_tax
+            select_tax = taxes[1].text
         except:
             taxes = self.driver.find_elements(By.XPATH, self.TAXSELECT)
             taxes[0].click()
@@ -175,6 +187,30 @@ class InvoicePage(invoiceelements, customerelements):
     def invoice_amount(self):
         self.amount = self.get_element_text(self.AMOUNT)
         print(self.amount)
+
+    def total_amount(self):
+        # int (amnt)
+        # int (quantity)
+        amount = amnt * quantity
+        discount = (amount) * disc/100
+        discounted_amount = amount - discount
+        tax1 =  str (select_tax)
+        final_tax =  ''.join(x for x in tax1  if x.isdigit())
+        ftax = int (final_tax)
+        tax_percentage = discounted_amount * ftax/100
+        final_total = tax_percentage + discounted_amount
+        global totalamt
+        totalamt = final_total
+        print(final_total)
+        time.sleep(10)
+
+    def verify_total_amount(self):
+        amount = self.driver.find_elements(By.XPATH,self.INVAMOUNT)
+        currency = "{:0,.2f}".format(float(totalamt))
+        print(amount[1].text)
+        print(currency)
+        assert currency in self.driver.page_source
+
 
 
 

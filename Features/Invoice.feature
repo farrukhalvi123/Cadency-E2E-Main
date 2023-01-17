@@ -39,6 +39,9 @@ Feature: As a admin i want to add a new invoice
     And Adding Items Discount
     And Select Tax
     Then Verify Amount
+    Then Verify Total Amount
+    Then Click on Save Button
+    Then Verify amount on detail page
 
 
 

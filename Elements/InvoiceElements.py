@@ -14,9 +14,9 @@ class invoiceelements(BasePage):
     ITEMSELECTION = (By.XPATH, "//button[@class='p-element p-ripple p-autocomplete-dropdown ng-tns-c107-56 p-button p-component p-button-icon-only ng-star-inserted']//span[@class='p-button-icon pi pi-chevron-down']")
     DESCRIPTION = (By.XPATH, "//input[@placeholder='Description']")
     QUANTITY = (By.XPATH, "//input[@placeholder='Quantity']")
-    PRICE = "//input[@placeholder='Price']"
+    PRICE = (By.XPATH,"//input[@placeholder='Price']")
     DISCOUNT = (By.XPATH, "//input[@placeholder='Disc %']")
-    TAXDD = "p-button-icon.pi.pi-chevron-down"
+    TAXDD = "//*[contains(@class,'p-element p-ripple p-autocomplete-dropdown ng-tns')]"
     TAXSELECT = "//*[contains(@class,'p-ripple p-element p-autocomplete-item ng-tns')]"
     SAVEBTN = (By.XPATH, "//button[@class='p-element p-button-primary btn-150 p-button p-component']")
     INV_EMAIL = (By.ID, "customerEmail")
@@ -37,6 +37,7 @@ class invoiceelements(BasePage):
     TAXCOMP = (By.XPATH,"//span[normalize-space()='Tax Component']")
     TAXRATE = (By.XPATH,"//p-inputnumber[@placeholder='Tax %']")
     AMOUNT = (By.XPATH,"//td[@class='td-amount max-width-100']")
+    INVAMOUNT = "//*[contains(@class,'overflow-hidden amount-column font-bold ng-star-inserted')]"
 
 
 

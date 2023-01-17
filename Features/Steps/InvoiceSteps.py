@@ -110,3 +110,12 @@ def step_impl(context):
 @then("Verify Amount")
 def step_impl(context):
     context.cadency.invoice.invoice_amount()
+
+@then("Verify Total Amount")
+def step_impl(context):
+    context.cadency.invoice.total_amount()
+
+
+@then("Verify amount on detail page")
+def step_impl(context):
+    context.cadency.invoice.verify_total_amount()
