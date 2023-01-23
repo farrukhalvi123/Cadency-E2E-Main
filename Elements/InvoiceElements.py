@@ -1,6 +1,8 @@
 from Pages.BasePage import BasePage
 from selenium.webdriver.common.by import By
 
+
+
 class invoiceelements(BasePage):
     INVOICETAB = (By.XPATH, "//p[normalize-space()='Invoices']")
     ADDINVOICEBTN = (By.XPATH, "//button[@class='p-element p-button-primary button-with-icon btn-150 p-button p-component']")
@@ -38,6 +40,8 @@ class invoiceelements(BasePage):
     TAXRATE = (By.XPATH,"//p-inputnumber[@placeholder='Tax %']")
     AMOUNT = (By.XPATH,"//td[@class='td-amount max-width-100']")
     INVAMOUNT = "//*[contains(@class,'overflow-hidden amount-column font-bold ng-star-inserted')]"
+    INVSEARCHFIELD = (By.XPATH,"//input[@placeholder='Search']")
+    # INVOICE_NUMBER = (By.XPATH,"//a[normalize-space()='"+INV_NUM+"']")
 
 
 

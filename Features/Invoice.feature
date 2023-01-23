@@ -15,13 +15,12 @@ Feature: As a admin i want to add a new invoice
     Then Select Currency
     Then Verify Email is prefilled and disabled
     Then Verify Invoice Number is disabled
-#    Then Select Exchange Rate
     Then Enter Reference
     Then Select InvoiceDate
     Then Select DueDate
     Then Select an Item
     Then click on Invoice Save Button
-#    Then Verify Invoice has been Created
+    Then Verify Invoice has been Created
 
   Scenario: Add Existing Item in Invoices
     Then User Clicks On Add Invoice Button
@@ -42,6 +41,11 @@ Feature: As a admin i want to add a new invoice
     Then Verify Total Amount
     Then Click on Save Button
     Then Verify amount on detail page
+
+  Scenario: Search an Invoice with Invoice Name
+    Then Enter Invoice Number in Search Field
+    Then Verify Searched Invoice is Found
+
 
 
 

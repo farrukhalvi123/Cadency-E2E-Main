@@ -89,8 +89,9 @@ class InvoicePage(invoiceelements, customerelements):
         time.sleep(5)
 
     def invoice_duedate(self):
+        dom = float (''.join(["{}".format(randint(0, 9)) for num in range(0, 2)]))
         current_time = date.today()
-        day = timedelta(days = 90)
+        day = timedelta(days = dom)
         dudate = (current_time+day).strftime('%m/%d/%Y')
         datefield = self.driver.find_element(By.XPATH,self.INVDUEDATE)
         datefield.send_keys(Keys.CONTROL + 'a' + Keys.NULL, dudate, Keys.ENTER)
@@ -206,10 +207,28 @@ class InvoicePage(invoiceelements, customerelements):
 
     def verify_total_amount(self):
         amount = self.driver.find_elements(By.XPATH,self.INVAMOUNT)
-        currency = "{:0,.2f}".format(float(totalamt))
-        print(amount[1].text)
+        currency = "{:0,.3f}".format(float(totalamt))
+        print((amount[1].text))
         print(currency)
         assert currency in self.driver.page_source
+
+    def search_invoice(self):
+        global INV_NUM
+        INV_NUM = "INV-0000" + ''.join(["{}".format(randint(0, 9)) for num in range(0, 2)])
+        print(INV_NUM)
+        self.input_element(self.INVSEARCHFIELD,INV_NUM + Keys.ENTER)
+        time.sleep(5)
+
+    def Verify_Searched_Invoice(self):
+        try:
+            INVOICE_NUMBER = self.driver.find_element(By.XPATH,"//a[normalize-space()='" + INV_NUM + "']")
+            print(INVOICE_NUMBER.text)
+            self.assert_equal(INVOICE_NUMBER.text,INV_NUM,"Invoice number doesnt match")
+
+        except:
+            assert "No records found" in self.driver.page_source
+            print("No Record found")
+
 
 
 

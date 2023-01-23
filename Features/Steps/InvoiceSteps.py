@@ -33,12 +33,7 @@ def step_impl(context):
     context.cadency.invoice.select_Currency()
 
 
-@then("Select Exchange Rate")
-def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    raise NotImplementedError(u'STEP: Then Select Exchange Rate')
+
 
 
 @then("Enter Reference")
@@ -119,3 +114,13 @@ def step_impl(context):
 @then("Verify amount on detail page")
 def step_impl(context):
     context.cadency.invoice.verify_total_amount()
+
+
+@then("Enter Invoice Number in Search Field")
+def step_impl(context):
+    context.cadency.invoice.search_invoice()
+
+
+@then("Verify Searched Invoice is Found")
+def step_impl(context):
+    context.cadency.invoice.Verify_Searched_Invoice()

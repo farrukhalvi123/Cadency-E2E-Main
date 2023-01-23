@@ -19,9 +19,9 @@ class BasePage:
         element = WebDriverWait(self.driver, 45).until(EC.visibility_of_element_located(by_locator))
         self.driver.execute_script("arguments[0].click();", element)
 
-    def input_element(self, by_locator: object, text: object) -> object:
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(by_locator)).clear()
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(by_locator)).send_keys(text)
+    def input_element(self, by_locator,text):
+        WebDriverWait(self.driver, 15).until(EC.visibility_of_element_located(by_locator)).clear()
+        WebDriverWait(self.driver, 15).until(EC.visibility_of_element_located(by_locator)).send_keys(text)
 
     def upload_element(self, by_locator, text):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(by_locator))
@@ -58,7 +58,6 @@ class BasePage:
         actions.move_to_element(element).perform()
 
     def assert_equal(self, actual_value, expected_value, Message):
-        self.wait(30)
         assert actual_value == expected_value, Message
 
     def verify_element_disabled(self, by_locator):

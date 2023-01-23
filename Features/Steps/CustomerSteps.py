@@ -209,3 +209,23 @@ def step_impl(context):
 @then("Identify Number of Existing Customers")
 def step_impl(context):
     context.cadency.customadd.customer_number()
+
+
+@then("Search for {custname} and verify results")
+def step_impl(context,custname):
+    context.cadency.customadd.search_customer(custname)
+
+
+@then("Select Invoice Status")
+def step_impl(context):
+    context.cadency.customadd.apply_invoice_filter()
+
+
+@then("Select Customer Status")
+def step_impl(context):
+    context.cadency.customadd.apply_customer_Filter()
+
+
+@then("Verify Invoices with Current Status")
+def step_impl(context):
+    context.cadency.customadd.vefify_Current_status_filter()

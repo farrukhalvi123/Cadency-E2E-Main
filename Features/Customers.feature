@@ -6,10 +6,11 @@ Feature: As an Admin User I want to Manage a new Customer
     Then User Navigates to Merchant Portal
     Then User Enters clarkkent and Cadency123!
     Then User Clicks on Login Button
-
-  Scenario Outline: Add a Customer
     Then Open Right Side Panel
     Then Go to Customer Tab
+
+  Scenario Outline: Add a Customer
+
     Then Identify Number of Existing Customers
     Then Click on Add Button
     Then Verify Customer Email
@@ -28,8 +29,6 @@ Feature: As an Admin User I want to Manage a new Customer
 
   @edit_customer
   Scenario: Edit Customer
-    Then Open Right Side Panel
-    Then Go to Customer Tab
     Then Click on 3 dots and open edit customer form
     Then Verify Toggle Active - InActive
     Then Verify Currency Selected and Disabled
@@ -37,21 +36,21 @@ Feature: As an Admin User I want to Manage a new Customer
     Then Verify Details have been updated
 
   Scenario: Apply Filters and verify data
-    Then Open Right Side Panel
-    Then Go to Customer Tab
     Then click on Filter
     Then Select Country
+    Then Select Invoice Status
     Then Verify Filter is applied
+    Then Verify Invoices with Current Status
+
 
 
 
   Scenario: Verify Invoice Tiles on Customer Details
-    Then Open Right Side Panel
-    Then Go to Customer Tab
     Then View Customer Details
     Then Verify Invoice Tiles
     Then Verify Open Invoices
 
-
+  Scenario: Search Customer
+    Then Search for Farrukh Doe and verify results
 
 

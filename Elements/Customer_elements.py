@@ -48,13 +48,13 @@ class customerelements(BasePage):
     CUSTOMER_LIST = (By.XPATH,"//tbody")
     FILTERBUTTON = (By.XPATH,"//button[@class='p-element p-button-secondary filter-btn-count button-with-icon btn-150 p-button p-component']")
     SELECTCOUNTRY = (By.XPATH,"//p-dropdown[@placeholder='Select country']")
-    SELECTPAK = (By.XPATH,"//li[@aria-label='Pakistan']")
+    SELECTCOUNTRYIES = "p-ripple.p-element.p-dropdown-item"
     SELECTINVOICE = (By.XPATH,"//span[@class='ng-tns-c43-48 p-dropdown-label p-inputtext p-placeholder ng-star-inserted']")
     SELECTCURRENT = (By.XPATH,"//span[normalize-space()='Current']")
     SELECTCUSTOMSTATUS = (By.XPATH,"//span[@class='ng-tns-c43-49 p-dropdown-label p-inputtext p-placeholder ng-star-inserted']")
     SELECTACTIVE = (By.XPATH,"//span[normalize-space()='Active']")
     FILTERAPPLY = (By.XPATH,"//button[@class='p-element p-button-primary button-with-icon btn-100 p-button p-component']")
-    VIEWCOUNTRY = 'title-heading-4 text-secondary-2 wrap-text-all'
+    VIEWCOUNTRY = 'title-heading-4.text-secondary-1.wrap-text-all.no-break-word'
     no_record_text = (By.XPATH,"//td[normalize-space()='No records found']")
     VIEWCUSTOMER = (By.XPATH,"//a[normalize-space()='View']")
     INVOICETILES = (By.XPATH,"//ul[@role='tablist']")
@@ -63,7 +63,13 @@ class customerelements(BasePage):
     INVOICESLIST = (By.CLASS_NAME,"max-width-300.ng-star-inserted")
     STATUSTILE =By.CLASS_NAME,"status-container status-orange3 ng-star-inserted"
     CUSTOMERGRID = "td-contact-info.max-width-300.min-width-250"
-
+    REMPICTURE = By.XPATH,"//button[@class='p-element p-button-info p-1 lg:p-2 p-button-secondary delete-custom-uploader p-button p-component']"
+    SEARCHCUSTOMER = (By.ID,"searchText")
+    INVOICESTATUSFILTER = (By.XPATH,"//p-dropdown[@placeholder='Select invoice status']")
+    CURRENT_STATUS = (By.XPATH,"//li[@aria-label='Current']")
+    CUSTOMERSTATUSFILTER = (By.XPATH,"//p-dropdown[@placeholder='Select customer status']")
+    STATUSACTIVE = (By.XPATH,"//span[normalize-space()='Active']")
+    CURRENTSTATUSONINVOICE = (By.XPATH,"//div[@class='status-container status-green']")
 
 
 

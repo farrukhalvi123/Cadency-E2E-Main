@@ -71,4 +71,4 @@ class LoginPage(loginelements):
         self.click_element(self.CLICKSEND)
 
     def enter_code(self, code):
-        self.input_element(self.CODEID)
+        self.input_element(self.CODEID,code)

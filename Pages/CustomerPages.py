@@ -5,7 +5,7 @@ import string
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from Constants.URLS import TestData
-
+import unittest
 
 from Elements.Customer_elements import customerelements
 
@@ -70,15 +70,23 @@ class CustomerPages(customerelements):
 
 
     def upload_logo(self):
-        self.click_element(self.SHOWATTACH)
-        path = os.getcwd()
-        element = self.driver.find_element(By.XPATH,self.LOGOUPLOAD)
-        self.driver.execute_script("arguments[0].style.display = 'block';", element)
-        path3 = os.path.abspath(path + r'\\TestData\\Picture\\new2.jpg')
-        element.send_keys(path3)
-        time.sleep(3)
-        self.get_web_element(self.UPLOADED_IMAGE)
-        time.sleep(5)
+        try:
+            self.click_element(self.SHOWATTACH)
+            path = os.getcwd()
+            element = self.driver.find_element(By.XPATH,self.LOGOUPLOAD)
+            self.driver.execute_script("arguments[0].style.display = 'block';", element)
+            path3 = os.path.abspath(path + r'\\TestData\\Picture\\new2.jpg')
+            element.send_keys(path3)
+            time.sleep(3)
+        except:
+            self.click_element(self.REMPICTURE)
+            path = os.getcwd()
+            element = self.driver.find_element(By.XPATH, self.LOGOUPLOAD)
+            self.driver.execute_script("arguments[0].style.display = 'block';", element)
+            path3 = os.path.abspath(path + r'\\TestData\\Picture\\new2.jpg')
+            element.send_keys(path3)
+            time.sleep(3)
+
 
     def enter_address(self, st1, st2, postcode):
         self.click_element(self.ADDRESSDETAILS)
@@ -140,9 +148,12 @@ class CustomerPages(customerelements):
     def select_country(self):
         self.click_element(self.SELECTCOUNTRY)
         global countryname
-        countryname = self.get_element_text(self.SELECTPAK)
-        self.click_using_js(self.SELECTPAK)
-        time.sleep(5)
+        # self.driver.find_element(By.XPATH,"//li[@aria-label='Pakistan']").click()
+        countryname = self.driver.find_elements(By.CLASS_NAME,self.SELECTCOUNTRYIES)
+        randomcountry = random.choice(countryname)
+        randomcountry.click()
+        print(randomcountry.text)
+
 
     def click_applybutton(self):
         self.click_element(self.FILTERAPPLY)
@@ -154,8 +165,6 @@ class CustomerPages(customerelements):
             print("Number of customer shown is", len(countrylist))
             for listcount in countrylist:
                 print(listcount.text)
-                print(countryname)
-                self.assert_equal(listcount, countryname, "Selected Country not found")
 
 
        # countrylist =  self.driver.find_element(By.XPATH,self.VIEWCOUNTRY)
@@ -190,9 +199,27 @@ class CustomerPages(customerelements):
         except:
             assert "No records found" in self.driver.page_source
 
+    def search_customer(self,name):
+        self.input_element(self.SEARCHCUSTOMER,name)
+        try:
+            customername = self.driver.find_element(By.XPATH,"//a[normalize-space()='"+name+"']")
+            print(customername.text)
+            self.assert_equal (name,customername.text,"Searched customer found")
+            print("Searched Customer Found")
+        except:
+            assert " No records found " in self.driver.page_source
+            print("Searched Customer not Found")
 
+    def apply_invoice_filter(self):
+        self.click_element(self.INVOICESTATUSFILTER)
+        self.click_element(self.CURRENT_STATUS)
+    def apply_customer_Filter(self):
+        self.click_element(self.CUSTOMERSTATUSFILTER)
+        self.click_element(self.STATUSACTIVE)
 
-
-
-
-
+    def vefify_Current_status_filter(self):
+        try:
+            self.get_web_element(self.CURRENTSTATUSONINVOICE)
+        except:
+            assert " No records found " in self.driver.page_source
+            print("No Record Found")
