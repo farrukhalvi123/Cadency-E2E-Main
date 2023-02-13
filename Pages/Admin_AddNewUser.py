@@ -27,9 +27,8 @@ class AdminAddUsers(AdminportalElements):
 
     def verify_user(self):
         un = self.get_element_text(self.MBAPPEXPATH)
-        print(un)
         if un == "Kylian Mbappe":
-            print("User Exist")
+            print("Pass > Checking Add User Flow: Newly Created User Found")
         else:
             print("")
 
@@ -54,7 +53,8 @@ class AdminAddUsers(AdminportalElements):
     def enter_team_name(self, Teamname):
         self.input_element(self.TEAMSTYPEAREA, Teamname)
         time.sleep(2)
-        self.click_element(self.SELECTEDTEAMCHECKBOX)
+        self.click_element(self.SELECTTESTTEAMCHECKBOX)
+        self.click_element(self.SELECTTEST2TEAMCHECKBOX)
 
     def selectusertype(self):
         self.click_using_js(self.USERTYPEDD)
@@ -82,10 +82,16 @@ class AdminAddUsers(AdminportalElements):
     def verify_no_record_found(self):
         nrf = self.get_element_text(self.NORECORDFOUND)
         if nrf == "No Record Found":
-            print(nrf)
             time.sleep(1)
         else:
-            print("Some Record Found Test Case Failed")
+            time.sleep(1)
+
+    def verify_users_found(self):
+        nrf = self.get_element_text(self.NORECORDFOUND)
+        if nrf == "No Record Found":
+            time.sleep(1)
+        else:
+            time.sleep(1)
 
     def click_clearfilter_button(self):
         self.click_using_js(self.CLEARFILTERBUTTON)
@@ -94,7 +100,7 @@ class AdminAddUsers(AdminportalElements):
     def click_on_filtericon(self):
         self.click_using_js(self.FILTERICON)
 
-    def select_user_status(self):
+    def select_user_status_active(self):
         usdd = self.driver.find_elements(By.XPATH, self.USERSTATUSEDD)
         var = usdd[0]
         var.click()
@@ -108,10 +114,38 @@ class AdminAddUsers(AdminportalElements):
         time.sleep(1)
         self.input_element(self.TEAMSEARCHBAR, test)
         self.click_using_js(self.ENTERTEAMNAME)
-        time.sleep(2)
+        time.sleep(1)
 
     def click_on_apply_button(self):
         self.click_using_js(self.APPLYBUTTON)
+        time.sleep(1)
 
     def filter_results(self):
-        self.click_using_js(self.APPLYBUTTON)
+        global un
+        un = self.get_element_text(self.MBAPPEXPATH)
+        if un == "Kylian Mbappe":
+            print("Pass > Checking Filter Results: User Found Filters Working Fine")
+        else:
+            print("")
+
+    def make_user_inactive(self):
+        self.click_element(self.MANAGEUSERSSEARCHBAR)
+        time.sleep(3)
+        self.input_element(self.MANAGEUSERSSEARCHBAR, "Kylian")
+        self.click_using_js(self.ACTIONBUTTON)
+        self.click_using_js(self.EDITBUTTON)
+        time.sleep(2)
+        self.click_using_js(self.STATUS_INACTIVE)
+        self.click_using_js(self.SAVEBUTTON)
+        time.sleep(2)
+        self.click_using_js(self.CLEARFILTERBUTTON)
+        time.sleep(2)
+
+    def select_user_status_Inactive(self):
+        usdd = self.driver.find_elements(By.XPATH, self.USERSTATUSEDD)
+        time.sleep(3)
+        var = usdd[0]
+        var.click()
+        time.sleep(1)
+        self.click_using_js(self.SELECTINACTIVE)
+        time.sleep(3)

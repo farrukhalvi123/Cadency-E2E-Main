@@ -14,6 +14,8 @@ from Pages.LoginPage import LoginPage
 from Pages.InvoicePage import InvoicePage
 from Pages.Admin_ForgotPass import AdminForgotPass
 from Pages.Admin_AddNewUser import AdminAddUsers
+from Pages.Manage_Teams import ManageTeams
+from Pages.Verify_Modules_Permissions import VerifyPermissions
 
 
 class cadencyweb:
@@ -27,3 +29,5 @@ class cadencyweb:
         self.admin_man_login = AdminLoginPage(driver)
         self.admin_forgot_pass = AdminForgotPass(driver)
         self.admin_add_users = AdminAddUsers(driver)
+        self.admin_manage_teams = ManageTeams(driver)
+        self.admin_verify_permissions = VerifyPermissions(driver)

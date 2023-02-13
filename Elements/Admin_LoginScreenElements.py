@@ -26,7 +26,8 @@ class AdminportalElements(BasePage):
     ADDUSER_CONFPASSWORD = (By.XPATH, "//input[@placeholder=' Enter your Confirm Password']")
     TEAMSDD = (By.XPATH, "//*[contains(@class,'p-multiselect-label ng-tns')]")  # Dynamic XPATH
     TEAMSTYPEAREA = (By.XPATH, "//input[@role='textbox']")
-    SELECTEDTEAMCHECKBOX = (By.XPATH, "//span[normalize-space()='test']")
+    SELECTTESTTEAMCHECKBOX = (By.XPATH, "//span[normalize-space()='test']")
+    SELECTTEST2TEAMCHECKBOX = (By.XPATH, "//label[normalize-space()='test3']")
     USERTYPEDD = (By.XPATH, "//*[contains(@class,'p-dropdown-trigger-icon ng-tns')]")  # Dynamic XPATH
     SUPERADMIN = (By.XPATH, "//span[normalize-space()='Super Admin']")
     STANDARD = (By.XPATH, "//span[normalize-space()='Standard']")
@@ -39,11 +40,14 @@ class AdminportalElements(BasePage):
     MBAPPEXPATH = (By.XPATH, "//h3[normalize-space()='Kylian Mbappe']")
     NORECORDFOUND = (By.XPATH, "//div[@class='title-heading-3']")
     CLEARFILTERBUTTON = (By.XPATH, "//span[normalize-space()='Clear Filter']")
+    ACTIONBUTTON = (By.XPATH, "//i[@class='pi pi-ellipsis-v text-orange-500']")
+    EDITBUTTON = (By.XPATH, "//a[normalize-space()='Edit']")
 
     # Filter Elements
     FILTERICON = (By.XPATH, "//i[@class='pi pi-filter']")
     USERSTATUSEDD = "//*[contains(@class,'p-dropdown-trigger-icon ng-tns')]"  # Dynamic XPATH
     SELECTACTIVE = (By.XPATH, "//span[normalize-space()='Active']")
+    SELECTINACTIVE = (By.XPATH, "//span[normalize-space()='Inactive']")
     TEAMSEARCHBAR = (By.XPATH, "//*[contains(@class,'p-dropdown-filter p-inputtext p-component ng-tns')]")  # Dynamic XPATH
     ENTERTEAMNAME = (By.XPATH, "//span[normalize-space()='test']")
     APPLYBUTTON = (By.XPATH, "//button[normalize-space()='Apply']")

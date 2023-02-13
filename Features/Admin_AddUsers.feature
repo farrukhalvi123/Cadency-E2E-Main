@@ -15,23 +15,31 @@ Feature: As a admin i want to Add a new user
       Then Select User Status
       Then Save
 
+      # Enable Two Factor Authentication & Reset Auth QR Code Will be test manually
+
       Examples:
       | Fname | Lname | AdminUname | PhnNum | Email | Pass | Cpass |
       | Kylian | Mbappe | NinjaTurtle | +923212323777 | ninja@yopmail.com | Talha123 | Talha123 |
 
   Scenario: Check user exist
-          Given Enter text is search field Kyliana
-          Then Verify Username if Already Exist
+      Given Enter text in search field Kylian
+      Then Verify Username if Already Exist
 
   Scenario: Clear Filter Button
-       Given Enter text is search field Kyliansdfsdf
+       Given Enter text in search field Lorem Ispum Is Dummy Text
        Then Verify No Record Found Text
        Then Click Clear Filter Button
-       Then Verify No Record Found Text
+       Then Verify Some Record
 
   Scenario: Verify Filters
-       Given Click On Filter Icon
-       Then Select User Status Filter Option
+       Then Click On Filter Icon
+       Then Select User Status Filter Option (Active)
+       Then Select Filter By Team Test
+       Then Click on Apply Button
+       Then Check Filter Results
+       Then Make User Inactive
+       Then Click On Filter Icon
+       Then Select User Status Filter Option (InActive)
        Then Select Filter By Team Test
        Then Click on Apply Button
        Then Check Filter Results
