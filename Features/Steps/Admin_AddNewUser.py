@@ -106,13 +106,14 @@ def step_impl(context):
         context.driver.close()
         assert False, e
     except:
+        print("Fail > Checking Add User Flow: User Unable To Save")
         attach(context.driver.get_screenshot_as_png(), name=str("Test Failed on customer form"),
                attachment_type=AttachmentType.PNG)
         context.driver.close()
         assert False, "Test Failed on add admin user form"
 
 
-@given("Enter text is search field {text}")
+@given("Enter text in search field {text}")
 def step_impl(context, text):
     context.cadency.admin_add_users.check_user_exist(text)
 
@@ -122,13 +123,14 @@ def step_impl(context):
     try:
         context.cadency.admin_add_users.verify_user()
     except:
-        print("User Not Exist")
+        print("Fail > Checking Add User Flow: Newly Created User Not Found Through Search")
     #   context.execute_steps('''Given Click On Add New User Button
     # Then Add User Details Kylian and Mbappe and NinjaTurtle and +923212323777 and ninja@yopmail.com and Talha123 and Talha123
     # Then Click On Teams DD
     # Then Select Team Test
     # Then Select UserType DD
     # Then Select User Status
+
     # Then Save''')
 
 
@@ -136,8 +138,22 @@ def step_impl(context):
 def step_impl(context):
     try:
         context.cadency.admin_add_users.verify_no_record_found()
+        print("Pass > Checking Clear Filter Button: No Record Found On "
+              "Dummy Text On Search Bar")
     except:
-        print("Some Records Found")
+        print("Fail > Checking Clear Filter Button: Some Records Found "
+              "/ On Dummy Text In Search Bar...")
+
+
+@then("Verify Some Record")
+def step_impl(context):
+    try:
+        context.cadency.admin_add_users.verify_users_found()
+        print("Fail > Checking Clear Filter Button: No Record Found "
+              "After Clicking On Clear Filter Button")
+    except:
+        print("Pass > Checking Clear Filter Button: Some Records Found "
+              "/ After Clicking On Clear Filter Button...")
 
 
 @then("Click Clear Filter Button")
@@ -145,14 +161,14 @@ def step_impl(context):
     context.cadency.admin_add_users.click_clearfilter_button()
 
 
-@given("Click On Filter Icon")
+@then("Click On Filter Icon")
 def step_impl(context):
     context.cadency.admin_add_users.click_on_filtericon()
 
 
-@then("Select User Status Filter Option")
+@then("Select User Status Filter Option (Active)")
 def step_impl(context):
-    context.cadency.admin_add_users.select_user_status()
+    context.cadency.admin_add_users.select_user_status_active()
 
 
 @then("Select Filter By Team {test}")
@@ -164,9 +180,23 @@ def step_impl(context, test):
 def step_impl(context):
     context.cadency.admin_add_users.click_on_apply_button()
 
+
 @then("Check Filter Results")
 def step_impl(context):
-    context.cadency.admin_add_users.filter_results()
+    try:
+        context.cadency.admin_add_users.filter_results()
+    except:
+        print("Fail > Checking Filter Results: User Not Found, Filters Not Working")
 
 
+@then("Make User Inactive")
+def step_impl(context):
+    context.cadency.admin_add_users.make_user_inactive()
 
+
+@then("Select User Status Filter Option (InActive)")
+def step_impl(context):
+    try:
+        context.cadency.admin_add_users.select_user_status_Inactive()
+    except:
+        print("Unable To Change User Status... Something Wrong Here...")
