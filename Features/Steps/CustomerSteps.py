@@ -12,6 +12,7 @@ def step_impl(context):
 @then("Go to Customer Tab")
 def step_impl(context):
     try:
+        time.sleep(2)
         context.cadency.customadd.Go_to_customerTab()
     except Exception as e:
         attach(context.driver.get_screenshot_as_png(),

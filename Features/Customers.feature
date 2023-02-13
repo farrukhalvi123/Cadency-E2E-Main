@@ -11,13 +11,14 @@ Feature: As an Admin User I want to Manage a new Customer
 
   Scenario Outline: Add a Customer
 
-    Then Identify Number of Existing Customers
+#    Then Identify Number of Existing Customers
     Then Click on Add Button
     Then Verify Customer Email
     Then Add Customer Details <custom_disp_name> and <firsname> and <lsname> and <phone> and <website> and <ccemail>
     Then Select Customer currency
     Then Verify Toggle Active - InActive
     Then Upload Picture Logo
+    And Click on Save Button
     Then Add Address Details <Street1> <street2> <pscode>
     And Click on Save Button
     Then Identify Number of Existing Customers

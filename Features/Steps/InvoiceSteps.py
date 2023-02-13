@@ -124,3 +124,28 @@ def step_impl(context):
 @then("Verify Searched Invoice is Found")
 def step_impl(context):
     context.cadency.invoice.Verify_Searched_Invoice()
+
+
+@then("Click on Download Invoices in Excel")
+def step_impl(context):
+   context.cadency.invoice.clickCSVIcon()
+
+
+@then("Click on Download Invoices in PDF")
+def step_impl(context):
+    context.cadency.invoice.verify_pdffile()
+
+
+@then("Select Action Button")
+def step_impl(context):
+   context.cadency.invoice.download_oneinvoice()
+
+
+@then("Click on PDF File Download")
+def step_impl(context):
+    context.cadency.invoice.clickPDFIcon()
+
+
+@then("Verify Downloaded CSV")
+def step_impl(context):
+    context.cadency.invoice.Download_Excelfile()

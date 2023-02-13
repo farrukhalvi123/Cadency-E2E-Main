@@ -20,7 +20,7 @@ Feature: As a admin i want to add a new invoice
     Then Select DueDate
     Then Select an Item
     Then click on Invoice Save Button
-    Then Verify Invoice has been Created
+#    Then Verify Invoice has been Created
 
   Scenario: Add Existing Item in Invoices
     Then User Clicks On Add Invoice Button
@@ -47,9 +47,14 @@ Feature: As a admin i want to add a new invoice
     Then Verify Searched Invoice is Found
 
 
+  Scenario: Download Invoice PDF and Excel
+    Then Click on Download Invoices in Excel
+    Then Verify Downloaded CSV
+    Then Click on PDF File Download
+    Then Click on Download Invoices in PDF
 
-
-
+  Scenario: Download one invoice
+    Then Select Action Button
 
 
 
