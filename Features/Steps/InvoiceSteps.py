@@ -33,17 +33,13 @@ def step_impl(context):
     context.cadency.invoice.select_Currency()
 
 
-@then("Select Exchange Rate")
+
+
+
+@then("Enter Reference")
 def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    raise NotImplementedError(u'STEP: Then Select Exchange Rate')
+    context.cadency.invoice.enter_references()
 
-
-# @then("Enter Reference")
-# def step_impl(context):
-#
 
 @then("Select InvoiceDate")
 def step_impl(context):
@@ -63,7 +59,7 @@ def step_impl(context):
 @then("Verify Invoice Number is disabled")
 def step_impl(context):
     context.cadency.invoice.invoice_num_status()
-@then("Add an Item")
+@then("Select an Item")
 def step_impl(context):
     context.cadency.invoice.Add_inv_items()
 
@@ -71,3 +67,85 @@ def step_impl(context):
 @then("click on Invoice Save Button")
 def step_impl(context):
     context.cadency.invoice.Save_invoice()
+
+
+@then("Verify Invoice has been Created")
+def step_impl(context):
+    context.cadency.invoice.verify_invoiceCreated()
+
+
+@then("Add Item {Description}")
+def step_impl(context, Description):
+    context.cadency.invoice.add_item_description(Description)
+    time.sleep(2)
+
+
+
+@step("Add Items Quantity")
+def step_impl(context):
+   context.cadency.invoice.enter_quantity()
+   time.sleep(2)
+
+
+@step("Adding Item Price")
+def step_impl(context):
+    context.cadency.invoice.enter_price()
+
+
+@step("Adding Items Discount")
+def step_impl(context):
+    context.cadency.invoice.enter_discount()
+
+
+@step("Select Tax")
+def step_impl(context):
+    context.cadency.invoice.select_tax("gst", "20%")
+
+
+@then("Verify Amount")
+def step_impl(context):
+    context.cadency.invoice.invoice_amount()
+
+@then("Verify Total Amount")
+def step_impl(context):
+    context.cadency.invoice.total_amount()
+
+
+@then("Verify amount on detail page")
+def step_impl(context):
+    context.cadency.invoice.verify_total_amount()
+
+
+@then("Enter Invoice Number in Search Field")
+def step_impl(context):
+    context.cadency.invoice.search_invoice()
+
+
+@then("Verify Searched Invoice is Found")
+def step_impl(context):
+    context.cadency.invoice.Verify_Searched_Invoice()
+
+
+@then("Click on Download Invoices in Excel")
+def step_impl(context):
+   context.cadency.invoice.clickCSVIcon()
+
+
+@then("Click on Download Invoices in PDF")
+def step_impl(context):
+    context.cadency.invoice.verify_pdffile()
+
+
+@then("Select Action Button")
+def step_impl(context):
+   context.cadency.invoice.download_oneinvoice()
+
+
+@then("Click on PDF File Download")
+def step_impl(context):
+    context.cadency.invoice.clickPDFIcon()
+
+
+@then("Verify Downloaded CSV")
+def step_impl(context):
+    context.cadency.invoice.Download_Excelfile()

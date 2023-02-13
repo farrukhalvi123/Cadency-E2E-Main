@@ -31,8 +31,9 @@ def step_impl(context):
 @then("Admin User Enters {Uname} and {Pword} and login into system")
 def step_impl(context, Uname, Pword):
     # try:
-
+    time.sleep(1)
     context.cadency.admin_man_login.enter_adusername(Uname)
+    time.sleep(1)
     context.cadency.admin_man_login.enter_adpassword(Pword)
     context.cadency.admin_man_login.click_loginbutton()
     time.sleep(3)

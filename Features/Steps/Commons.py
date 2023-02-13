@@ -20,6 +20,7 @@ from Pages.Verify_Modules_Permissions import VerifyPermissions
 
 class cadencyweb:
     def __init__(self, driver):
+        self.driver = driver
         # Merchant Portal Pages
         self.logpage = LoginPage(driver)
         self.customadd = CustomerPages(driver)

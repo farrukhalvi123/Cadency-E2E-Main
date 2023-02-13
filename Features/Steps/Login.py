@@ -30,7 +30,7 @@ def step_impl(context):
 @then("User Enters {Uname} and {Pword}")
 def step_impl(context,Uname,Pword):
     # try:
-
+         time.sleep(2)
          context.cadency.logpage.enter_username(Uname)
          context.cadency.logpage.enter_password(Pword)
     # except Exception as e:
