@@ -1,0 +1,22 @@
+class RecInvoices():
+    def __int__(self,driver):
+        self.driver = driver
+        self.RECINVOICE = "//p[normalize-space()='Recurring Invoices']"
+        self.CUSTOMERNAME = "//p-autocomplete[@class='p-element p-inputwrapper ng-tns-c107-46 ng-star-inserted ng-touched ng-dirty p-inputwrapper-filled ng-valid']"
+        self.SELECTCUSTOMER = "customerEmail"
+        self.ORDERNUMBER = NUMBEROFCYCLES = "customerName"
+        self.CURRENCYINV = "pr_id_23_label"
+        self.CURRENCYUSD = "//div[@class='inline-flex'][normalize-space()='USD']"
+        self.FREQUENCY = "//input[@placeholder='Select Frequency']"
+        self.FREQUENCYFIRST = "pr_id_24_list"
+        self.FIRSTSENDDATE = "//input[@placeholder='Please select first Send Date']"
+        self.ENDDATE = "//input[@placeholder='Please select first Send Date']"
+        self.REFERENCEAREA = "//textarea[@placeholder='Enter reference']"
+        self.ACTIVETOGGLE = "//p-inputswitch[@id='isActive']//span[@class='p-inputswitch-slider']"
+        self.ITEMSELECT = "//input[@placeholder='Item']"
+        self.ITEMLIST = "ng-trigger ng-trigger-overlayAnimation ng-tns-c107-52 p-autocomplete-panel p-component ng-star-inserted"
+        self.DESCRIPTION = "//input[@placeholder='Description']"
+        self.QUANTITY = "//input[@placeholder='Quantity']"
+        self.PRICE = "//input[@placeholder='Price']"
+        self.DISCOUNT = "//input[@placeholder='Disc %']"
+        self.TAX = "//input[@placeholder='Select']"

@@ -7,7 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from Elements.LoginElements import loginelements
+# from Elements.LoginElements import loginelements
 from allure_commons._allure import attach
 from allure_commons.types import AttachmentType
 from Constants.URLS import TestData

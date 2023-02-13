@@ -5,14 +5,14 @@ from random import randint
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
-from Elements.LoginElements import loginelements
+# from Elements.LoginElements import loginelements
 from allure_commons._allure import attach
 from allure_commons.types import AttachmentType
 from Constants.URLS import TestData
-from Elements.TemplateElements import TemplateElements
+# from Elements.TemplateElements import TemplateElements
 
 
-class TemplatePage(TemplateElements):
+class TemplatePage():
     def __init__(self, driver):
         self.driver = driver
         self.SETTINGCOGS = "Group_19806"

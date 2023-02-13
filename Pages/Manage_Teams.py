@@ -6,7 +6,7 @@ from random import randint
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
-from Elements.Admin_LoginScreenElements import AdminportalElements
+# from Elements.Admin_LoginScreenElements import AdminportalElements
 from Elements.Manage_Teams_Elements import ManageTeamsElements
 from allure_commons._allure import attach
 from allure_commons.types import AttachmentType
