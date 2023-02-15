@@ -15,6 +15,7 @@ from Pages.InvoicePage import InvoicePage
 from Pages.Admin_ForgotPass import AdminForgotPass
 from Pages.Admin_AddNewUser import AdminAddUsers
 from Pages.Manage_Teams import ManageTeams
+from Pages.TemplatePages import TemplatePage
 from Pages.Verify_Modules_Permissions import VerifyPermissions
 
 
@@ -25,7 +26,7 @@ class cadencyweb:
         self.logpage = LoginPage(driver)
         self.customadd = CustomerPages(driver)
         self.invoice = InvoicePage(driver)
-
+        self.templates = TemplatePage(driver)
         # Admin Portal Pages
         self.admin_man_login = AdminLoginPage(driver)
         self.admin_forgot_pass = AdminForgotPass(driver)

@@ -8,24 +8,24 @@ from behave import *
 
 @then("Go to Settings Gears")
 def step_impl(context):
-    context.cadency.template.click_settingsgear()
+    context.cadency.templates.click_settingsgear()
 
 
 @then("Click on Templates")
 def step_impl(context):
-    context.cadency.template.select_template()
+    context.cadency.templates.select_template()
     time.sleep(5)
 
 
 @then("Click on Add Template")
 def step_impl(context):
-    context.cadency.template.click_addtemplate()
+    context.cadency.templates.click_addtemplate()
 
 
 @then("User Enter Template {Name}")
 def step_impl(context,Name):
     # try:
-        context.cadency.template.enter_templatename(Name)
+        context.cadency.templates.enter_templatename(Name)
         time.sleep(5)
     # except Exception as e:
     #     attach(context.driver.get_screenshot_as_png(),

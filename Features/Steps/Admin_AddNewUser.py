@@ -191,7 +191,7 @@ def step_impl(context):
 
 @then("Make User Inactive")
 def step_impl(context):
-    context.cadency.admin_add_users.make_user_inactive()
+    context.cadency.admin_add_users.make_user_inactive("Kylian")
 
 
 @then("Select User Status Filter Option (InActive)")

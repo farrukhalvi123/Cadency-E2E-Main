@@ -12,15 +12,6 @@ from Constants.URLS import TestData
 from Pages.Verify_Modules_Permissions import VerifyPermissions
 
 
-@then("Enters Cred {NinjaTurtle} and {Talha123} and login into system")
-def step_impl(context, NinjaTurtle, Talha123):
-    # try:
-    context.cadency.admin_verify_permissions.enter_addusername(NinjaTurtle)
-    context.cadency.admin_verify_permissions.enter_adpassword(Talha123)
-    context.cadency.admin_verify_permissions.click_loginbutton()
-    time.sleep(3)
-    # admin_verify_permission
-
 
 @then("Open Left Panel")
 def step_impl(context):
@@ -47,6 +38,7 @@ def step_impl(context):
 def step_impl(context):
     try:
         context.cadency.admin_verify_permissions.click_on_actlogs()
+
     except Exception as e:
         print("FAIL > Activity Logs Option Not Found")
 

@@ -2,7 +2,7 @@ Feature: I want to Login with new user & verify permissions
 
  Background:
    Then User Navigates to Admin Portal
-   Then Enters Cred NinjaTurtle and Talha123 and login into system
+   Then Enters Credentials NinjaTurtle and Talha123 and login into system
    Then Open Left Panel
 
  Scenario: Verifying Permissions
@@ -26,5 +26,6 @@ Feature: I want to Login with new user & verify permissions
    Then Verify Edit option In Merchants
 
  Scenario: Verifying Activity Logs
+
   # Then Verify Data Of Labels
    Then Verify 1st Row Data

@@ -23,7 +23,8 @@ def after_scenario(context, scenario):
 def launch_browser(context,scenario):
     if TestData.BROWSER == 'chrome':
         options = webdriver.ChromeOptions()
-        prefs = {"profile.default_content_setting_values.notifications": 2, 'download.default_directory': os.getcwd() + '\\TestData\\TestExcelsandPDFS\\'}
+        prefs = {"profile.default_content_setting_values.notifications": 2, 'download.default_directory': os.getcwd() + '\\TestData\\TestExcelsandPDFS\\', "credentials_enable_service": False,
+                    "profile.password_manager_enabled": False}
         # options.add_argument("--headless")
         options.add_argument("no-sandbox")
         options.add_argument("--disable-gpu")

@@ -16,7 +16,6 @@ from Constants.URLS import TestData
 class LoginPage():
 
     def __init__(self, driver):
-        # super().__init__(driver)
         self.driver = driver
         self.emailfield = "EmailID"
         self.password = "EmailPassword"

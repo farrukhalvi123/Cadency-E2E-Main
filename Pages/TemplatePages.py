@@ -21,14 +21,16 @@ class TemplatePage():
         self.TEMPLATENAME = "TemplateName"
 
     def click_settingsgear(self):
-        self.driver.find_element(By.XPATH,self.SETTINGCOGS).click()
+        time.sleep(5)
+        self.driver.find_element(By.ID,self.SETTINGCOGS).click()
 
     def select_template(self):
-        self.driver.find_element(By.XPATH,self.TEMPLATETILE).click()
+        temptitle = self.driver.find_element(By.XPATH,self.TEMPLATETILE)
+        self.driver.execute_script("arguments[0].click()",temptitle)
 
     def click_addtemplate(self):
         self.driver.find_element(By.XPATH,self.ADDTEMPLATE).click()
 
     def enter_templatename(self,temp):
-        self.driver.find_element(By.XPATH,self.TEMPLATENAME).send_keys(temp)
+        self.driver.find_element(By.ID,self.TEMPLATENAME).send_keys(temp)
 

@@ -35,7 +35,7 @@ class InvoicePage():
         self.EXCHANGERATE =  "//a[normalize-space()='Modify Rate']"
         self.REFERENCE =  "//input[@placeholder='Enter Reference']"
         self.ITEMSELECTION = "//button[@class='p-element p-ripple p-autocomplete-dropdown ng-tns-c107-56 p-button p-component p-button-icon-only ng-star-inserted']//span[@class='p-button-icon pi pi-chevron-down']"
-        self.DESCRIPTION =  "//input[@placeholder='Description']"
+        self.DESCRIPTION =  "//input[@placeholder='Note']"
         self.QUANTITY =  "//input[@placeholder='Quantity']"
         self.PRICE =  "//input[@placeholder='Price']"
         self.DISCOUNT =  "//input[@placeholder='Disc %']"
@@ -60,7 +60,7 @@ class InvoicePage():
         self.TAXCOMP =  "//span[normalize-space()='Tax Component']"
         self.TAXRATE =  "//p-inputnumber[@placeholder='Tax %']"
         self.AMOUNT =  "//td[@class='td-amount max-width-100']"
-        self.INVAMOUNT = "//*[contains(@class,'overflow-hidden amount-column font-bold ng-star-inserted')]"
+        self.INVAMOUNT = "grid-footer-text"
         self.INVSEARCHFIELD =  "//input[@placeholder='Search']"
         # self.INVOICE_NUMBER = "//a[normalize-space()='"+INV_NUM+"']"
         self.CSVICON =  "//div[@class='pages-section']//li[1]//div[1]"
@@ -186,6 +186,7 @@ class InvoicePage():
         global quantity
         self.randinteger = ''.join(["{}".format(randint(0, 9)) for num in range(0, 2)])
         quantity = int (self.randinteger)
+        self.driver.find_element(By.XPATH, self.QUANTITY).clear()
         self.driver.find_element(By.XPATH,self.QUANTITY).send_keys(quantity)
 
     def enter_price(self):
@@ -194,14 +195,17 @@ class InvoicePage():
             # print("this is the price amount",priceamnt)
             # if priceamnt == 0.00:
             amnt = int (randinteger)
+            self.driver.find_element(By.XPATH, self.PRICE).clear()
             self.driver.find_element(By.XPATH,self.PRICE).send_keys(amnt)
             # else:
             #     print("The amount is prefilled",priceamnt)
 
     def enter_discount(self):
         global disc
-        self.randinteger = ''.join(["{}".format(randint(0, 9)) for num in range(0, 2)])
-        disc = int (self.randinteger)
+        self.randdisc = round(random.uniform(1.00, 99.99), 2)
+        disc = int (self.randdisc)
+        print(disc)
+        self.driver.find_element(By.XPATH, self.DISCOUNT).clear()
         self.driver.find_element(By.XPATH,self.DISCOUNT).send_keys(disc)
 
     def select_tax(self,tcomp,trate):
@@ -233,12 +237,18 @@ class InvoicePage():
         # int (amnt)
         # int (quantity)
         amount = amnt * quantity
+        print (amnt)
+        print(quantity)
+        print(amount)
         discount = (amount) * disc/100
         discounted_amount = amount - discount
+        print(discounted_amount)
         tax1 =  str (select_tax)
         final_tax =  ''.join(x for x in tax1  if x.isdigit())
         ftax = int (final_tax)
+        print(ftax)
         tax_percentage = discounted_amount * ftax/100
+        # print(tax_percentage)
         final_total = tax_percentage + discounted_amount
         global totalamt
         totalamt = final_total
@@ -246,9 +256,8 @@ class InvoicePage():
         time.sleep(10)
 
     def verify_total_amount(self):
-        amount = self.driver.find_elements(By.XPATH,self.INVAMOUNT)
+        amount = self.driver.find_elements(By.CLASS_NAME,self.INVAMOUNT)
         currency = " ".format(float(totalamt))
-        print((amount[1].text))
         print(currency)
         assert currency in self.driver.page_source
 
@@ -269,7 +278,7 @@ class InvoicePage():
             assert "No records found" in self.driver.page_source
             print("No Record found")
     def clickCSVIcon(self):
-        self.driver.find_element(By.XPATH,self.CSVICON)
+        self.driver.find_element(By.XPATH,self.CSVICON).click()
     def Download_Excelfile(self):
         time.sleep(5)
         download_dir = os.getcwd() + '\\TestData\\TestExcelsandPDFS\\'
@@ -286,9 +295,9 @@ class InvoicePage():
                 print(row)
 
     def clickPDFIcon(self):
-        self.driver.find_element(By.XPATH,self.PDFICON)
+        self.driver.find_element(By.XPATH,self.PDFICON).click()
     def verify_pdffile(self):
-        download_dir = r'C:\\Users\\Lenovo\\PycharmProjects\\Cadency-E2E\\TestData\\TestExcelsandPDFS'
+        download_dir = os.getcwd() + '\\TestData\\TestExcelsandPDFS\\'
         time.sleep(5)
         file_path = max([download_dir + '\\' + f for f in os.listdir(download_dir)])
         file_name = os.path.basename(file_path)

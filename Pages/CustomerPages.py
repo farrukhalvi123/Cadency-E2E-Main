@@ -11,8 +11,9 @@ import unittest
 
 
 
-class CustomerPages():
+class CustomerPages(unittest.TestCase):
     def __init__(self, driver):
+        super().__init__()
         self.driver = driver
         self.hamburger_icon = "//div[@class='tree-container ng-star-inserted']"
         self.CUSTOMERANDRECEIVABLETAB = "//p[normalize-space()='Customers & Receivables']"
@@ -51,8 +52,8 @@ class CustomerPages():
         self.CITYKARACHI = "//li[@aria-label='Karachi']"
         self.CUSTOMERNUMBER_VIEW = "//*[@id='pr_id_2-table']/tbody/tr[1]/td[2]/div/span"
         self.CUSTOMER_LIST_EMAIL = "paragraph-text-4.wrap-text-all"
-        self.THREEDOTSBUTTON = "//tbody/tr[1]/td[7]/div[1]/button[1]"
-        self.EDITCUSTOMER = "(//a[normalize-space()='Edit'])[1]"
+        self.THREEDOTSBUTTON = "more-icon"
+        self.EDITCUSTOMER = "//a[normalize-space()='Edit']"
         self.EDITCUSTOMERTEXT = "//span[normalize-space()='Edit Customer']"
         self.CUSTOMERPHONE_VIEW = '/html/body/cadency-root/cadency-features/div/div/div/div/cadency-customers-list/div/div/div[2]/p-table/div/div[2]/table/tbody/tr[1]/td[4]/div/div[1]/span'
         self.CUSTOMEREMAIL_VIEW = '/html/body/cadency-root/cadency-features/div/div/div/div/cadency-customers-list/div/div[2]/p-table/div/div[2]/table/tbody/tr[1]/td[4]/div/div[2]/span'
@@ -69,12 +70,12 @@ class CustomerPages():
         self.no_record_text = "//td[normalize-space()='No records found']"
         self.VIEWCUSTOMER = "//a[normalize-space()='View']"
         self.INVOICETILES = "//ul[@role='tablist']"
-        self.OPENINVOICES = "//span[contains(text(),'Open Invoices')]"
+        self.OPENINVOICES = "//li[@class='p-highlight ng-star-inserted']"
         self.INVOICENUM = "max-width-300.status-column.ng-star-inserted"
         self.CLOSEDINVOICES = "//span[contains(text(),'Closed Invoices')]"
         self.INVOICESLIST = "max-width-300.ng-star-inserted"
         self.STATUSTILE = "status-container status-orange3 ng-star-inserted"
-        self.CUSTOMERGRID = "td-image.grid-column"
+        self.CUSTOMERGRID = "user-profile-box.ng-star-inserted"
         self.REMPICTURE = "//button[@class='p-element p-button-info p-1 lg:p-2 p-button-secondary delete-custom-uploader p-button p-component']"
         self.SEARCHCUSTOMER = "searchText"
         self.INVOICESTATUSFILTER = "//p-dropdown[@placeholder='Select invoice status']"
@@ -84,10 +85,9 @@ class CustomerPages():
         self.CURRENTSTATUSONINVOICE = "//div[@class='status-container status-green']"
 
     def hover_hamburger(self):
-        time.sleep(2)
-        hamburger = self.driver.find_element(By.XPATH,self.hamburger_icon)
+        element = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.XPATH,self.hamburger_icon)))
         actions = ActionChains(self.driver)
-        actions.move_to_element(hamburger).perform()
+        actions.move_to_element(element).perform()
     def Go_to_customerTab(self):
         self.driver.find_element(By.XPATH,self.CUSTOMERANDRECEIVABLETAB).click()
         customertab = self.driver.find_element(By.XPATH,self.CUSTOMERTAB)
@@ -95,7 +95,8 @@ class CustomerPages():
         time.sleep(5)
 
     def customer_number(self):
-        element = WebDriverWait(self.driver,25).until(EC.presence_of_all_elements_located((By.CLASS_NAME,self.CUSTOMERGRID)))
+        time.sleep(5)
+        element = self.driver.find_elements(By.CLASS_NAME,self.CUSTOMERGRID)
         print("This is the number of customers", len(element))
 
 
@@ -123,13 +124,19 @@ class CustomerPages():
             # print(email_address)
 
     def enter_customerDetails(self, cus_dis_name,fname,lname,phno,web,ccemail):
+        self.driver.find_element(By.ID, self.CUSTOMER_DISPLAY_NAME).clear()
         self.driver.find_element(By.ID, self.CUSTOMER_DISPLAY_NAME).send_keys(cus_dis_name)
+        self.driver.find_element(By.ID, self.FIRSTNAME).clear()
         self.driver.find_element(By.ID, self.FIRSTNAME).send_keys(fname)
+        self.driver.find_element(By.ID, self.LASTNAME).clear()
         self.driver.find_element(By.ID, self.LASTNAME).send_keys(lname)
+        self.driver.find_element(By.XPATH, self.PHONE).clear()
         self.driver.find_element(By.XPATH, self.PHONE).send_keys(phno)
         global phonenum
         phonenum = phno
+        self.driver.find_element(By.ID, self.WEBSITE).clear()
         self.driver.find_element(By.ID, self.WEBSITE).send_keys(web)
+        self.driver.find_element(By.ID, self.CCEMAIL).clear()
         self.driver.find_element(By.ID, self.CCEMAIL).send_keys(ccemail)
 
     def select_customer_currency(self):
@@ -163,7 +170,7 @@ class CustomerPages():
 
 
     def enter_address(self, st1, st2, postcode):
-        self.driver.find_element(By.XPATH,self.ADDRESSDETAILS)
+        self.driver.find_element(By.XPATH,self.ADDRESSDETAILS).click()
         self.driver.find_element(By.ID, self.STREETLINE1).send_keys(st1)
         self.driver.find_element(By.ID, self.STREETLINE2).send_keys(st2)
         self.driver.find_element(By.ID, self.POSTALCODE).send_keys(postcode)
@@ -207,13 +214,14 @@ class CustomerPages():
         print(custom_ph.text)
         # print(custom_email)
         print(phonenum)
-        assert phonenum == custom_ph,"Phone number cannot be viewed"
+        self.assertEqual(custom_ph.text, phonenum, "Phone number cannot be viewed")
+        # assert phonenum == custom_ph,"Phone number cannot be viewed"
         # self.assert_equal(emailadd,custom_email,"Email Cannot be viewed")
     def edit_Customer(self):
-        time.sleep(15)
-        self.driver.find_element(By.XPATH,self.THREEDOTSBUTTON)
+        element = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.ID,self.THREEDOTSBUTTON)))
+        element.click()
         time.sleep(3)
-        self.driver.find_element(By.XPATH,self.EDITCUSTOMER)
+        self.driver.find_element(By.XPATH,self.EDITCUSTOMER).click()
         time.sleep(2)
         editcustom = self.driver.find_element(By.XPATH,self.EDITCUSTOMERTEXT)
         return editcustom.text
@@ -224,12 +232,15 @@ class CustomerPages():
         return editcustomlist.text
 
     def select_filter(self):
-        element = self.driver.find_element(By.XPATH,self.FILTERBUTTON)
-        self.driver.execute_script("arguments[0].style.display = 'block';", element)
+        element = WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable((By.XPATH, self.FILTERBUTTON)))
+        element.click()
+        #
+        # self.driver.execute_script("arguments[0].click()", element)
         time.sleep(5)
 
     def select_country(self):
-        self.driver.find_element(By.XPATH,self.SELECTCOUNTRY)
+        self.driver.find_element(By.XPATH,self.SELECTCOUNTRY).click()
+        time.sleep(5)
         global countryname
         # self.driver.find_element"//li[@aria-label='Pakistan']").click()
         countryname = self.driver.find_elements(By.CLASS_NAME,self.SELECTCOUNTRYIES)
@@ -263,15 +274,16 @@ class CustomerPages():
             print("Customer already active")
 
     def click_view(self):
-        self.driver.find_element(By.XPATH,self.THREEDOTSBUTTON)
-        self.driver.find_element(By.XPATH,self.VIEWCUSTOMER)
+        element = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.ID, self.THREEDOTSBUTTON)))
+        element.click()
+        self.driver.find_element(By.XPATH,self.VIEWCUSTOMER).click()
 
     def verify_invoice_tiles(self):
         self.driver.find_element(By.XPATH,self.INVOICETILES)
 
     def verify_openInvoices(self):
         element = self.driver.find_element(By.XPATH,self.OPENINVOICES)
-        self.driver.execute_script("arguments[0].style.display = 'block';", element)
+        self.driver.execute_script("arguments[0].click();", element)
         time.sleep(4)
         try:
 
@@ -281,7 +293,7 @@ class CustomerPages():
             assert "No records found" in self.driver.page_source
 
     def search_customer(self,name):
-        self.driver.find_element(By.XPATH,self.SEARCHCUSTOMER).send_keys(name)
+        self.driver.find_element(By.ID,self.SEARCHCUSTOMER).send_keys(name)
         try:
             customername = self.driver.find_element(By.XPATH,"//a[normalize-space()='"+name+"']")
             print(customername.text)

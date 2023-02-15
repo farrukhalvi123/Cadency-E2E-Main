@@ -65,6 +65,7 @@ class AdminLoginPage():
 
     def enter_adusername(self, un):
         try:
+            time.sleep(2)
             self.driver.find_element(By.ID,self.USERNAME).send_keys(un)
         except Exception as e:
             attach(str("username field is not displayed"), name=str("Not Displayed"),
