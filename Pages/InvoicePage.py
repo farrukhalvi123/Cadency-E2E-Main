@@ -5,7 +5,6 @@ from datetime import date, datetime, timedelta
 import random
 import string
 from PyPDF2 import PdfReader
-from PyPDF2 import PdfFileReader
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait

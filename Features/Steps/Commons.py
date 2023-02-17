@@ -13,10 +13,10 @@ from Pages.CustomerPages import CustomerPages
 from Pages.LoginPage import LoginPage
 from Pages.InvoicePage import InvoicePage
 from Pages.Admin_ForgotPass import AdminForgotPass
-from Pages.Admin_AddNewUser import AdminAddUsers
-from Pages.Manage_Teams import ManageTeams
+from Pages.Admin_ManageUsers import AdminAddUsers
+from Pages.Admin_ManageTeams import ManageTeams
 from Pages.TemplatePages import TemplatePage
-from Pages.Verify_Modules_Permissions import VerifyPermissions
+from Pages.Admin_VerifyModules_Permissions import VerifyPermissions
 
 
 class cadencyweb:
