@@ -9,6 +9,7 @@ import time
 
 from Constants.URLS import TestData
 from Pages.Admin_LoginPage import AdminLoginPage
+from Pages.AdvPaySetPage import AdvancePaymentSetting
 from Pages.CustomerPages import CustomerPages
 from Pages.LoginPage import LoginPage
 from Pages.InvoicePage import InvoicePage
@@ -27,6 +28,7 @@ class cadencyweb:
         self.customadd = CustomerPages(driver)
         self.invoice = InvoicePage(driver)
         self.templates = TemplatePage(driver)
+        self.advpayset=  AdvancePaymentSetting(driver)
         # Admin Portal Pages
         self.admin_man_login = AdminLoginPage(driver)
         self.admin_forgot_pass = AdminForgotPass(driver)
