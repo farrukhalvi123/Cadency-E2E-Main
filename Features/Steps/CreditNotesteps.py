@@ -11,3 +11,8 @@ def  openfilter(context):
 @then("click on three dots and click to apply credit notes")
 def threedots(context):
     context.cadency.creditnote.selectCn()
+
+
+@then("enter values")
+def tofillform(context):
+    context.cadency.creditnote.fillvalue()
