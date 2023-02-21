@@ -16,3 +16,8 @@ def threedots(context):
 @then("enter values")
 def tofillform(context):
     context.cadency.creditnote.fillvalue()
+
+
+@then("get first CN no from text")
+def getCNtext(context):
+    context.cadency.creditnote.CNtext()

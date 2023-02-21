@@ -28,6 +28,7 @@ class Cns():
         self.billing_add_dd = "//*[@id='billingCentreId']"
         self.ba_2 = "//span[normalize-space()='sam']"
         self.save_but = "//button[@type='submit']"
+        self.showcnum= "//div[@class='text-primary-10 font-bold']"
 
     def Opentab(self):
         openfil = self.driver.find_element(By.XPATH, self.open_filter)
@@ -55,4 +56,8 @@ class Cns():
         save=self.driver.find_element(By.XPATH, self.save_but)
         save.click()
         time.sleep(3)
+
+    def CNtext(self):
+        cnclass = self.driver.find_element(By.XPATH,self.showcnum).text()
+        print(cnclass)
 
