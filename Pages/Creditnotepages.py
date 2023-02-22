@@ -11,10 +11,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from allure_commons._allure import attach
 from allure_commons.types import AttachmentType
 from webdriver_manager.core import driver
-from Pages.InvoicePage import *
+from Pages.InvoicePage import InvoicePage
 
 from Constants.URLS import TestData
-INVPAGE = InvoicePage()
+INVPAGE = InvoicePage(driver)
 class Cns():
     def __init__(self, driver):
         self.driver = driver
