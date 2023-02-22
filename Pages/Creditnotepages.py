@@ -11,14 +11,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from allure_commons._allure import attach
 from allure_commons.types import AttachmentType
 from webdriver_manager.core import driver
-from Pages.InvoicePage import InvoicePage
+from Pages.InvoicePage import *
 
 from Constants.URLS import TestData
-
-class Cns(InvoicePage):
+INVPAGE = InvoicePage()
+class Cns():
     def __init__(self, driver):
-        super.__init__(self,driver)
-
         self.driver = driver
 
         self.open_filter = "//a[contains(text(), 'Open')]"
@@ -57,7 +55,7 @@ class Cns(InvoicePage):
 
             if s== '0':
                 print("first create invoice")
-                self.InvoicePage.ClickOnAddButton()
+                return INVPAGE.ClickOnAddButton()
 
 
             elif s != '0':
