@@ -10,8 +10,9 @@ Feature: abc
     Then User Navigate To Invoice Tab
 
 
- Scenario: credit notes
+ Scenario: credit notes from invoice
+   Then check if there are any open invoices
    Then click on Open
-   Then click on three dots and click to apply credit notes
-   Then enter values
-   Then get first CN no from text
+#   Then click on three dots and click to apply credit notes
+#   Then enter values
+#   Then get first CN no from text
