@@ -22,7 +22,7 @@ Feature: As an Admin User I want to Manage a new Customer
     Then Add Address Details <Street1> <street2> <pscode>
     And Click on Save Button
     Then Identify Number of Existing Customers
-#    Then Verify Details have been updated
+    Then Verify Details have been updated
     Examples:
     |custom_disp_name|firsname|lsname|phone|website|ccemail|Street1 | street2| pscode|
     |Farrukh Doe|Farrukh|Alvi|+923404456789|https://www.gmail.com |fja@jaf.com| teststreet123!@#| teststreet2##@| 123456|
