@@ -15,9 +15,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from Constants.URLS import TestData
 
 
-# from Elements.Verify_Modules_Permissions import VerifyPermissionsElements
-
-
 class VerifyPermissions():
 
     def __init__(self, driver):
@@ -70,9 +67,8 @@ class VerifyPermissions():
         self.IP = "font-semibold lg:hidden"
         self.LOGINSUER = "loggedby-text"
 
-    def open_left_panel(self):
-        element = WebDriverWait(self.driver, 20).until(
-            EC.visibility_of_element_located((By.XPATH, self.LEFTSIDENAVMENU)))
+    def  open_left_panel(self):
+        element = WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.XPATH, self.LEFTSIDENAVMENU)))
         actions = ActionChains(self.driver)
         actions.move_to_element(element).perform()
         time.sleep(1)
@@ -85,7 +81,8 @@ class VerifyPermissions():
             print("PASS > Dashboard Option Found")
 
     def click_on_onboardmerchants(self):
-        element = WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.XPATH, self.DASHBOARD)))
+        element = WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.XPATH, self.ONBOARDMERCHANT)))
+        time.sleep(2)
         self.driver.execute_script("arguments[0].click()", element)
         dbtext = self.driver.find_element(By.XPATH, self.ONBOARDMERCHANT)
         if dbtext.text == "Onboard Merchants":

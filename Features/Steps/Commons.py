@@ -17,6 +17,7 @@ from Pages.Admin_ManageUsers import AdminAddUsers
 from Pages.Admin_ManageTeams import ManageTeams
 from Pages.TemplatePages import TemplatePage
 from Pages.Admin_VerifyModules_Permissions import VerifyPermissions
+from Pages.Admin_OnboardMerchant import OnboardingMerchant
 
 
 class cadencyweb:
@@ -33,3 +34,4 @@ class cadencyweb:
         self.admin_add_users = AdminAddUsers(driver)
         self.admin_manage_teams = ManageTeams(driver)
         self.admin_verify_permissions = VerifyPermissions(driver)
+        self.admin_onboarding_merchant = OnboardingMerchant(driver)
