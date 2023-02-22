@@ -14,4 +14,6 @@ Feature: abc
    Then click on Open
    Then click on three dots and click to apply credit notes
    Then enter values
-   Then get first CN no from text
+   Then Open Right Side Panel
+   Then take to CN page
+#   Then get first CN no from text
