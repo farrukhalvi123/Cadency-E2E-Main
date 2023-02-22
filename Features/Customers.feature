@@ -59,7 +59,7 @@ Feature: As an Admin User I want to Manage a new Customer
     Then Verify Closed Invoices
     Then Verify Invoices with Payments received
     Then Verify Credit Notes
-#    Then Verify Tasks
+    Then Verify Number of Tasks
 
 
 
