@@ -3,19 +3,21 @@ import os
 import time
 from random import randint
 from selenium.webdriver.common.by import By
+from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-# from Elements.LoginElements import loginelements
 from allure_commons._allure import attach
 from allure_commons.types import AttachmentType
-from webdriver_manager.core import driver
+
+# from webdriver_manager.core import driver
 from Pages.InvoicePage import InvoicePage
 
 from Constants.URLS import TestData
-INVPAGE = InvoicePage(driver)
+# INVPAGE = InvoicePage(driver)
 class Cns():
+
     def __init__(self, driver):
         self.driver = driver
 
@@ -39,27 +41,23 @@ class Cns():
         openfil.click()
         time.sleep(3)
 
-
     def checkopeninv(self):
-        # try:
-            self.Opentab()
-            # count= self.driver.find_element(By.XPATH,self.open_count)
-            count= self.driver.find_elements(By.CLASS_NAME, self.opennumber)
-            sisi=count[2].text
-            print(sisi)
-            s= count[2].text
-            print(s)
-            hi=type(int(s))
-            print(hi)
-            # digi= s.isdigit()
+        self.INVPAGE = InvoicePage(self.driver)
+        self.Opentab()
+        count = self.driver.find_elements(By.CLASS_NAME, self.opennumber)
+        sisi = count[2].text
+        print(sisi)
+        s = count[2].text
+        print(s)
+        hi = type(int(s))
+        print(hi)
 
-            if s== '0':
-                print("first create invoice")
-                return INVPAGE.ClickOnAddButton()
+        if s == '0':
+            print("first create invoice")
+            return self.INVPAGE.ClickOnAddButton()
 
-
-            elif s != '0':
-                print("no action is need")
+        elif s != '0':
+            print("no action is need")
 
 
 

@@ -5,7 +5,8 @@ from datetime import date, datetime, timedelta
 import random
 import string
 from PyPDF2 import PdfReader
-
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -78,7 +79,7 @@ class InvoicePage():
 
     def ClickOnAddButton(self):
         element = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.XPATH,self.ADDINVOICEBTN)))
-        ADDINVBTN = self.driver.find_element(By.XPATH,self.ADDINVOICEBTN)
+        # self.driver.find_element(By.XPATH,self.ADDINVOICEBTN).click()
         self.driver.execute_script("arguments[0].click()",element)
     def open_customer_selection_dd(self):
         time.sleep(2)
