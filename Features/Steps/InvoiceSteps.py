@@ -7,6 +7,7 @@ from behave import *
 @then("User Navigate To Invoice Tab")
 def step_impl(context):
     context.cadency.invoice.ClickOnInvoiceTab()
+    time.sleep(5)
 
 
 @then("User Clicks On Add Invoice Button")
@@ -149,3 +150,71 @@ def step_impl(context):
 @then("Verify Downloaded CSV")
 def step_impl(context):
     context.cadency.invoice.Download_Excelfile()
+
+
+@then("Go to Disputed Tab and verify disputed invoices")
+def step_impl(context):
+    context.cadency.invoice.Disputedtab()
+    context.cadency.invoice.disputed_invoices()
+
+@then("Verify Number of Invoices")
+def step_impl(context):
+    context.cadency.invoice.verify_numberof_invoices()
+
+@then("Go to All Tab")
+def step_impl(context):
+    context.cadency.invoice.ALLtab()
+
+
+@then("Go to Open Tab")
+def step_impl(context):
+    context.cadency.invoice.OpentabINV()
+
+@then("verify All Open Invoices")
+def step_impl(context):
+    context.cadency.invoice.open_invoices()
+
+
+@then("Go to Paid Tab")
+def step_impl(context):
+    context.cadency.invoice.PaidtabINV()
+
+
+@then("verify All Paid Invoices")
+def step_impl(context):
+    context.cadency.invoice.paid_invoices()
+
+
+@then("Go to Partially Paid Invoices")
+def step_impl(context):
+    context.cadency.invoice.PartiallyPaidtabINV()
+
+
+@then("Verify Partially Paid Invoices")
+def step_impl(context):
+    context.cadency.invoice.partially_paid_invoices()
+
+
+@then("Go to Waiting for Funds Invoices")
+def step_impl(context):
+    context.cadency.invoice.WaitingfofundsTab()
+
+
+@then("Verify Waiting for Funds Invoice")
+def step_impl(context):
+    context.cadency.invoice.waitingforfunds_invoices()
+
+
+@then("Click on More Options on an invoice")
+def step_impl(context):
+    context.cadency.invoice.click_moreoptions()
+
+
+@then("Duplicate an Invoice")
+def step_impl(context):
+   context.cadency.invoice.duplicate_invoice()
+
+
+@then("Delete the Invoice")
+def step_impl(context):
+    context.cadency.invoice.delete_invoice()

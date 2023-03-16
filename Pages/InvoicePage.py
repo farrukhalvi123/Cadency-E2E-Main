@@ -32,7 +32,7 @@ class InvoicePage():
         self.CUSTNAMEDD_VALUE =  "(//li[@role='option'])[2]"
         self.CUSTNAMEDD_VALUE1 =  "//span[normalize-space()='+ Add New Customer']"
         self.CURRENCYDD =  "currency"
-        self.CAD = "p-ripple.p-element.p-dropdown-item"
+        self.CURRENCY = "p-ripple.p-element.p-dropdown-item"
         self.EXCHANGERATE =  "//a[normalize-space()='Modify Rate']"
         self.REFERENCE =  "//input[@placeholder='Enter Reference']"
         self.ITEMSELECTION = "//button[@class='p-element p-ripple p-autocomplete-dropdown ng-tns-c107-56 p-button p-component p-button-icon-only ng-star-inserted']//span[@class='p-button-icon pi pi-chevron-down']"
@@ -69,13 +69,30 @@ class InvoicePage():
         self.ACTIONBUTTON = "//*[contains(@class,'btn-container btn-center ng-star-inserted')]"
         self.STATUS = "//*[contains(@class,'overflow-hidden status-column ng-star-inserted')]"
         self.DOWNLOADINVOICE =  "//a[normalize-space()='Download Invoice']"
+        self.CONFIRMATIONBTN = "//button[@type='submit']"
+        self.NEXTBTN = "//span[@class='p-paginator-icon pi pi-angle-right']"
+        self.PAGING = "//div[@aria-label='dropdown trigger']"
+        self.FIFTYITEMS = "//span[normalize-space()='50']"
+        self.ALLTILE = "//li[@class='p-highlight ng-star-inserted']"
+        self.DISPUTEDTILE = "//div[@class='detailscreen-tabview left-aligned']//li[2]"
+        self.OPENTILE = "p-ripple.p-element.p-tabview-nav-link"
+        self.DISPUTETAG = "(//span[normalize-space()='Disputed'])"
+        self.OPENSTATUS = "status-container.status-blue.ng-star-inserted"
+        self.PAIDSTATUS = "status-container.status-green.ng-star-inserted"
+        self.PARTIALLYPAIDSTATUS = "status-container.status-orange.ng-star-inserted"
+        self.WAITINGFORFUNDSTAB = "status-container.status-orange3.ng-star-inserted"
+        self.DUPLICATE = "//a[normalize-space()='Duplicate']"
+        self.INVOICEANDCUSTOMER = "p-element.title-heading-1.text-primary-3"
+        self.AMOUNT_BALANCE = "max-width-300.amount-column.font-bold.ng-star-inserted"
+        self.DELETE = "//a[normalize-space()='Delete']"
+        self.DELETEMSG = "//div[@aria-label='Invoice deleted successfully.']"
 
     def ClickOnInvoiceTab(self):
-            CART = self.driver.find_element(By.XPATH,self.CUSTOMERANDRECEIVABLETAB)
-            self.driver.execute_script("arguments[0].click()",CART)
-            INVT= self.driver.find_element(By.XPATH,self.INVOICETAB)
-            self.driver.execute_script("arguments[0].click()", INVT)
-            time.sleep(20)
+        CART = self.driver.find_element(By.XPATH,self.CUSTOMERANDRECEIVABLETAB)
+        self.driver.execute_script("arguments[0].click()",CART)
+        INVT= self.driver.find_element(By.XPATH,self.INVOICETAB)
+        self.driver.execute_script("arguments[0].click()", INVT)
+        time.sleep(20)
 
     def ClickOnAddButton(self):
         element = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.XPATH,self.ADDINVOICEBTN)))
@@ -88,6 +105,9 @@ class InvoicePage():
     def select_customer(self):
         time.sleep(2)
         self.driver.find_element(By.XPATH,self.CUSTNAMEDD_VALUE).click()
+        global custname
+        custname = self.driver.find_element(By.XPATH,self.CUSTNAMEDD_VALUE)
+        print(custname.text)
 
     def add_new_customer(self):
         self.driver.find_element(By.XPATH,self.CUSTNAMEDD_VALUE1)
@@ -107,15 +127,15 @@ class InvoicePage():
 
 
 
-            # if cust == self.driver.find_elementsself.CUSTNAMEDD_VALUE):
-            #      cust[1].click()
-            #      break
+        # if cust == self.driver.find_elementsself.CUSTNAMEDD_VALUE):
+        #      cust[1].click()
+        #      break
 
 
     def select_Currency(self):
         self.driver.find_element(By.ID,self.CURRENCYDD)
         time.sleep(5)
-        currencies = self.driver.find_elements(By.CLASS_NAME,self.CAD)
+        currencies = self.driver.find_elements(By.CLASS_NAME,self.CURRENCY)
         # randomcurrency = random.choice(currencies)
         # randomcurrency.click()
         try:
@@ -138,10 +158,6 @@ class InvoicePage():
         current_time = date.today().strftime('%m/%d/%Y')
         datefield = self.driver.find_element(By.XPATH,self.INVDATE)
         datefield.send_keys(Keys.CONTROL + 'a' + Keys.NULL, current_time,Keys.ENTER)
-        # self.input_element(self.INVDATE,Keys.CONTROL + 'A')
-        # self.input_element(self.INVDATE, Keys.DELETE)
-        # self.input_element(self.INVDATE, current_time)
-        # self.input_element(self.INVDATE,Keys.ENTER)
         time.sleep(5)
 
     def invoice_duedate(self):
@@ -153,7 +169,7 @@ class InvoicePage():
         datefield.send_keys(Keys.CONTROL + 'a' + Keys.NULL, dudate, Keys.ENTER)
         time.sleep(2)
     def add_an_item(self):
-        items = self.driver.find_elements(By.XPATH,self.ADDINVITEMS)
+        items = self.driver.find_elements(By.XPATH,self.ADDINVITEMS).click()
         self.driver.find_element(By.ID,self.ADDITEMNAME).send_keys(WORDS)
         n = 5
         self.driver.find_element(By.ID, self.ADDITEMCODE).send_keys(randinteger)
@@ -191,15 +207,15 @@ class InvoicePage():
         self.driver.find_element(By.XPATH,self.QUANTITY).send_keys(quantity)
 
     def enter_price(self):
-            global amnt
-            # # priceamnt = self.get_element_text(self.PRICE)
-            # print("this is the price amount",priceamnt)
-            # if priceamnt == 0.00:
-            amnt = int (randinteger)
-            self.driver.find_element(By.XPATH, self.PRICE).clear()
-            self.driver.find_element(By.XPATH,self.PRICE).send_keys(amnt)
-            # else:
-            #     print("The amount is prefilled",priceamnt)
+        global amnt
+        # # priceamnt = self.get_element_text(self.PRICE)
+        # print("this is the price amount",priceamnt)
+        # if priceamnt == 0.00:
+        amnt = int (randinteger)
+        self.driver.find_element(By.XPATH, self.PRICE).clear()
+        self.driver.find_element(By.XPATH,self.PRICE).send_keys(amnt)
+        # else:
+        #     print("The amount is prefilled",priceamnt)
 
     def enter_discount(self):
         global disc
@@ -312,44 +328,153 @@ class InvoicePage():
 
 
     def download_oneinvoice(self):
-       # try:
-           time.sleep(4)
-           actionbtns =  self.driver.find_elements(By.XPATH,self.ACTIONBUTTON)
-           for act in actionbtns:
-               status = self.driver.find_elements(By.XPATH,self.STATUS)
-               for stat in status:
-                   if stat.text == 'Open':
-                       print(stat.text)
-                       act.click()
-                       self.driver.find_element(By.XPATH,self.DOWNLOADINVOICE)
-                       time.sleep(5)
-                       self.verify_pdffile()
-                   # elif stat.text == 'Waiting For Funds':
-                   #     print(stat.text)
-                   #     act.click()
-                   #     self.driver.find_element(By.XPATH,self.DOWNLOADINVOICE)
-                   #     time.sleep(5)
-                   #     self.verify_pdffile()
-                   # elif stat.text == 'Paid':
-                   #     print(stat.text)
-                   #     act.click()
-                   #     self.driver.find_element(By.XPATH,self.DOWNLOADINVOICE)
-                   #     time.sleep(5)
-                   #     self.verify_pdffile()
-                   #
-                   # else:
-                   #     assert "No Record Found" in self.driver.page_source
-
-                       break
-               break
+        time.sleep(4)
+        actionbtns =  self.driver.find_elements(By.XPATH,self.ACTIONBUTTON)
+        for act in actionbtns:
+            status = self.driver.find_elements(By.XPATH,self.STATUS)
+            for stat in status:
+                if stat.text == 'Open':
+                    print(stat.text)
+                    act.click()
+                    self.driver.find_element(By.XPATH,self.DOWNLOADINVOICE)
+                    time.sleep(5)
+                    self.verify_pdffile()
+                    break
+            break
 
 
-           time.sleep(5)
+        time.sleep(5)
 
-       # except Exception as e:
-       #     print(e)
+    def ALLtab(self):
+        try:
+            self.driver.find_element(By.XPATH,self.ALLTILE).click()
+            time.sleep(3)
+        except exceptions.StaleElementReferenceException as e:
+            print(e)
+        # self.driver.execute_script("arguments[0].click()", element)
+
+    def Disputedtab(self):
+        try:
+            self.driver.find_element(By.XPATH,self.DISPUTEDTILE).click()
+            time.sleep(3)
+        except exceptions.StaleElementReferenceException as e:
+            print(e)
+        # self.driver.execute_script("arguments[0].click()", element)
+
+    def OpentabINV(self):
+        try:
+            opentab = self.driver.find_elements(By.CLASS_NAME,self.OPENTILE)
+            opentab[3].click()
+            time.sleep(3)
+        except exceptions.StaleElementReferenceException as e:
+            print(e)
+
+    time.sleep(10)
+        # self.driver.execute_script("arguments[0].click()", element)
+
+    def verify_numberof_invoices(self):
+        # try:
+        paging = self.driver.find_element(By.XPATH, self.PAGING)
+        self.driver.execute_script("arguments[0].click()", paging)
+        self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
+        time.sleep(2)
+        num_invoices = self.driver.find_elements(By.XPATH,self.ACTIONBUTTON)
+        global num_total
+        num_total = len(num_invoices)
+        if num_total == 50:
+                self.driver.find_element(By.XPATH, self.NEXTBTN).click()
+                print("Total number of invoices:", num_total)
+        elif num_total <= 50:
+            print("Total number of invoices:", num_total)
+
+    def disputed_invoices(self):
+        self.verify_numberof_invoices()
+        disputetag = self.driver.find_elements(By.XPATH,self.DISPUTETAG)
+        print("this is the number of dispute invoices",len(disputetag))
+        assert num_total == len(disputetag) ,"Dispute tags and invoices are not equal"
 
 
+    def open_invoices(self):
+        self.verify_numberof_invoices()
+        Invoiceopen  = self.driver.find_elements(By.CLASS_NAME,self.OPENSTATUS)
+        print("this is the number of open invoices",len(Invoiceopen))
+        assert len(Invoiceopen ) == num_total, "Open invoices donot match"
+
+
+    def PaidtabINV(self):
+        try:
+            opentab = self.driver.find_elements(By.CLASS_NAME,self.OPENTILE)
+            opentab[4].click()
+            time.sleep(3)
+        except exceptions.StaleElementReferenceException as e:
+            print(e)
+
+    def paid_invoices(self):
+        self.verify_numberof_invoices()
+        paid_invoice = self.driver.find_elements(By.CLASS_NAME,self.PAIDSTATUS)
+        print("this is the number of open invoices",len(paid_invoice))
+        assert len(paid_invoice) == num_total, "Paid invoices donot match"
+
+    def PartiallyPaidtabINV(self):
+        try:
+            opentab = self.driver.find_elements(By.CLASS_NAME, self.OPENTILE)
+            opentab[5].click()
+            time.sleep(3)
+        except exceptions.StaleElementReferenceException as e:
+            print(e)
+
+    def partially_paid_invoices(self):
+        self.verify_numberof_invoices()
+        partiallypaid_invoice = self.driver.find_elements(By.CLASS_NAME,self.PARTIALLYPAIDSTATUS)
+        print("this is the number of open invoices",len(partiallypaid_invoice))
+        assert len(partiallypaid_invoice) == num_total, "Partially Paid invoices donot match"
+
+
+    def WaitingfofundsTab(self):
+        try:
+            opentab = self.driver.find_elements(By.CLASS_NAME, self.OPENTILE)
+            opentab[6].click()
+            time.sleep(3)
+        except exceptions.StaleElementReferenceException as e:
+            print(e)
+
+    def waitingforfunds_invoices(self):
+        self.verify_numberof_invoices()
+        waitingforfunds_invoice = self.driver.find_elements(By.CLASS_NAME,self.WAITINGFORFUNDSTAB)
+        print("this is the number of open invoices",len(waitingforfunds_invoice))
+        assert len(waitingforfunds_invoice) == num_total, "Partially Paid invoices donot match"
+    def INV_DETAILS(self):
+        global INVNUMBER, AMOUNTBALANCE
+
+    def click_moreoptions(self):
+        self.INV_DETAILS()
+        moreoption = self.driver.find_elements(By.XPATH,self.ACTIONBUTTON)
+        moreoption[1].click()
+
+    def duplicate_invoice(self):
+        INVNUMBER = self.driver.find_elements(By.CLASS_NAME, self.INVOICEANDCUSTOMER)
+        print(INVNUMBER[0].text)
+        AMOUNTBALANCE = self.driver.find_elements(By.CLASS_NAME, self.AMOUNT_BALANCE)
+        print(AMOUNTBALANCE[0].text)
+        self.click_moreoptions()
+        dup = self.driver.find_element(By.XPATH,self.DUPLICATE)
+        self.driver.execute_script("arguments[0].click()",dup)
+        time.sleep(1)
+        price = self.driver.find_element(By.XPATH, self.PRICE)
+        print(price.text)
+        self.Save_invoice()
+        AMOUNTBALANCE = self.driver.find_elements(By.CLASS_NAME, self.AMOUNT_BALANCE)
+        assert AMOUNTBALANCE[0].text == AMOUNTBALANCE[2].text, "Invoice is not duplicate"
+        Invoiceopen = self.driver.find_elements(By.CLASS_NAME,self.OPENSTATUS)
+        assert Invoiceopen[0].text == "Open"
+
+    def delete_invoice(self):
+        self.driver.find_element(By.XPATH,self.DELETE).click()
+        self.driver.find_element(By.XPATH,self.CONFIRMATIONBTN).click()
+        time.sleep(1
+                   )
+        deletemsg = self.driver.find_element(By.XPATH,self.DELETEMSG)
+        assert deletemsg.text == "Invoice deleted successfully.", "Pop up did not appear"
 
 
 

@@ -4,7 +4,7 @@ Feature: As an Admin User I want to Manage a new Customer
 
   Background: Login
     Then User Navigates to Merchant Portal
-    Then User Enters clarkkent and Cadency123!
+    Then User Enters clarkkent and Cadency@123
     Then User Clicks on Login Button
     Then Open Right Side Panel
     Then Go to Customer Tab

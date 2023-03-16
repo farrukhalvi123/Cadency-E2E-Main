@@ -3,7 +3,7 @@ Feature: As a admin i want to add a new invoice
 
   Background: Login & Redirect To Invoice Page
     Then User Navigates to Merchant Portal
-    Then User Enters clarkkent and Cadency123!
+    Then User Enters clarkkent and Cadency@123
     Then User Clicks on Login Button
     Then Open Right Side Panel
     Then User Navigate To Invoice Tab
@@ -19,6 +19,7 @@ Feature: As a admin i want to add a new invoice
     Then Select InvoiceDate
     Then Select DueDate
     Then Select an Item
+    And Adding Item Price
     Then click on Invoice Save Button
 #    Then Verify Invoice has been Created
 
@@ -56,5 +57,35 @@ Feature: As a admin i want to add a new invoice
   Scenario: Download one invoice
     Then Select Action Button
 
+  Scenario: Verify Disputed Invoices
+    Then Go to Disputed Tab and verify disputed invoices
 
+  Scenario: Verify All Invoices
+    Then Go to All Tab
+    Then Verify Number of Invoices
+
+  Scenario: Verify Open Invoices in Open Tab
+    Then Go to Open Tab
+    Then verify All Open Invoices
+
+  Scenario: Verify Paid Invoices in Paid Tab
+    Then Go to Paid Tab
+    Then verify All Paid Invoices
+
+  Scenario: Verify Partially Paid Invoices
+    Then Go to Partially Paid Invoices
+    Then Verify Partially Paid Invoices
+
+  Scenario: Verify Waiting for Fund Invoices
+    Then Go to Waiting for Funds Invoices
+    Then Verify Waiting for Funds Invoice
+
+  Scenario: Merchant duplicates an invoice
+    Then Duplicate an Invoice
+
+  Scenario: Delete an Invoice
+    Then Click on More Options on an invoice
+    Then Delete the Invoice
+
+  Scenario:
 
