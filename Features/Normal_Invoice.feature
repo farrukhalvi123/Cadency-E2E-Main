@@ -7,6 +7,7 @@ Feature: As a admin i want to add a new invoice
     Then User Clicks on Login Button
     Then Open Right Side Panel
     Then User Navigate To Invoice Tab
+    Then Close Left Side Menu
 
   Scenario: Add Normal Invoice
 
@@ -87,5 +88,8 @@ Feature: As a admin i want to add a new invoice
     Then Click on More Options on an invoice
     Then Delete the Invoice
 
-  Scenario:
+  Scenario: View and Verify Invoice Details
+    Then Click on More Options on an invoice
+    Then Click on View
+    Then Verify Invoice Details
 

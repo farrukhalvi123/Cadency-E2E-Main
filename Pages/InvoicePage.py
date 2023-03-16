@@ -15,6 +15,7 @@ from Constants.URLS import TestData
 # from Elements.InvoiceElements import invoiceelements
 # from Elements.Customer_elements import customerelements
 from selenium.common import exceptions
+from selenium.webdriver import ActionChains
 import csv
 import PyPDF2
 
@@ -25,6 +26,7 @@ class InvoicePage():
     def __init__(self, driver):
         self.driver = driver
         # self.invnum = "//a[normalize-space()='" + INV_NUM + "']"
+        self.LOGO = "//div[@class='header-container']//img[@alt='Logo image']"
         self.CUSTOMERANDRECEIVABLETAB = "//p[normalize-space()='Customers & Receivables']"
         self.INVOICETAB =  "//p[normalize-space()='Invoices']"
         self.ADDINVOICEBTN = "//button[@class='p-element p-button-primary button-with-icon btn-150 p-button p-component']"
@@ -86,13 +88,23 @@ class InvoicePage():
         self.AMOUNT_BALANCE = "max-width-300.amount-column.font-bold.ng-star-inserted"
         self.DELETE = "//a[normalize-space()='Delete']"
         self.DELETEMSG = "//div[@aria-label='Invoice deleted successfully.']"
+        self.VIEW = "//a[normalize-space()='View']"
+        self.INVAMOUNT = "//div[@class='amount']"
+        self.INVNUMBER = "//div[@class='invoice-title']"
 
     def ClickOnInvoiceTab(self):
         CART = self.driver.find_element(By.XPATH,self.CUSTOMERANDRECEIVABLETAB)
         self.driver.execute_script("arguments[0].click()",CART)
         INVT= self.driver.find_element(By.XPATH,self.INVOICETAB)
         self.driver.execute_script("arguments[0].click()", INVT)
-        time.sleep(20)
+        time.sleep(5)
+    def close_leftsidemenu(self):
+        self.logo = self.driver.find_element(By.XPATH,self.LOGO)
+        action = ActionChains(self.driver)
+        action.move_to_element(self.logo).perform()
+
+
+
 
     def ClickOnAddButton(self):
         element = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.XPATH,self.ADDINVOICEBTN)))
@@ -443,13 +455,11 @@ class InvoicePage():
         waitingforfunds_invoice = self.driver.find_elements(By.CLASS_NAME,self.WAITINGFORFUNDSTAB)
         print("this is the number of open invoices",len(waitingforfunds_invoice))
         assert len(waitingforfunds_invoice) == num_total, "Partially Paid invoices donot match"
-    def INV_DETAILS(self):
-        global INVNUMBER, AMOUNTBALANCE
+
 
     def click_moreoptions(self):
-        self.INV_DETAILS()
         moreoption = self.driver.find_elements(By.XPATH,self.ACTIONBUTTON)
-        moreoption[1].click()
+        moreoption[0].click()
 
     def duplicate_invoice(self):
         INVNUMBER = self.driver.find_elements(By.CLASS_NAME, self.INVOICEANDCUSTOMER)
@@ -476,9 +486,24 @@ class InvoicePage():
         deletemsg = self.driver.find_element(By.XPATH,self.DELETEMSG)
         assert deletemsg.text == "Invoice deleted successfully.", "Pop up did not appear"
 
+    def view_invoice(self):
+        INVNUMBER = self.driver.find_elements(By.CLASS_NAME, self.INVOICEANDCUSTOMER)
+        print(INVNUMBER[0].text)
+        self.INVM = INVNUMBER[0].text
+        AMOUNTBALANCE = self.driver.find_elements(By.CLASS_NAME, self.AMOUNT_BALANCE)
+        print(AMOUNTBALANCE[0].text)
+        self.AMNTBAL = AMOUNTBALANCE[0].text
+        self.driver.find_element(By.XPATH,self.VIEW).click()
+        time.sleep(3)
 
 
-
+    def verify_invoice_Details(self):
+        amount = self.driver.find_element(By.XPATH,self.INVAMOUNT)
+        invnumber = self.driver.find_element(By.XPATH,self.INVNUMBER)
+        print(amount.text)
+        print(invnumber.text)
+        assert self.AMNTBAL == amount.text,"Amount is not equal or invoice listings and details are not the same"
+        assert self.INVM == invnumber.text,"Invoice number does not match or invoice listings and details are not the same"
 
 
 

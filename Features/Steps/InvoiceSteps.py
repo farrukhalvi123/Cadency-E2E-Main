@@ -7,7 +7,6 @@ from behave import *
 @then("User Navigate To Invoice Tab")
 def step_impl(context):
     context.cadency.invoice.ClickOnInvoiceTab()
-    time.sleep(5)
 
 
 @then("User Clicks On Add Invoice Button")
@@ -218,3 +217,18 @@ def step_impl(context):
 @then("Delete the Invoice")
 def step_impl(context):
     context.cadency.invoice.delete_invoice()
+
+
+@then("Click on View")
+def step_impl(context):
+    context.cadency.invoice.view_invoice()
+
+
+@then("Verify Invoice Details")
+def step_impl(context):
+    context.cadency.invoice.verify_invoice_Details()
+
+
+@then("Close Left Side Menu")
+def step_impl(context):
+    context.cadency.invoice.close_leftsidemenu()
