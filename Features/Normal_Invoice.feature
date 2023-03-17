@@ -93,3 +93,15 @@ Feature: As a admin i want to add a new invoice
     Then Click on View
     Then Verify Invoice Details
 
+  Scenario: Edit Invoice from Detail Page
+    Then Click on More Options on an invoice
+    Then Click on View
+    Then Click on Edit Invoice
+    Then Edit Invoice from Detail Page
+
+  Scenario: Check Sending Email of Invoice
+    Then Click on More Options on an invoice
+    Then Click on View
+    Then Verify Email Sending Details
+#    Then Send Email
+

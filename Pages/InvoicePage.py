@@ -5,6 +5,7 @@ from datetime import date, datetime, timedelta
 import random
 import string
 from PyPDF2 import PdfReader
+from bs4 import BeautifulSoup
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver import Keys
@@ -31,7 +32,7 @@ class InvoicePage():
         self.INVOICETAB =  "//p[normalize-space()='Invoices']"
         self.ADDINVOICEBTN = "//button[@class='p-element p-button-primary button-with-icon btn-150 p-button p-component']"
         self.CUSTNAMEDD =  "(//span[@class='p-button-icon pi pi-chevron-down'])[1]"
-        self.CUSTNAMEDD_VALUE =  "(//li[@role='option'])[2]"
+        self.CUSTNAMEDD_VALUE =  "(//li[@role='option'])[3]"
         self.CUSTNAMEDD_VALUE1 =  "//span[normalize-space()='+ Add New Customer']"
         self.CURRENCYDD =  "currency"
         self.CURRENCY = "p-ripple.p-element.p-dropdown-item"
@@ -91,17 +92,23 @@ class InvoicePage():
         self.VIEW = "//a[normalize-space()='View']"
         self.INVAMOUNT = "//div[@class='amount']"
         self.INVNUMBER = "//div[@class='invoice-title']"
-
+        self.INVOICEEDIT = "//button[@class='p-element p-icon-button overlay-primary-6 p-button p-component ng-star-inserted']"
+        self.EMAILSEND = "//button[@class='p-element p-icon-button overlay-primary-13 p-button p-component ng-star-inserted']"
+        self.EMAILADDRESS = "//a[normalize-space()='selinakyle@yopmail.com']"
+        self.EMAILSENDTOLABEL = "//span[@class='label-text']"
+        self.DOWNLOADINVOICEBTN = "//div[@class='btn-container btn-170 icon-button btn-end download-icon cursor-pointer mr-2 cursor-pointer']"
     def ClickOnInvoiceTab(self):
         CART = self.driver.find_element(By.XPATH,self.CUSTOMERANDRECEIVABLETAB)
         self.driver.execute_script("arguments[0].click()",CART)
         INVT= self.driver.find_element(By.XPATH,self.INVOICETAB)
         self.driver.execute_script("arguments[0].click()", INVT)
-        time.sleep(5)
+        time.sleep(10)
     def close_leftsidemenu(self):
-        self.logo = self.driver.find_element(By.XPATH,self.LOGO)
+        self.logo = WebDriverWait(self.driver,15).until(EC.presence_of_element_located((By.XPATH,self.LOGO)))
+        # self.logo = self.driver.find_element(By.XPATH,self.LOGO)
         action = ActionChains(self.driver)
         action.move_to_element(self.logo).perform()
+        time.sleep(4)
 
 
 
@@ -192,7 +199,7 @@ class InvoicePage():
 
     def Add_inv_items(self):
         taxdd = self.driver.find_elements(By.XPATH,self.TAXDD)
-        taxdd[1].click()
+        taxdd[0].click()
         time.sleep(2)
         try:
             items = self.driver.find_elements(By.XPATH,self.ADDINVITEMS)
@@ -239,7 +246,8 @@ class InvoicePage():
 
     def select_tax(self,tcomp,trate):
         taxdd = self.driver.find_elements(By.XPATH,self.TAXDD)
-        taxdd[2].click()
+        print("this is tax drop down",taxdd)
+        taxdd[1].click()
         time.sleep(5)
         try:
             taxes = self.driver.find_elements(By.XPATH,self.TAXSELECT)
@@ -315,8 +323,6 @@ class InvoicePage():
         file_path = max([download_dir + '/' + f for f in os.listdir(download_dir)], key=os.path.getctime)
         file_name = os.path.basename(file_path)
         print(file_name)
-        time.sleep(4)
-        time.sleep(5)
         with open(download_dir + file_name, "r") as f:
             reader = csv.reader(f)
             print(reader)
@@ -326,17 +332,17 @@ class InvoicePage():
     def clickPDFIcon(self):
         self.driver.find_element(By.XPATH,self.PDFICON).click()
     def verify_pdffile(self):
-        download_dir = os.getcwd() + '\\TestData\\TestExcelsandPDFS\\'
+        self.download_dir = os.getcwd() + '\\TestData\\TestExcelsandPDFS\\'
         time.sleep(5)
-        file_path = max([download_dir + '\\' + f for f in os.listdir(download_dir)])
-        file_name = os.path.basename(file_path)
-        print(file_name)
-        pdf_file = open(download_dir + '\\' + file_name, 'rb')
-        reader = PdfReader(pdf_file)
-        number_of_pages = len(reader.pages)
-        page = reader.pages[0]
-        text = page.extract_text()
-        print(text.encode('utf-8'))
+        self.file_path = max([self.download_dir + '\\' + f for f in os.listdir(self.download_dir)])
+        self.file_name = os.path.basename(self.file_path)
+        print(self.file_name)
+        self.pdf_file = open(self.download_dir + '\\' + self.file_name, 'rb')
+        self.reader = PdfReader(self.pdf_file)
+        self.pdf_text = ''
+        for page in range(len(self.reader.pages)):
+            self.pdf_text += self.reader.pages[page].extract_text()
+            print(self.pdf_text)
 
 
     def download_oneinvoice(self):
@@ -494,7 +500,7 @@ class InvoicePage():
         print(AMOUNTBALANCE[0].text)
         self.AMNTBAL = AMOUNTBALANCE[0].text
         self.driver.find_element(By.XPATH,self.VIEW).click()
-        time.sleep(3)
+        time.sleep(4)
 
 
     def verify_invoice_Details(self):
@@ -504,6 +510,41 @@ class InvoicePage():
         print(invnumber.text)
         assert self.AMNTBAL == amount.text,"Amount is not equal or invoice listings and details are not the same"
         assert self.INVM == invnumber.text,"Invoice number does not match or invoice listings and details are not the same"
+
+
+    def editinvoice(self):
+        edit = self.driver.find_element(By.XPATH,self.INVOICEEDIT)
+        edit.click()
+        time.sleep(2)
+
+    def Verify_Send_Email(self):
+        senderemail = self.driver.find_element(By.XPATH,self.EMAILADDRESS)
+        print(senderemail.text)
+        invoicedetailpage = self.driver.page_source
+        self.driver.find_element(By.XPATH,self.EMAILSEND).click()
+        time.sleep(1)
+        sendlabel = self.driver.find_element(By.XPATH, self.EMAILSENDTOLABEL)
+        print(sendlabel.text)
+        assert senderemail.text == sendlabel.text,"sender email donot match"
+        self.driver.find_element(By.XPATH,self.DOWNLOADINVOICEBTN).click()
+        time.sleep(3)
+        # self.driver.find_element(By.XPATH, self.DOWNLOADINVOICEBTN).send_keys(Keys.ENTER)
+        self.verify_pdffile()
+        soup = BeautifulSoup(invoicedetailpage,'html.parser')
+        inv_number = [item.text for item in soup.select('.Invoice #')]
+        amount = [item.text for item in soup.select('.Total Due')]
+        pdf_inv_number = []
+        pdf_amount = []
+        for line in self.pdf_text.split('\n'):
+            if line.startswith('.Invoice #'):
+                pdf_inv_number.append(line.split(':')[1])
+            elif line.startswith('.Total Due'):
+                pdf_amount.append(line.split(':')[1])
+        if inv_number == pdf_inv_number and amount == pdf_amount:
+            print("Invoice nnumber and amount matches in PDF")
+        else:
+            print("Invoice number and Amount donot match")
+
 
 
 

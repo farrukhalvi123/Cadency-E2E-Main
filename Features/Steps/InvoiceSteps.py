@@ -232,3 +232,36 @@ def step_impl(context):
 @then("Close Left Side Menu")
 def step_impl(context):
     context.cadency.invoice.close_leftsidemenu()
+
+
+@then("Click on Edit Invoice")
+def step_impl(context):
+    context.cadency.invoice.editinvoice()
+
+
+@then("Edit Invoice from Detail Page")
+def step_impl(context):
+    context.execute_steps('''
+    Then Enter Reference
+    Then Select DueDate
+    Then Select an Item
+    Then Add Item This is test invoice description
+    And Add Items Quantity
+    And Adding Item Price
+    And Adding Items Discount
+    And Select Tax
+    Then Verify Amount
+    Then Verify Total Amount
+    Then Click on Save Button''')
+
+@then("Verify Email Sending Details")
+def step_impl(context):
+        context.cadency.invoice.Verify_Send_Email()
+
+
+@then("Send Email")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    raise NotImplementedError(u'STEP: Then Send Email')
