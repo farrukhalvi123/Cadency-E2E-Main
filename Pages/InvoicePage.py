@@ -4,8 +4,11 @@ import time
 from datetime import date, datetime, timedelta
 import random
 import string
+
+import requests
 from PyPDF2 import PdfReader
 from bs4 import BeautifulSoup
+from Constants.URLS import TestData
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver import Keys
@@ -96,7 +99,10 @@ class InvoicePage():
         self.EMAILSEND = "//button[@class='p-element p-icon-button overlay-primary-13 p-button p-component ng-star-inserted']"
         self.EMAILADDRESS = "//a[normalize-space()='selinakyle@yopmail.com']"
         self.EMAILSENDTOLABEL = "//span[@class='label-text']"
-        self.DOWNLOADINVOICEBTN = "//div[@class='btn-container btn-170 icon-button btn-end download-icon cursor-pointer mr-2 cursor-pointer']"
+        self.DOWNLOADINVOICEBTN = "//div[@class='p-icon-button']"
+        self.EMAILBODY = "//div[@class='angular-editor-textarea']"
+        self.yop_EMAILFIELD = "login"
+        self.SUBJECT = "subject"
     def ClickOnInvoiceTab(self):
         CART = self.driver.find_element(By.XPATH,self.CUSTOMERANDRECEIVABLETAB)
         self.driver.execute_script("arguments[0].click()",CART)
@@ -487,8 +493,7 @@ class InvoicePage():
     def delete_invoice(self):
         self.driver.find_element(By.XPATH,self.DELETE).click()
         self.driver.find_element(By.XPATH,self.CONFIRMATIONBTN).click()
-        time.sleep(1
-                   )
+        time.sleep(1)
         deletemsg = self.driver.find_element(By.XPATH,self.DELETEMSG)
         assert deletemsg.text == "Invoice deleted successfully.", "Pop up did not appear"
 
@@ -504,46 +509,70 @@ class InvoicePage():
 
 
     def verify_invoice_Details(self):
-        amount = self.driver.find_element(By.XPATH,self.INVAMOUNT)
-        invnumber = self.driver.find_element(By.XPATH,self.INVNUMBER)
-        print(amount.text)
-        print(invnumber.text)
-        assert self.AMNTBAL == amount.text,"Amount is not equal or invoice listings and details are not the same"
-        assert self.INVM == invnumber.text,"Invoice number does not match or invoice listings and details are not the same"
-
+            amount = self.driver.find_element(By.XPATH,self.INVAMOUNT)
+            invnumber = self.driver.find_element(By.XPATH,self.INVNUMBER)
+            print(amount.text)
+            print(invnumber.text)
+            assert self.AMNTBAL == amount.text ,"Amount is not equal or invoice listings and details are not the same"
+            assert self.INVM == invnumber.text,"Invoice number does not match or invoice listings and details are not the same"
 
     def editinvoice(self):
         edit = self.driver.find_element(By.XPATH,self.INVOICEEDIT)
         edit.click()
         time.sleep(2)
 
-    def Verify_Send_Email(self):
+    def Verify_Send_Email(self): # this is only downloading invoice.
         senderemail = self.driver.find_element(By.XPATH,self.EMAILADDRESS)
         print(senderemail.text)
-        invoicedetailpage = self.driver.page_source
         self.driver.find_element(By.XPATH,self.EMAILSEND).click()
         time.sleep(1)
         sendlabel = self.driver.find_element(By.XPATH, self.EMAILSENDTOLABEL)
         print(sendlabel.text)
         assert senderemail.text == sendlabel.text,"sender email donot match"
         self.driver.find_element(By.XPATH,self.DOWNLOADINVOICEBTN).click()
-        time.sleep(3)
-        # self.driver.find_element(By.XPATH, self.DOWNLOADINVOICEBTN).send_keys(Keys.ENTER)
-        self.verify_pdffile()
-        soup = BeautifulSoup(invoicedetailpage,'html.parser')
-        inv_number = [item.text for item in soup.select('.Invoice #')]
-        amount = [item.text for item in soup.select('.Total Due')]
-        pdf_inv_number = []
-        pdf_amount = []
-        for line in self.pdf_text.split('\n'):
-            if line.startswith('.Invoice #'):
-                pdf_inv_number.append(line.split(':')[1])
-            elif line.startswith('.Total Due'):
-                pdf_amount.append(line.split(':')[1])
-        if inv_number == pdf_inv_number and amount == pdf_amount:
-            print("Invoice nnumber and amount matches in PDF")
-        else:
-            print("Invoice number and Amount donot match")
+        subject  = self.driver.find_element(By.ID,self.SUBJECT)
+        subject.clear()
+        subject.send_keys("This is a dummy invoice")
+        self.body = self.driver.find_element(By.XPATH,self.EMAILBODY)
+        print(self.body.text)
+        global subjecttext
+        subjecttext = subject.text
+        time.sleep(5)
+        self.download_dir2 = os.getcwd() + '\\TestData\\TestExcelsandPDFS\\'
+        time.sleep(5)
+        self.file_path2 = max([self.download_dir2 + '\\' + f for f in os.listdir(self.download_dir2)])
+        self.file_name2 = os.path.basename(self.file_path2)
+        print(self.file_name2)
+        self.pdf_file2 = open(self.download_dir2 + '\\' + self.file_name2, 'rb')
+        self.reader2 = PdfReader(self.pdf_file2)
+        self.pdf_text2 = ''
+        for page in range(len(self.reader2.pages)):
+            self.pdf_text2 += self.reader2.pages[page].extract_text()
+            print(self.pdf_text2)
+    def send_email(self):
+        self.driver.find_element(By.XPATH,self.CONFIRMATIONBTN).click()
+
+    def verify_sent_email(self):
+        driver = webdriver.Chrome(ChromeDriverManager().install())
+        driver.get("https://www.yopmail.com")
+        driver.maximize_window()
+        time.sleep(2)
+        driver.find_element(By.ID, self.yop_EMAILFIELD).send_keys("selinakyle@yopmail.com")
+        driver.find_element(By.ID, self.yop_EMAILFIELD).send_keys(Keys.ENTER)
+        time.sleep(2)
+        inbox_frame = driver.find_element(By.XPATH, '//*[@id="ifinbox"]')
+        driver.switch_to.frame(inbox_frame)
+        print(subjecttext)
+        email_subject = driver.find_element(By.XPATH,
+                                            "//div[@id='e_ZwZjZmVjZGR0BQN0ZQNjZmL4BGV5Zj==']//div[@class='lms'][normalize-space()='This is a dummy invoice']")
+        email_subject.click()
+        # email_body_frame = driver.find_element(By.ID,'ifmail')
+        # driver.switch_to.frame(email_body_frame)
+        # mailbody = self.driver.find_element(By.ID,"mail")
+        # assert self.body.text == mailbody.text,"body text doesnt match"
+
+
+
 
 
 

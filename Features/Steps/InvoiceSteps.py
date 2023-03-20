@@ -261,7 +261,9 @@ def step_impl(context):
 
 @then("Send Email")
 def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    raise NotImplementedError(u'STEP: Then Send Email')
+   context.cadency.invoice.send_email()
+
+
+@then("Verify Sent Email")
+def step_impl(context):
+   context.cadency.invoice.verify_sent_email()

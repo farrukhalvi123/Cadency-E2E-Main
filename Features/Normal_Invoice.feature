@@ -103,5 +103,6 @@ Feature: As a admin i want to add a new invoice
     Then Click on More Options on an invoice
     Then Click on View
     Then Verify Email Sending Details
-#    Then Send Email
+    Then Send Email
+    Then Verify Sent Email
 

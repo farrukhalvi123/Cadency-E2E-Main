@@ -129,9 +129,9 @@ class CustomerPages(unittest.TestCase):
             self.result_str = "".join((random.choice(string.ascii_letters) for i in range(10))) + "@yopmail.com"
             print(self.result_str)
             self.driver.find_element(By.ID,self.EMAIL).send_keys(self.result_str)
-            # global email_address
-            # email_address = self.result_str
-            # print(email_address)
+            global email_address
+            email_address = self.result_str
+            print(email_address)
 
     def enter_customerDetails(self, cus_dis_name,fname,lname,phno,web,ccemail):
 

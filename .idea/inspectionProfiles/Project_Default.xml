@@ -20,6 +20,7 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="Exception.__add__" />
+          <option value="Pages.CustomerPages.customer_email.email_address" />
         </list>
       </option>
     </inspection_tool>
