@@ -244,7 +244,9 @@ def step_impl(context):
 
 @then("Verify Credit Notes")
 def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    raise NotImplementedError(u'STEP: Then Verify Credit Notes')
+    context.cadency.customadd.verify_creditnotes()
+
+
+@then("Verify Number of Tasks")
+def step_impl(context):
+    context.cadency.customadd.verify_Task()

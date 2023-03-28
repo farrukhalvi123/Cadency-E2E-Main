@@ -10,3 +10,4 @@ pyodbc
 WMI
 pandas
 babel
+PyPDF2
