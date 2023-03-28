@@ -1,5 +1,5 @@
 from behave import *
-
+import time
 
 
 
@@ -23,4 +23,11 @@ def tofillform(context):
 #     context.cadency.creditnote.CNtext()
 @then("take to CN page")
 def Cnpage(context):
-   context.cadency.creditnote.CNmodule()
+    context.cadency.creditnote.CNmodule()
+    time.sleep(5)
+
+
+@then("take first CN number")
+def firstCN(context):
+    context.cadency.creditnote.firstcnnumber()
+

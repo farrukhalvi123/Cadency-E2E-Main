@@ -2,18 +2,24 @@
 
 Feature: abc
 
- Background: Login & Redirect To Invoice Page
+  Background: Login & Redirect To Invoice Page
     Then User Navigates to Merchant Portal
     Then User Enters khanbro and s3gxtMerqGtz
     Then User Clicks on Login Button
+
+#    Then User Navigate To Invoice Tab
+  Scenario: credit notes
+    #Then Open Right Side Panel
+    #Then take to CN page
+    #Then take first CN number
     Then Open Right Side Panel
     Then User Navigate To Invoice Tab
+    Then click on Open
+    Then click on three dots and click to apply credit notes
+    Then enter values
+    Then Open Right Side Panel
+    Then take to CN page
+    Then take first CN number
 
 
- Scenario: credit notes
-   Then click on Open
-   Then click on three dots and click to apply credit notes
-   Then enter values
-   Then Open Right Side Panel
-   Then take to CN page
 #   Then get first CN no from text
