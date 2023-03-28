@@ -16,4 +16,4 @@ Feature: abc
    Then enter values
    Then Open Right Side Panel
    Then take to CN page
-#   Then get first CN no from text
+   Then get first CN no from text

@@ -24,3 +24,9 @@ def tofillform(context):
 @then("take to CN page")
 def Cnpage(context):
    context.cadency.creditnote.CNmodule()
+
+
+
+@then("get first CN no from text")
+def step_impl(context):
+    context.cadency.creditnote.takecn()

@@ -1,5 +1,6 @@
 import datetime
 import os
+import re
 import time
 from random import randint
 from selenium.webdriver.common.by import By
@@ -30,6 +31,7 @@ class Cns():
         self.save_but = "//button[@type='submit']"
 
         self.creditmodel="//p[normalize-space()='Credit Notes']"
+        self.searchnote = "text-primary-10.font-bold"
         # self.showcnum= "//div[@class='text-primary-10 font-bold']"
 
     def Opentab(self):
@@ -64,6 +66,23 @@ class Cns():
          creditnotepage.click()
          time.sleep(3)
 
+    def takecn(self):
+        cnno = self.driver.find_elements(By.CLASS_NAME, self.searchnote)
+        newcnn = cnno[1].text
+        print(newcnn)
+        ext_cn= newcnn.split("-")[1]
+        print(ext_cn)
+
+
+
+        # digi = newcnn.isdigit()
+        # print(digi)
+        # print(newcnn)
+        # res = [int(i) for i in newcnn.split() if i.isdigit()]
+        # print(res)
+        # abc = "CRN 00004"
+        # res1 = [int(i) for i in abc.split() if i.isdigit()]
+        # print(res1)
     # def CNtext(self):
     #     cnclass = self.driver.find_element(By.XPATH,self.showcnum).text()
     #     print(cnclass)
