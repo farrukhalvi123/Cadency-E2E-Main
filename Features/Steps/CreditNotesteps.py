@@ -1,20 +1,20 @@
 from behave import *
+import time
 
 
 
 
 @then("click on Open")
-def  openfilter(context):
+def openfilter(context):
     context.cadency.creditnote.Opentab()
 
 
-# @then("click on three dots and click to apply credit notes")
-# def threedots(context):
-#     context.cadency.creditnote.selectCn()
+@then("click on three dots and click to apply credit notes")
+def threedots(context):
+    context.cadency.creditnote.selectCn()
 
 
-
-@then("enter values")
+@then("enter values and save")
 def tofillform(context):
     context.cadency.creditnote.fillvalue()
 
@@ -22,8 +22,14 @@ def tofillform(context):
 # @then("get first CN no from text")
 # def getCNtext(context):
 #     context.cadency.creditnote.CNtext()
+@then("take to CN page")
+def Cnpage(context):
+    time.sleep(3)
+    context.cadency.creditnote.CNmodule()
+    time.sleep(3)
 
 
-@then("check if there are any open invoices")
+
+@then("get first CN no from text")
 def step_impl(context):
-   context.cadency.creditnote.checkopeninv()
+    context.cadency.creditnote.takecn()

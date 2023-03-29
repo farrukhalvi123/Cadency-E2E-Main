@@ -19,6 +19,9 @@ from Pages.Admin_AddNewUser import AdminAddUsers
 from Pages.Manage_Teams import ManageTeams
 from Pages.TemplatePages import TemplatePage
 from Pages.Verify_Modules_Permissions import VerifyPermissions
+from Pages.PormisetoPaypsges import Ptop
+# from Pages.CP_loginPage import CustomerPortalLogin
+# from Pages.CP_Page_verifyDispute import Open_dispute_tag
 
 
 class cadencyweb:
@@ -37,3 +40,9 @@ class cadencyweb:
         self.admin_add_users = AdminAddUsers(driver)
         self.admin_manage_teams = ManageTeams(driver)
         self.admin_verify_permissions = VerifyPermissions(driver)
+        self.PromisetoPay=Ptop(driver)
+# customer portal pages
+
+        #self.Cportal_login= CustomerPortalLogin(driver)
+        #self.Verify_DisputeTag= Open_dispute_tag(driver)
+

@@ -1,29 +1,26 @@
 import datetime
 import os
+import re
 import time
 from random import randint
 from selenium.webdriver.common.by import By
-from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+# from Elements.LoginElements import loginelements
 from allure_commons._allure import attach
 from allure_commons.types import AttachmentType
-
-# from webdriver_manager.core import driver
-from Pages.InvoicePage import InvoicePage
+from webdriver_manager.core import driver
 
 from Constants.URLS import TestData
-# INVPAGE = InvoicePage(driver)
-class Cns():
 
+class Cns():
     def __init__(self, driver):
+
         self.driver = driver
 
         self.open_filter = "//a[contains(text(), 'Open')]"
-        # self.open_count = "//span[contains(text(), '0')]"
-        self.opennumber= "ml-1.p-badge.p-component.p-badge-no-gutter.p-badge-info"
 
         self.nukhty3 = "//tbody/tr[1]/td[9]/div[1]/button[1]/*[1]//*[name()='svg']"
         self.add_cn = "//a[normalize-space()='Add Credit Note']"
@@ -32,8 +29,10 @@ class Cns():
         self.billing_add_dd = "//*[@id='billingCentreId']"
         self.ba_2 = "//span[normalize-space()='sam']"
         self.save_but = "//button[@type='submit']"
+
+        self.creditmodel="//p[normalize-space()='Credit Notes']"
+        self.searchnote = "text-primary-10.font-bold"
         # self.showcnum= "//div[@class='text-primary-10 font-bold']"
-        self.showcnum= 'text-primary-10 font-bold'
 
     def Opentab(self):
         openfil = self.driver.find_element(By.XPATH, self.open_filter)
@@ -41,40 +40,14 @@ class Cns():
         openfil.click()
         time.sleep(3)
 
-    def checkopeninv(self):
-        self.INVPAGE = InvoicePage(self.driver)
-        self.Opentab()
-        count = self.driver.find_elements(By.CLASS_NAME, self.opennumber)
-        sisi = count[2].text
-        print(sisi)
-        s = count[2].text
-        print(s)
-        hi = type(int(s))
-        print(hi)
-
-        if s == '0':
-            print("first create invoice")
-            return self.INVPAGE.ClickOnAddButton()
-
-        elif s != '0':
-            print("no action is need")
-
-
-
-
-
-        # except:
-        #     print("jsjsjdjdj")
-
-    # def selectCn(self):
-    #     threedash = self.driver.find_element(By.XPATH, self.nukhty3)
-    #     threedash.click()
-    #     selectCnote = self.driver.find_element(By.XPATH, self.add_cn)
-    #     selectCnote.click()
-    #     time.sleep(3)
+    def selectCn(self):
+        threedash = self.driver.find_element(By.XPATH, self.nukhty3)
+        threedash.click()
+        selectCnote = self.driver.find_element(By.XPATH, self.add_cn)
+        selectCnote.click()
+        time.sleep(3)
 
     def fillvalue(self):
-
         # enteritem=self.driver.find_element(By.XPATH, self.cn_number)
         # enteritem.click()
         time.sleep(3)
@@ -88,14 +61,30 @@ class Cns():
         save.click()
         time.sleep(3)
 
+    def CNmodule(self):
+         creditnotepage = self.driver.find_element(By.XPATH, self.creditmodel)
+         creditnotepage.click()
+         time.sleep(3)
+
+    def takecn(self):
+        cnno = self.driver.find_elements(By.CLASS_NAME, self.searchnote)
+        newcnn = cnno[1].text
+        print(newcnn)
+        ext_cn= newcnn.split("-")[1]
+        print(ext_cn)
 
 
 
-
-
-    def CNtext(self):
-        # cnclass = self.driver.find_element(By.XPATH,self.showcnum).text()
-        cnclass = self.driver.find_element(By.CLASS_NAME, self.showcnum)
-        i= cnclass.text
-        print(i)
+        # digi = newcnn.isdigit()
+        # print(digi)
+        # print(newcnn)
+        # res = [int(i) for i in newcnn.split() if i.isdigit()]
+        # print(res)
+        # abc = "CRN 00004"
+        # res1 = [int(i) for i in abc.split() if i.isdigit()]
+        # print(res1)
+    # def CNtext(self):
+    #     cnclass = self.driver.find_element(By.XPATH,self.showcnum).text()
+    #     print(cnclass)
+    #
 
