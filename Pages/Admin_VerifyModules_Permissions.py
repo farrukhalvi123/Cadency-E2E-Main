@@ -85,6 +85,7 @@ class VerifyPermissions():
         time.sleep(2)
         self.driver.execute_script("arguments[0].click()", element)
         dbtext = self.driver.find_element(By.XPATH, self.ONBOARDMERCHANT)
+        time.sleep(2)
         if dbtext.text == "Onboard Merchants":
             print("PASS > Onboard Merchants Option Found")
 

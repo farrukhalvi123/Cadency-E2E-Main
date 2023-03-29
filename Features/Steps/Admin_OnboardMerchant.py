@@ -75,3 +75,28 @@ def step_impl(context):
 @then("Save Merchant")
 def step_impl(context):
     context.cadency.admin_onboarding_merchant.save_merchant()
+
+
+@then("Click On Onboard Merchants Filters")
+def step_impl(context):
+    context.cadency.admin_onboarding_merchant.click_merchant_filters()
+
+
+@then("Select Entity Status In Filters (Onboard Merchant)")
+def step_impl(context):
+    context.cadency.admin_onboarding_merchant.select_entity_status_filters()
+
+
+@then("Select Merchant Country In Filters (Onboard Merchant)")
+def step_impl(context):
+    context.cadency.admin_onboarding_merchant.select_entity_country_filters()
+
+
+@then("Click Clear Filter Button (Onboard Merchant)")
+def step_impl(context):
+    context.cadency.admin_onboarding_merchant.click_clearbutton_filters()
+
+
+@then("Click Apply Filter Button (Onboard Merchant)")
+def step_impl(context):
+    context.cadency.admin_onboarding_merchant.click_applybutton_filters()

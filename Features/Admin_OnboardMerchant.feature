@@ -20,3 +20,11 @@ Feature: I want to Onboard a new merchant
    Then Enable Billing Center
    Then Upload Merchant Logo
    Then Save Merchant
+
+ Scenario: Checking Filters
+   Then Click On Onboard Merchants
+   Then Click On Onboard Merchants Filters
+   Then Select Entity Status In Filters (Onboard Merchant)
+   #Then Select Merchant Country In Filters (Onboard Merchant)
+   #Then Click Clear Filter Button (Onboard Merchant)
+   #Then Click Apply Filter Button (Onboard Merchant)

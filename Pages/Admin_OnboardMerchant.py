@@ -22,13 +22,13 @@ class OnboardingMerchant():
 
         self.ADDMERCHANTBUTTON = "//span[normalize-space()='Add Merchant']"
         self.LEGALBUSINESSNAME = "name"
-        self.BUSINESSTYPEDD = '//*[contains(@class,"p-dropdown-trigger-icon")]' # same class for INDUSTRY, COUNTRY, STATE, CITY, CURRENCY, INVOICE MODE
+        self.BUSINESSTYPEDD = '//*[contains(@class,"p-dropdown-trigger-icon")]'  # same class for INDUSTRY, COUNTRY, STATE, CITY, CURRENCY, INVOICE MODE
         self.SELECTBUSINESS = "//span[normalize-space()='Company']"
         self.SELECTINDUSTRY = "//span[normalize-space()='Financial services and insurance']"
-        self.COUNTRYTEXTBOX = '//*[contains(@class,"p-dropdown-filter p-inputtext p-component ng-tns")]' # same search text bar class for COUNTRY, STATE, CITY, CURRENCY
-        self.SELECTCOUNTRY = "//span[normalize-space()='Pakistan']"
-        self.SELECTSTATE = "//li[@aria-label='Sindh']"
-        self.SELECTCITY = "//span[normalize-space()='Karachi']"
+        self.COUNTRYTEXTBOX = '//*[contains(@class,"p-dropdown-filter p-inputtext p-component ng-tns")]'  # same search text bar class for COUNTRY, STATE, CITY, CURRENCY
+        self.SELECTCOUNTRY = "//span[normalize-space()='Swaziland']"
+        self.SELECTSTATE = "//span[normalize-space()='Manzini']"
+        self.SELECTCITY = "//span[normalize-space()='Manzini']"
         self.SELECTCURRENCY = "//span[normalize-space()='USD']"
         self.SELECTINVOICEMODE = "//span[normalize-space()='Normal']"
         self.MERCHANTSTATUS = "//div[@aria-label='Active']"
@@ -40,6 +40,13 @@ class OnboardingMerchant():
         self.MERCHANTLOGOUPLOAD = "//input[@type='file']"
         self.MERCHANTLOGO = "//div[@class='icon-wrap']"
         self.SAVEBUTTON = "//span[normalize-space()='Save']"
+
+        # Filters Elements
+
+        self.ONBOARDMERCHANTFILTERS = '//*[contains(@type,"button")]'
+        self.ENTITYSTATUSFILTER_ACTIVE = "//span[normalize-space()='Active']"
+        self.APPLYBUTTON = "//button[normalize-space()='Apply']"
+        self.CLEARBUTTON = "//button[normalize-space()='Clear']"
 
     def click_addmerchant_button(self):
         element = WebDriverWait(self.driver, 20).until(
@@ -132,3 +139,32 @@ class OnboardingMerchant():
     def save_merchant(self):
         self.driver.find_element(By.XPATH, self.SAVEBUTTON).click()
         time.sleep(6)
+
+    def click_merchant_filters(self):
+        element = self.driver.find_elements(By.XPATH, self.ONBOARDMERCHANTFILTERS)
+        element[5].click()
+        time.sleep(3)
+
+    def select_entity_status_filters(self):
+        esdd = self.driver.find_elements(By.XPATH, self.BUSINESSTYPEDD)
+        esdd[1].click()
+        time.sleep(3)
+       # self.driver.find_elements(By.CLASS_NAME, self.ENTITYSTATUSFILTER_ACTIVE).click()
+
+
+    def select_entity_country_filters(self):
+        esdd = self.driver.find_elements(By.XPATH, self.BUSINESSTYPEDD)
+        esdd[2].click()
+        self.driver.find_element(By.XPATH, self.COUNTRYTEXTBOX).send_keys("Swaziland")
+        self.driver.find_element(By.XPATH, self.SELECTCOUNTRY).click()
+
+    def click_clearbutton_filters(self):
+        self.driver.find_element(By.XPATH, self.CLEARBUTTON).click()
+
+    def click_applybutton_filters(self):
+        self.driver.find_element(By.XPATH, self.APPLYBUTTON).click()
+        time.sleep(3)
+
+
+
+
