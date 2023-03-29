@@ -11,3 +11,4 @@ WMI
 pandas
 babel
 PyPDF2
+PyPDF2
