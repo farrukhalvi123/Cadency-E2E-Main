@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8fc0d95-02d1-48c9-aca4-440e67a8c0a5" name="Changes" comment="add invoice page claases into credit notes">
+    <list default="true" id="a8fc0d95-02d1-48c9-aca4-440e67a8c0a5" name="Changes" comment="verify dispute tag">
       <change beforePath="$PROJECT_DIR$/Features/CreditNote.feature" beforeDir="false" afterPath="$PROJECT_DIR$/Features/CreditNote.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Features/Steps/CreditNotesteps.py" beforeDir="false" afterPath="$PROJECT_DIR$/Features/Steps/CreditNotesteps.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pages/Creditnotepages.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/Creditnotepages.py" afterDir="false" />
@@ -153,7 +153,7 @@
       <workItem from="1678948527934" duration="149000" />
       <workItem from="1678973670797" duration="26350000" />
       <workItem from="1679461587505" duration="20403000" />
-      <workItem from="1679994306859" duration="5901000" />
+      <workItem from="1679994306859" duration="6352000" />
     </task>
     <task id="LOCAL-00001" summary="add invoice page claases into credit notes">
       <created>1677053197219</created>
@@ -176,7 +176,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679989167495</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="verify dispute tag">
+      <created>1680070605689</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1680070605689</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,7 +202,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add invoice page claases into credit notes" />
-    <option name="LAST_COMMIT_MESSAGE" value="add invoice page claases into credit notes" />
+    <MESSAGE value="verify dispute tag" />
+    <option name="LAST_COMMIT_MESSAGE" value="verify dispute tag" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

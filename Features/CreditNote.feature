@@ -7,16 +7,29 @@ Feature: samra
     Then User Enters khanbro and s3gxtMerqGtz
     Then User Clicks on Login Button
     Then Open Right Side Panel
-    Then User Navigate To Invoice Tab
+
+#    Then Open Right Side Panel
+    #Then User Navigate To Invoice Tab
 
 
- Scenario: credit notes
-   Then click on Open
-   Then click on three dots and click to apply credit notes
-   Then enter values
-   Then Open Right Side Panel
-   Then take to CN page
-   Then get first CN no from text
 
- Scenario: comparing credit note from last to new CN
-   Then again CN page
+
+
+Scenario: comparing credit note from last to new CN
+
+#  Then take to CN page
+#  Then get first CN no from text
+  Then Open Right Side Panel
+  Then User Navigate To Invoice Tab
+  Then click on Open
+  Then click on three dots and click to apply credit notes
+  Then enter values and save
+  Then Open Right Side Panel
+  Then take to CN page
+  Then get first CN no from text
+
+#  Scenario: credit notes
+#   Then click on Open
+#   Then click on three dots and click to apply credit notes
+#   Then enter values
+

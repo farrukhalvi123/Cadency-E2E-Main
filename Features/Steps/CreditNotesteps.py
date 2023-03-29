@@ -1,4 +1,5 @@
 from behave import *
+import time
 
 
 
@@ -13,7 +14,7 @@ def threedots(context):
     context.cadency.creditnote.selectCn()
 
 
-@then("enter values")
+@then("enter values and save")
 def tofillform(context):
     context.cadency.creditnote.fillvalue()
 
@@ -23,7 +24,9 @@ def tofillform(context):
 #     context.cadency.creditnote.CNtext()
 @then("take to CN page")
 def Cnpage(context):
-   context.cadency.creditnote.CNmodule()
+    time.sleep(3)
+    context.cadency.creditnote.CNmodule()
+    time.sleep(3)
 
 
 
