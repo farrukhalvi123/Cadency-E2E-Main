@@ -15,4 +15,6 @@
 .idea/
 /allure
 \.idea
-
+allure/
+TestData/
+__pycache__/
