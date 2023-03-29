@@ -11,6 +11,7 @@ class TestData:
     STAGING_MANAGEMENT = "https://staging.management.cadency.io/"
     STAGING_CUSTOMER = "https://staging.customer.cadency.io/"
     STAGING_CHECKOUT = "https://staging.checkout.cadency.io/"
+    CADENCY_MAIN_INV_DETAILS = "http://10.4.4.20:6120/customers-receivables/customer-invoices"
 
 
 

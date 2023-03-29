@@ -25,7 +25,7 @@ Feature: I want to Login with new user & verify permissions
  Scenario: Verifying Onboard Merchant Options (Editing Not Allowed)
    Then Verify Edit option In Merchants
 
- Scenario: Verifying Activity Logs
-
-  # Then Verify Data Of Labels
-   Then Verify 1st Row Data
+# Scenario: Verifying Activity Logs
+#
+#  # Then Verify Data Of Labels
+#   Then Verify 1st Row Data

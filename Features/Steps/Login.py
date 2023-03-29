@@ -165,3 +165,8 @@ def step_impl(context):
 @then("User Navigates to Merchant Portal")
 def step_impl(context):
     context.cadency.logpage.go_to_main()
+
+
+@then("Close the Browser")
+def step_impl(context):
+   context.cadency.logpage.close_browser()

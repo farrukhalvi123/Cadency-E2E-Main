@@ -92,3 +92,6 @@ class LoginPage():
 
     def enter_code(self, code):
         self.driver.find_element(By.ID, self.CODEID).send_keys(code)
+
+    def close_browser(self):
+        self.driver.close()
