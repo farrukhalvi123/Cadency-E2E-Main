@@ -71,8 +71,11 @@ class CustomerPages(unittest.TestCase):
         self.VIEWCUSTOMER = "//a[normalize-space()='View']"
         self.INVOICETILES = "//ul[@role='tablist']"
         self.OPENINVOICES = "//li[@class='p-highlight ng-star-inserted']"
-        self.INVOICENUM = "max-width-300.status-column.ng-star-inserted"
-        self.CLOSEDINVOICES = "//span[contains(text(),'Closed Invoices')]"
+        self.INVOICEWFWSTAT = "status-container.status-orange3.ng-star-inserted"
+        self.INVOICEPAIDSTATUS = "status-container.status-green.ng-star-inserted"
+        self.INVOPENSTAT = "status-container.status-blue.ng-star-inserted"
+        self.CLOSEDINVOICES = "p-tabpanel-1-label"
+        self.PAYMENTINVOICES = "p-tabpanel-2-label"
         self.INVOICESLIST = "max-width-300.ng-star-inserted"
         self.STATUSTILE = "status-container status-orange3 ng-star-inserted"
         self.CUSTOMERGRID = "user-profile-box.ng-star-inserted"
@@ -83,9 +86,16 @@ class CustomerPages(unittest.TestCase):
         self.CUSTOMERSTATUSFILTER = "//p-dropdown[@placeholder='Select customer status']"
         self.STATUSACTIVE = "//span[normalize-space()='Active']"
         self.CURRENTSTATUSONINVOICE = "//div[@class='status-container status-green']"
-
+        self.PAGINGDD = "//div[@aria-label='dropdown trigger']"
+        self.FIFTYITEMS = "//li[@aria-label='50']"
+        self.CREDITNOTES = "p-tabpanel-3-label"
+        self.CN_APPLIED = "status-container.status-green.ng-star-inserted"
+        self.CN_NOTAPPLIED = "status-container.status-orange2.ng-star-inserted"
+        self.CN_PARTIALLYAPPLIED = "status-container.status-blue.ng-star-inserted"
+        self.TASKTABS = "p-tabpanel-4-label"
+        self.taskcards = "p-element.text-primary-3"
     def hover_hamburger(self):
-        element = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.XPATH,self.hamburger_icon)))
+        element = WebDriverWait(self.driver,10).until(EC.presence_of_element_located((By.XPATH,self.hamburger_icon)))
         actions = ActionChains(self.driver)
         actions.move_to_element(element).perform()
     def Go_to_customerTab(self):
@@ -124,6 +134,7 @@ class CustomerPages(unittest.TestCase):
             # print(email_address)
 
     def enter_customerDetails(self, cus_dis_name,fname,lname,phno,web,ccemail):
+
         self.driver.find_element(By.ID, self.CUSTOMER_DISPLAY_NAME).clear()
         self.driver.find_element(By.ID, self.CUSTOMER_DISPLAY_NAME).send_keys(cus_dis_name)
         self.driver.find_element(By.ID, self.FIRSTNAME).clear()
@@ -218,11 +229,11 @@ class CustomerPages(unittest.TestCase):
         # assert phonenum == custom_ph,"Phone number cannot be viewed"
         # self.assert_equal(emailadd,custom_email,"Email Cannot be viewed")
     def edit_Customer(self):
-        element = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.ID,self.THREEDOTSBUTTON)))
+        element = WebDriverWait(self.driver,5).until(EC.presence_of_element_located((By.ID,self.THREEDOTSBUTTON)))
         element.click()
-        time.sleep(3)
-        self.driver.find_element(By.XPATH,self.EDITCUSTOMER).click()
         time.sleep(2)
+        self.driver.find_element(By.XPATH,self.EDITCUSTOMER).click()
+        time.sleep(1)
         editcustom = self.driver.find_element(By.XPATH,self.EDITCUSTOMERTEXT)
         return editcustom.text
 
@@ -232,7 +243,7 @@ class CustomerPages(unittest.TestCase):
         return editcustomlist.text
 
     def select_filter(self):
-        element = WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable((By.XPATH, self.FILTERBUTTON)))
+        element = WebDriverWait(self.driver,5).until(EC.element_to_be_clickable((By.XPATH, self.FILTERBUTTON)))
         element.click()
         #
         # self.driver.execute_script("arguments[0].click()", element)
@@ -240,7 +251,7 @@ class CustomerPages(unittest.TestCase):
 
     def select_country(self):
         self.driver.find_element(By.XPATH,self.SELECTCOUNTRY).click()
-        time.sleep(5)
+        time.sleep(2)
         global countryname
         # self.driver.find_element"//li[@aria-label='Pakistan']").click()
         countryname = self.driver.find_elements(By.CLASS_NAME,self.SELECTCOUNTRYIES)
@@ -251,7 +262,7 @@ class CustomerPages(unittest.TestCase):
 
     def click_applybutton(self):
         self.driver.find_element(By.XPATH,self.FILTERAPPLY)
-        time.sleep(3)
+        time.sleep(2)
 
     def verify_customers_of_selected_countries(self):
         # countrylist = []
@@ -274,27 +285,55 @@ class CustomerPages(unittest.TestCase):
             print("Customer already active")
 
     def click_view(self):
-        element = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.ID, self.THREEDOTSBUTTON)))
+        element = WebDriverWait(self.driver,5).until(EC.presence_of_element_located((By.ID, self.THREEDOTSBUTTON)))
         element.click()
         self.driver.find_element(By.XPATH,self.VIEWCUSTOMER).click()
 
     def verify_invoice_tiles(self):
         self.driver.find_element(By.XPATH,self.INVOICETILES)
+        time.sleep(1)
+        print("i am going inside open invoices")
 
     def verify_openInvoices(self):
+        time.sleep(2)
         element = self.driver.find_element(By.XPATH,self.OPENINVOICES)
-        self.driver.execute_script("arguments[0].click();", element)
-        time.sleep(4)
+        element.click()
+        self.driver.find_element(By.XPATH, self.PAGINGDD).click()
+        time.sleep(1)
+        self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
+        print("i am already inside open invoices")
+        # self.driver.execute_script("arguments[0].click();", element)
+        time.sleep(2)
         try:
+            invoicestatwfw = self.driver.find_elements(By.CLASS_NAME,self.INVOPENSTAT)
+            print("Number of Open invoice is",len(invoicestatwfw))
+            invoicestatopen = self.driver.find_elements(By.CLASS_NAME, self.INVOICEWFWSTAT)
+            print("Number of Waiting for Funds invoices",len(invoicestatopen))
 
-            invoicenum = self.driver.find_elements(By.CLASS_NAME,self.INVOICENUM)
-            print("These are all the invoices with open status",len(invoicenum))
         except:
             assert "No records found" in self.driver.page_source
+            print("No records found")
+
+
+    def verify_closedInvoices(self):
+        self.driver.find_element(By.ID,self.CLOSEDINVOICES).click()
+        time.sleep(2)
+        self.driver.find_element(By.XPATH,self.PAGINGDD).click()
+        time.sleep(1)
+        self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
+        time.sleep(1)
+        try:
+            invoicestatpaid = self.driver.find_elements(By.CLASS_NAME,self.INVOICEPAIDSTATUS)
+            print(len(invoicestatpaid))
+        except:
+            assert "No records found" in self.driver.page_source
+            print("No records found")
+
 
     def search_customer(self,name):
-        self.driver.find_element(By.ID,self.SEARCHCUSTOMER).send_keys(name)
+        WebDriverWait(self.driver,5).until(EC.presence_of_element_located((By.ID,self.SEARCHCUSTOMER))).send_keys(name)
         try:
+            time.sleep(2)
             customername = self.driver.find_element(By.XPATH,"//a[normalize-space()='"+name+"']")
             print(customername.text)
             assert name == customername.text,"Searched customer found"
@@ -317,3 +356,42 @@ class CustomerPages(unittest.TestCase):
         except:
             assert " No records found " in self.driver.page_source
             print("No Record Found")
+
+    def verify_paidinvoices(self):
+        self.driver.find_element(By.ID,self.PAYMENTINVOICES).click()
+        time.sleep(2)
+        self.driver.find_element(By.XPATH, self.PAGINGDD).click()
+        time.sleep(1)
+        self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
+        time.sleep(1)
+        try:
+            invoicestatpaid = self.driver.find_elements(By.CLASS_NAME, self.INVOICEPAIDSTATUS)
+            print(len(invoicestatpaid))
+        except:
+            assert "No records found" in self.driver.page_source
+            print("No records found")
+
+    def verify_creditnotes(self):
+        self.driver.find_element(By.ID, self.CREDITNOTES).click()
+        time.sleep(2)
+        self.driver.find_element(By.XPATH, self.PAGINGDD).click()
+        time.sleep(1)
+        self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
+        time.sleep(1)
+        try:
+            CreditesApplied = self.driver.find_elements(By.CLASS_NAME,self.CN_APPLIED)
+            print(len(CreditesApplied))
+            CreditNotepartiallyapplied = self.driver.find_elements(By.CLASS_NAME,self.CN_PARTIALLYAPPLIED)
+            print(len(CreditNotepartiallyapplied))
+            CreditNotesNotApplied = self.driver.find_elements(By.CLASS_NAME,self.CN_NOTAPPLIED)
+            print(len(CreditNotesNotApplied))
+
+        except:
+            assert "No records found" in self.driver.page_source
+            print("No records found")
+
+    def verify_Task(self):
+        self.driver.find_element(By.ID,self.TASKTABS).click()
+        time.sleep(1)
+        tasks = self.driver.find_elements(By.CLASS_NAME,self.taskcards)
+        print(len(tasks))
