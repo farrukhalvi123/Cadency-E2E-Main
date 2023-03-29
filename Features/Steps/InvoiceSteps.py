@@ -244,15 +244,14 @@ def step_impl(context):
     context.execute_steps('''
     Then Enter Reference
     Then Select DueDate
-    Then Select an Item
     Then Add Item This is test invoice description
     And Add Items Quantity
     And Adding Item Price
     And Adding Items Discount
     And Select Tax
     Then Verify Amount
-    Then Verify Total Amount
-    Then Click on Save Button''')
+    Then Verify Total Amount''')
+    context.cadency.invoice.verify_edited_invoice()
 
 @then("Verify Email Sending Details")
 def step_impl(context):
@@ -267,3 +266,21 @@ def step_impl(context):
 @then("Verify Sent Email")
 def step_impl(context):
    context.cadency.invoice.verify_sent_email()
+
+
+# @then("Verify Edited invoice details")
+# def step_impl(context):
+#     context.cadency.invoice.verify_edited_invoice()
+@then("Verify Invoice Edited Successfully")
+def step_impl(context):
+    context.cadency.invoice.invoice_Edited_successfully()
+
+
+@then("Click on Record Payment")
+def step_impl(context):
+    context.cadency.invoice.record_payment_btn()
+
+
+@then("Record Payments")
+def step_impl(context):
+    context.cadency.invoice.fill_record_payments_form()

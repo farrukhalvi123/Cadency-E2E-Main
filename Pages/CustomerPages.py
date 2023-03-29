@@ -95,7 +95,7 @@ class CustomerPages(unittest.TestCase):
         self.TASKTABS = "p-tabpanel-4-label"
         self.taskcards = "p-element.text-primary-3"
     def hover_hamburger(self):
-        element = WebDriverWait(self.driver,10).until(EC.presence_of_element_located((By.XPATH,self.hamburger_icon)))
+        element = WebDriverWait(self.driver,20).until(EC.presence_of_element_located((By.XPATH,self.hamburger_icon)))
         actions = ActionChains(self.driver)
         actions.move_to_element(element).perform()
     def Go_to_customerTab(self):

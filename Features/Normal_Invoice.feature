@@ -30,7 +30,7 @@ Feature: As a admin i want to add a new invoice
     Then Select Currency
     Then Verify Email is prefilled and disabled
     Then Verify Invoice Number is disabled
-     Then Enter Reference
+    Then Enter Reference
     Then Select InvoiceDate
     Then Select DueDate
     Then Select an Item
@@ -98,6 +98,8 @@ Feature: As a admin i want to add a new invoice
     Then Click on View
     Then Click on Edit Invoice
     Then Edit Invoice from Detail Page
+    Then Click on Save Button
+    Then Verify Invoice Edited Successfully
 
   Scenario: Check Sending Email of Invoice
     Then Click on More Options on an invoice
@@ -105,4 +107,13 @@ Feature: As a admin i want to add a new invoice
     Then Verify Email Sending Details
     Then Send Email
     Then Verify Sent Email
+
+  Scenario: Record Payment Against an Invoice
+    Then Click on More Options on an invoice
+    Then Click on View
+    Then Click on Record Payment
+    Then Record Payments
+
+
+
 

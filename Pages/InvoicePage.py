@@ -1,4 +1,5 @@
 import os
+import re
 from random import *
 import time
 from datetime import date, datetime, timedelta
@@ -24,7 +25,7 @@ import csv
 import PyPDF2
 
 WORDS = "".join((random.choice(string.ascii_letters) for i in range(10)))
-randinteger = ''.join(["{}".format(randint(0, 9)) for num in range(0, 6)])
+randinteger = ''.join(["{}".format(randint(0, 5)) for num in range(0, 3)])
 class InvoicePage():
 
     def __init__(self, driver):
@@ -67,7 +68,6 @@ class InvoicePage():
         self.TAXCOMP =  "//span[normalize-space()='Tax Component']"
         self.TAXRATE =  "//p-inputnumber[@placeholder='Tax %']"
         self.AMOUNT =  "//td[@class='td-amount max-width-100']"
-        self.INVAMOUNT = "grid-footer-text"
         self.INVSEARCHFIELD =  "//input[@placeholder='Search']"
         # self.INVOICE_NUMBER = "//a[normalize-space()='"+INV_NUM+"']"
         self.CSVICON =  "//div[@class='pages-section']//li[1]//div[1]"
@@ -103,6 +103,20 @@ class InvoicePage():
         self.EMAILBODY = "//div[@class='angular-editor-textarea']"
         self.yop_EMAILFIELD = "login"
         self.SUBJECT = "subject"
+        self.TOTALAMNT1 = "/html/body/cadency-root/cadency-features/div/div/div/div/cadency-customer-invoices/div/div/cadency-create-invoice/div/form/p-sidebar/div/div[2]/div/div[2]/ul/li[4]/span[2]"
+        self.TOTALAMNT1c1 = "grid-footer-text"
+        self.INV_DETAIL_TOTAL = "total"
+        self.INVTOTAL = "td"
+        self.RECORDPAYMENT = "Group_19996"
+        self.AMOUNTRECIEVED = "//input[@placeholder='Enter amount received']"
+        self.PAYMENTDATE = "//input[@placeholder='Select date']"
+        self.PAYMENTMODEID = "paymentTypeId"
+        self.REFERENCENUMBERID = "referenceNumber"
+        self.ENTERNOTE = "//textarea[@placeholder='Enter note']"
+        self.BANKTRANSFER = "//span[normalize-space()='Bank Transfer']"
+
+
+
     def ClickOnInvoiceTab(self):
         CART = self.driver.find_element(By.XPATH,self.CUSTOMERANDRECEIVABLETAB)
         self.driver.execute_script("arguments[0].click()",CART)
@@ -120,7 +134,7 @@ class InvoicePage():
 
 
     def ClickOnAddButton(self):
-        element = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.XPATH,self.ADDINVOICEBTN)))
+        element = WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.XPATH,self.ADDINVOICEBTN)))
         # self.driver.find_element(By.XPATH,self.ADDINVOICEBTN).click()
         self.driver.execute_script("arguments[0].click()",element)
     def open_customer_selection_dd(self):
@@ -182,6 +196,7 @@ class InvoicePage():
         global current_time
         current_time = date.today().strftime('%m/%d/%Y')
         datefield = self.driver.find_element(By.XPATH,self.INVDATE)
+        time.sleep(2)
         datefield.send_keys(Keys.CONTROL + 'a' + Keys.NULL, current_time,Keys.ENTER)
         time.sleep(5)
 
@@ -205,7 +220,7 @@ class InvoicePage():
 
     def Add_inv_items(self):
         taxdd = self.driver.find_elements(By.XPATH,self.TAXDD)
-        taxdd[0].click()
+        taxdd[1].click()
         time.sleep(2)
         try:
             items = self.driver.find_elements(By.XPATH,self.ADDINVITEMS)
@@ -222,6 +237,7 @@ class InvoicePage():
         self.driver.find_element(By.XPATH,self.REFERENCE).send_keys(WORDS)
 
     def add_item_description(self,desc):
+        self.driver.find_element(By.XPATH,self.DESCRIPTION).clear()
         self.driver.find_element(By.XPATH,self.DESCRIPTION).send_keys(desc)
 
     def enter_quantity(self):
@@ -251,16 +267,20 @@ class InvoicePage():
         self.driver.find_element(By.XPATH,self.DISCOUNT).send_keys(disc)
 
     def select_tax(self,tcomp,trate):
-        taxdd = self.driver.find_elements(By.XPATH,self.TAXDD)
-        print("this is tax drop down",taxdd)
-        taxdd[1].click()
-        time.sleep(5)
+        try:
+            taxdd = self.driver.find_elements(By.XPATH,self.TAXDD)
+            taxdd[2].click()
+            time.sleep(5)
+        except:
+            taxdd = self.driver.find_elements(By.XPATH, self.TAXDD)
+            taxdd[1].click()
+            time.sleep(5)
         try:
             taxes = self.driver.find_elements(By.XPATH,self.TAXSELECT)
-            print("This is the selected tax",taxes[1].text)
-            taxes[1].click()
+            print("This is the selected tax",taxes[2].text)
+            taxes[2].click()
             global select_tax
-            select_tax = taxes[1].text
+            select_tax = taxes[2].text
         except:
             taxes = self.driver.find_elements(By.XPATH,self.TAXSELECT)
             taxes[0].click()
@@ -294,12 +314,12 @@ class InvoicePage():
         # print(tax_percentage)
         final_total = tax_percentage + discounted_amount
         global totalamt
-        totalamt = final_total
-        print(final_total)
+        totalamt = round(final_total,2)
+        print(totalamt)
         time.sleep(10)
 
     def verify_total_amount(self):
-        amount = self.driver.find_elements(By.CLASS_NAME,self.INVAMOUNT)
+        # amount = self.driver.find_elements(By.CLASS_NAME,self.INVAMOUNT)
         currency = " ".format(float(totalamt))
         print(currency)
         assert currency in self.driver.page_source
@@ -371,6 +391,7 @@ class InvoicePage():
 
     def ALLtab(self):
         try:
+            time.sleep(2)
             self.driver.find_element(By.XPATH,self.ALLTILE).click()
             time.sleep(3)
         except exceptions.StaleElementReferenceException as e:
@@ -397,19 +418,21 @@ class InvoicePage():
         # self.driver.execute_script("arguments[0].click()", element)
 
     def verify_numberof_invoices(self):
-        # try:
-        paging = self.driver.find_element(By.XPATH, self.PAGING)
-        self.driver.execute_script("arguments[0].click()", paging)
-        self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
-        time.sleep(2)
-        num_invoices = self.driver.find_elements(By.XPATH,self.ACTIONBUTTON)
-        global num_total
-        num_total = len(num_invoices)
-        if num_total == 50:
-                self.driver.find_element(By.XPATH, self.NEXTBTN).click()
+        try:
+            paging = self.driver.find_element(By.XPATH, self.PAGING)
+            self.driver.execute_script("arguments[0].click()", paging)
+            self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
+            time.sleep(2)
+            num_invoices = self.driver.find_elements(By.XPATH,self.ACTIONBUTTON)
+            global num_total
+            num_total = len(num_invoices)
+            if num_total == 50:
+                    self.driver.find_element(By.XPATH, self.NEXTBTN).click()
+                    print("Total number of invoices:", num_total)
+            elif num_total <= 50:
                 print("Total number of invoices:", num_total)
-        elif num_total <= 50:
-            print("Total number of invoices:", num_total)
+        except:
+            print("there are 0 invoice present in this tab.")
 
     def disputed_invoices(self):
         self.verify_numberof_invoices()
@@ -427,6 +450,7 @@ class InvoicePage():
 
     def PaidtabINV(self):
         try:
+            time.sleep(1)
             opentab = self.driver.find_elements(By.CLASS_NAME,self.OPENTILE)
             opentab[4].click()
             time.sleep(3)
@@ -470,7 +494,7 @@ class InvoicePage():
 
 
     def click_moreoptions(self):
-        moreoption = self.driver.find_elements(By.XPATH,self.ACTIONBUTTON)
+        moreoption = WebDriverWait(self.driver, 15).until(EC.presence_of_all_elements_located((By.XPATH,self.ACTIONBUTTON)))
         moreoption[0].click()
 
     def duplicate_invoice(self):
@@ -564,12 +588,55 @@ class InvoicePage():
         driver.switch_to.frame(inbox_frame)
         print(subjecttext)
         email_subject = driver.find_element(By.XPATH,
-                                            "//div[@id='e_ZwZjZmVjZGR0BQN0ZQNjZmL4BGV5Zj==']//div[@class='lms'][normalize-space()='This is a dummy invoice']")
+                                            "//div[@id='e_ZwZjZmV3ZQL1BQN5ZQNjZGD3AQtlAD==']//div[@class='lms'][normalize-space()='This is a dummy invoice']")
         email_subject.click()
         # email_body_frame = driver.find_element(By.ID,'ifmail')
         # driver.switch_to.frame(email_body_frame)
         # mailbody = self.driver.find_element(By.ID,"mail")
         # assert self.body.text == mailbody.text,"body text doesnt match"
+
+    def verify_edited_invoice(self):
+        time.sleep(3)
+        finaltotal = self.driver.find_element(By.XPATH,self.TOTALAMNT1)
+        # finaltotal = total[3].find_elements(By.CLASS_NAME,self.TOTALAMNT1c1)
+        # for ftotal in finaltotal:
+        #     time.sleep(2)
+        print(finaltotal.text)
+        string = finaltotal.text
+        pattern = r'[0-9,.]+'
+        matches = re.findall(pattern, string)
+        global result
+        result = ''.join(matches)
+        print("This is the final",result)
+    def invoice_Edited_successfully(self):
+        inv_det_total = self.driver.find_element(By.ID,self.INV_DETAIL_TOTAL)
+        inv_det = inv_det_total.find_elements(By.TAG_NAME,self.INVTOTAL)
+        global invoicetotal
+        invoicetotal = inv_det[1].text
+        if invoicetotal.startswith("$"):
+            invoicetotal = invoicetotal[1:]
+            famount = re.sub('[^0-9.]', '', invoicetotal)
+            print(famount)
+            print(totalamt)
+    def record_payment_btn(self):
+        self.driver.find_element(By.ID,self.RECORDPAYMENT).click()
+        time.sleep(1)
+    def fill_record_payments_form(self):
+        self.driver.find_element(By.XPATH, self.AMOUNTRECIEVED).clear()
+        self.driver.find_element(By.XPATH,self.AMOUNTRECIEVED).send_keys(randinteger)
+        current_time = date.today().strftime('%m/%d/%Y')
+        self.driver.find_element(By.XPATH,self.PAYMENTDATE).send_keys(Keys.CONTROL + 'a' + Keys.NULL, current_time,Keys.ENTER)
+        self.driver.find_element(By.ID,self.PAYMENTMODEID).click()
+        self.driver.find_element(By.XPATH,self.BANKTRANSFER).click()
+        self.driver.find_element(By.ID, self.REFERENCENUMBERID).clear()
+        self.driver.find_element(By.ID,self.REFERENCENUMBERID).send_keys(WORDS)
+        self.driver.find_element(By.XPATH,self.ENTERNOTE).send_keys("This is a note")
+        self.driver.find_element(By.XPATH,self.SAVEBTN).click()
+        time.sleep(2)
+
+
+
+
 
 
 
