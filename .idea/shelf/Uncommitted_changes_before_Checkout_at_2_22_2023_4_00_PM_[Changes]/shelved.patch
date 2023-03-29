@@ -1,0 +1,28 @@
+Index: Features/CreditNote.feature
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Created by Datasoft at 2/17/2023\r\n\r\nFeature: abc\r\n\r\n Background: Login & Redirect To Invoice Page\r\n    Then User Navigates to Merchant Portal\r\n    Then User Enters khanbro and s3gxtMerqGtz\r\n    Then User Clicks on Login Button\r\n    Then Open Right Side Panel\r\n    Then User Navigate To Invoice Tab\r\n\r\n\r\n Scenario: credit notes from invoice\r\n   Then check if there are any open invoices\r\n   Then click on Open\r\n#   Then click on three dots and click to apply credit notes\r\n#   Then enter values\r\n#   Then get first CN no from text\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Features/CreditNote.feature b/Features/CreditNote.feature
+--- a/Features/CreditNote.feature	
++++ b/Features/CreditNote.feature	
+@@ -4,7 +4,7 @@
+ 
+  Background: Login & Redirect To Invoice Page
+     Then User Navigates to Merchant Portal
+-    Then User Enters khanbro and s3gxtMerqGtz
++    Then User Enters testinginvoicetax@yopmail.com and Abc123++
+     Then User Clicks on Login Button
+     Then Open Right Side Panel
+     Then User Navigate To Invoice Tab
+@@ -12,7 +12,7 @@
+ 
+  Scenario: credit notes from invoice
+    Then check if there are any open invoices
+-   Then click on Open
++#   Then click on Open
+ #   Then click on three dots and click to apply credit notes
+ #   Then enter values
+ #   Then get first CN no from text
