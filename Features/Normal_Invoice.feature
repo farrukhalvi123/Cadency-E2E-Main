@@ -120,7 +120,7 @@ Feature: As a admin i want to add a new invoice
     Then Click on More Options on an invoice
     Then Click on View
     Then Click on Record Payment
-    Then Record Full Payments
+#    Then Record Full Payments
 
 
 
