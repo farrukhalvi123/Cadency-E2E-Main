@@ -33,8 +33,3 @@ def Cnpage(context):
 @then("get first CN no from text")
 def step_impl(context):
     context.cadency.creditnote.takecn()
-
-
-@then("click on customer and receivables tag")
-def step_impl(context):
-    context.cadency.creditnote.click_drop_CR()
