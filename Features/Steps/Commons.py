@@ -9,8 +9,6 @@ import time
 
 from Constants.URLS import TestData
 from Pages.Admin_LoginPage import AdminLoginPage
-from Pages.AdvPaySetPage import AdvancePaymentSetting
-from Pages.Creditnotepages import Cns
 from Pages.CustomerPages import CustomerPages
 from Pages.LoginPage import LoginPage
 from Pages.InvoicePage import InvoicePage
@@ -19,9 +17,6 @@ from Pages.Admin_AddNewUser import AdminAddUsers
 from Pages.Manage_Teams import ManageTeams
 from Pages.TemplatePages import TemplatePage
 from Pages.Verify_Modules_Permissions import VerifyPermissions
-from Pages.PormisetoPaypsges import Ptop
-# from Pages.CP_loginPage import CustomerPortalLogin
-# from Pages.CP_Page_verifyDispute import Open_dispute_tag
 
 
 class cadencyweb:
@@ -32,17 +27,14 @@ class cadencyweb:
         self.customadd = CustomerPages(driver)
         self.invoice = InvoicePage(driver)
         self.templates = TemplatePage(driver)
-        self.advpayset=  AdvancePaymentSetting(driver)
-        self.creditnote=Cns(driver)
+        self.advpayset = AdvancePaymentSetting(driver)
+        self.creditnote = Cns(driver)
         # Admin Portal Pages
         self.admin_man_login = AdminLoginPage(driver)
         self.admin_forgot_pass = AdminForgotPass(driver)
         self.admin_add_users = AdminAddUsers(driver)
         self.admin_manage_teams = ManageTeams(driver)
         self.admin_verify_permissions = VerifyPermissions(driver)
+        self.admin_onboarding_merchant = OnboardingMerchant(driver)
         self.PromisetoPay=Ptop(driver)
-# customer portal pages
-
-        #self.Cportal_login= CustomerPortalLogin(driver)
-        #self.Verify_DisputeTag= Open_dispute_tag(driver)
-
+        self.PromisetoPay = Ptop(driver)
