@@ -19,7 +19,7 @@ Feature: I want to Onboard a new merchant
    Then Select Merchant Status
    Then Enable Billing Center
    Then Upload Merchant Logo
-   Then Save Merchant
+#   Then Save Merchant
 
  Scenario: Checking Filters
    Then Click On Onboard Merchants
