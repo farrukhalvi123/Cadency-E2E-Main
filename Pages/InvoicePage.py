@@ -19,7 +19,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from Constants.URLS import TestData
 # from Elements.InvoiceElements import invoiceelements
 # from Elements.Customer_elements import customerelements
-from selenium.common import exceptions
+from selenium.common import exceptions, NoSuchElementException, TimeoutException
 from selenium.webdriver import ActionChains
 import csv
 import PyPDF2
@@ -87,6 +87,10 @@ class InvoicePage():
         self.PAIDSTATUS = "status-container.status-green.ng-star-inserted"
         self.PARTIALLYPAIDSTATUS = "status-container.status-orange.ng-star-inserted"
         self.WAITINGFORFUNDSTAB = "status-container.status-orange3.ng-star-inserted"
+        self.INVDETAILPAIDSTATUS = "status-container.status-green.ng-star-inserted"
+        self.INVDETAILPARTIALPAIDSTATUS = "status-container.mr-2.status-orange.ng-star-inserted"
+        self.INVDETAILWFFSTATUS = "status-container.mr-2.status-orange3.ng-star-inserted"
+        self.INVDETAILOPENSTATUS = "status-container.mr-2.status-blue.ng-star-inserted"
         self.DUPLICATE = "//a[normalize-space()='Duplicate']"
         self.INVOICEANDCUSTOMER = "p-element.title-heading-1.text-primary-3"
         self.AMOUNT_BALANCE = "max-width-300.amount-column.font-bold.ng-star-inserted"
@@ -634,10 +638,45 @@ class InvoicePage():
         self.driver.find_element(By.XPATH,self.SAVEBTN).click()
         time.sleep(2)
 
+    def record_full_payment_form(self):
+        current_time = date.today().strftime('%m/%d/%Y')
+        self.driver.find_element(By.XPATH, self.PAYMENTDATE).send_keys(Keys.CONTROL + 'a' + Keys.NULL, current_time,
+                                                                       Keys.ENTER)
+        self.driver.find_element(By.ID, self.PAYMENTMODEID).click()
+        self.driver.find_element(By.XPATH, self.BANKTRANSFER).click()
+        self.driver.find_element(By.ID, self.REFERENCENUMBERID).clear()
+        self.driver.find_element(By.ID, self.REFERENCENUMBERID).send_keys(WORDS)
+        self.driver.find_element(By.XPATH, self.ENTERNOTE).send_keys("This is a note")
+        self.driver.find_element(By.XPATH, self.SAVEBTN).click()
+        time.sleep(2)
 
 
-
-
+    def verify_status_InvoiceDetail(self):
+        try:
+            Invoicepaid = WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.CLASS_NAME, self.INVDETAILPAIDSTATUS)))
+            if Invoicepaid == True:
+                assert Invoicepaid.text == 'Paid', "Full Amount has not been paid"
+        except (NoSuchElementException, TimeoutException):
+            try:
+                Invoicepartialpaid = WebDriverWait(self.driver, 10).until(
+                    EC.visibility_of_element_located((By.CLASS_NAME, self.INVDETAILPARTIALPAIDSTATUS)))
+                if Invoicepartialpaid == True:
+                    assert Invoicepartialpaid.text == 'Partially Paid', "Full Amount has not been paid"
+            except (NoSuchElementException, TimeoutException):
+                try:
+                    Invoicewff = WebDriverWait(self.driver, 10).until(
+                        EC.visibility_of_element_located((By.CLASS_NAME, self.INVDETAILWFFSTATUS)))
+                    if Invoicewff == True:
+                        assert Invoicewff.text == 'Waiting For Funds', "Full Amount has not been paid"
+                except (NoSuchElementException, TimeoutException):
+                    pass
+        finally:
+            Invoiceopen = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, self.INVDETAILOPENSTATUS)))
+            if Invoiceopen == True:
+                assert Invoiceopen.text == 'Open', "Full Amount has not been paid"
+            else:
+                print("Error has occurred in invoice status")
 
 
 

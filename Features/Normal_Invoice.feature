@@ -109,10 +109,18 @@ Feature: As a admin i want to add a new invoice
     Then Verify Sent Email
 
   Scenario: Record Payment Against an Invoice
+    Then Duplicate an Invoice
     Then Click on More Options on an invoice
     Then Click on View
     Then Click on Record Payment
     Then Record Payments
+
+  Scenario: Record Full Payment Against Invoice
+    Then Duplicate an Invoice
+    Then Click on More Options on an invoice
+    Then Click on View
+    Then Click on Record Payment
+    Then Record Full Payments
 
 
 
