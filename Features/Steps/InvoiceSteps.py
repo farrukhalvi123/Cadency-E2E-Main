@@ -7,6 +7,7 @@ from behave import *
 @then("User Navigate To Invoice Tab")
 def step_impl(context):
     context.cadency.invoice.ClickOnInvoiceTab()
+    time.sleep(3)
 
 
 @then("User Clicks On Add Invoice Button")
