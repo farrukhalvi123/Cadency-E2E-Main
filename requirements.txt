@@ -10,5 +10,4 @@ pyodbc
 WMI
 pandas
 babel
-PyPDF2
-PyPDF2
+bs4
