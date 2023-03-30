@@ -4,11 +4,6 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8fc0d95-02d1-48c9-aca4-440e67a8c0a5" name="Changes" comment="add invoice page claases into credit notes">
-      <change beforePath="$PROJECT_DIR$/Features/CreditNote.feature" beforeDir="false" afterPath="$PROJECT_DIR$/Features/CreditNote.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Features/Steps/CreditNotesteps.py" beforeDir="false" afterPath="$PROJECT_DIR$/Features/Steps/CreditNotesteps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pages/Creditnotepages.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/Creditnotepages.py" afterDir="false" />
-    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,7 +21,6 @@
     <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
