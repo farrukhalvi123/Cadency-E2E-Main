@@ -15,7 +15,12 @@
 .idea/
 Cadency-E2E-Main/.idea/
 TestData/
-/allure
+/allure/
 inspectionProfiles
+Constants/__pycache__/
+Features/Steps/__pycache__/
+Pages/__pycache__/
+TestData/TestExcelsandPDFS/
+venv/
 
 
