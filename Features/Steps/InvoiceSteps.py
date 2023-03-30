@@ -284,3 +284,9 @@ def step_impl(context):
 @then("Record Payments")
 def step_impl(context):
     context.cadency.invoice.fill_record_payments_form()
+
+
+@then("Record Full Payments")
+def step_impl(context):
+    context.cadency.invoice.record_full_payment_form()
+    context.cadency.invoice.verify_status_InvoiceDetail()
