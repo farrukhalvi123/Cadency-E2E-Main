@@ -16,5 +16,11 @@
 /allure
 \.idea
 allure/
-TestData/
-__pycache__/
+.idea/misc.xml
+.idea/workspace.xml
+Constants/__pycache__/
+Features/Steps/__pycache__/
+Pages/__pycache__/
+TestData/TestExcelsandPDFS/
+allure/
+

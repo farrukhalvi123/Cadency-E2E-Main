@@ -95,7 +95,7 @@ class CustomerPages(unittest.TestCase):
         self.TASKTABS = "p-tabpanel-4-label"
         self.taskcards = "p-element.text-primary-3"
     def hover_hamburger(self):
-        element = WebDriverWait(self.driver,10).until(EC.presence_of_element_located((By.XPATH,self.hamburger_icon)))
+        element = WebDriverWait(self.driver,20).until(EC.presence_of_element_located((By.XPATH,self.hamburger_icon)))
         actions = ActionChains(self.driver)
         actions.move_to_element(element).perform()
     def Go_to_customerTab(self):
@@ -129,9 +129,9 @@ class CustomerPages(unittest.TestCase):
             self.result_str = "".join((random.choice(string.ascii_letters) for i in range(10))) + "@yopmail.com"
             print(self.result_str)
             self.driver.find_element(By.ID,self.EMAIL).send_keys(self.result_str)
-            # global email_address
-            # email_address = self.result_str
-            # print(email_address)
+            global email_address
+            email_address = self.result_str
+            print(email_address)
 
     def enter_customerDetails(self, cus_dis_name,fname,lname,phno,web,ccemail):
 
