@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8fc0d95-02d1-48c9-aca4-440e67a8c0a5" name="Changes" comment="workspace azaab" />
+    <list default="true" id="05252e7d-fb38-4430-be8c-cb60f8f405e5" name="Changes" comment="workspace azaab" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,7 +13,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="AdvancePayymentsStting" />
+        <entry key="$PROJECT_DIR$" value="Advanced_Payment_Settings" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

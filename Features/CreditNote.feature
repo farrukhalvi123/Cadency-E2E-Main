@@ -24,8 +24,8 @@ Scenario: comparing credit note from last to new CN
   Then take to CN page
   Then get first CN no from text
 
-#  Scenario: credit notes
-#   Then click on Open
-#   Then click on three dots and click to apply credit notes
+  Scenario: credit notes
+   Then click on Open
+   Then click on three dots and click to apply credit notes
 #   Then enter values
 
