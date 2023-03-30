@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8fc0d95-02d1-48c9-aca4-440e67a8c0a5" name="Changes" comment="add invoice page claases into credit notes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Features/Normal_Invoice.feature" beforeDir="false" afterPath="$PROJECT_DIR$/Features/Normal_Invoice.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Features/Steps/InvoiceSteps.py" beforeDir="false" afterPath="$PROJECT_DIR$/Features/Steps/InvoiceSteps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pages/InvoicePage.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/InvoicePage.py" afterDir="false" />
-    </list>
+    <list default="true" id="a8fc0d95-02d1-48c9-aca4-440e67a8c0a5" name="Changes" comment="add invoice page claases into credit notes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -186,7 +181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679989167495</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add invoice page claases into credit notes">
+      <created>1680168564132</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1680168564132</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -223,7 +225,7 @@
     <SUITE FILE_PATH="coverage/Cadency_E2E_Main$Login_feature_Testing_Logout.coverage" NAME="Login.feature:Testing Logout Coverage Results" MODIFIED="1676635283675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Cadency_E2E_Main$Normal_Invoice_feature_Verify_Disputed_Invoices.coverage" NAME="Normal_Invoice.feature:Verify Disputed Invoices Coverage Results" MODIFIED="1678981799654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Cadency_E2E_Main$Normal_Invoice_feature_Full_Amount_using_Record_Payment.coverage" NAME="Normal_Invoice.feature:Full Amount using Record Payment Coverage Results" MODIFIED="1680158473196" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/Cadency_E2E_Main$Normal_Invoice_feature_Record_Full_Payment_Against_Invoice.coverage" NAME="Normal_Invoice.feature:Record Full Payment Against Invoice Coverage Results" MODIFIED="1680168079589" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Cadency_E2E_Main$Normal_Invoice_feature_Record_Full_Payment_Against_Invoice.coverage" NAME="Normal_Invoice.feature:Record Full Payment Against Invoice Coverage Results" MODIFIED="1680168197440" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Cadency_E2E_Main$Admin_AddUsers_feature_Add_New_User.coverage" NAME="Admin_AddUsers.feature:Add New User Coverage Results" MODIFIED="1676379346357" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Cadency_E2E_Main$Customers_feature_Search_Customer.coverage" NAME="Customers.feature:Search Customer Coverage Results" MODIFIED="1676986578155" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Cadency_E2E_Main$Normal_Invoice_feature_Delete_an_Invoice.coverage" NAME="Normal_Invoice.feature:Delete an Invoice Coverage Results" MODIFIED="1678981952883" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
