@@ -32,7 +32,12 @@ class Cns():
 
         self.creditmodel="//p[normalize-space()='Credit Notes']"
         self.searchnote = "text-primary-10.font-bold"
+        self.click_receive_tag = "//p[normalize-space()='Customers & Receivables']"
         # self.showcnum= "//div[@class='text-primary-10 font-bold']"
+
+    def click_drop_CR(self):
+        self.driver.find_element(By.XPATH, self.click_receive_tag).click()
+
 
     def Opentab(self):
         openfil = self.driver.find_element(By.XPATH, self.open_filter)
@@ -60,6 +65,7 @@ class Cns():
         save=self.driver.find_element(By.XPATH, self.save_but)
         save.click()
         time.sleep(3)
+
 
     def CNmodule(self):
          creditnotepage = self.driver.find_element(By.XPATH, self.creditmodel)
