@@ -123,7 +123,7 @@ def step_impl(context):
 @then("Edit Customer Details")
 def step_impl(context):
     context.execute_steps("""
-    Then Add Customer Details amir and amir and alv and 0300 4589878 and https://www.hogoogle.com and aa@aaj.com
+    Then Add Customer Details Selina and Kyle and alv and 0300 4589878 and https://www.hogoogle.com and aa@aaj.com
     Then Upload Picture Logo
     Then Add Address Details 13231teststreet abcxystreet 2254
     And Click on Save Button""")
@@ -212,9 +212,9 @@ def step_impl(context):
     context.cadency.customadd.customer_number()
 
 
-@then("Search for {custname} and verify results")
-def step_impl(context,custname):
-    context.cadency.customadd.search_customer(custname)
+@then("Search for {name} and verify results")
+def step_impl(context,name):
+    context.cadency.customadd.search_customer(name)
 
 
 @then("Select Invoice Status")
@@ -230,3 +230,23 @@ def step_impl(context):
 @then("Verify Invoices with Current Status")
 def step_impl(context):
     context.cadency.customadd.vefify_Current_status_filter()
+
+
+@then("Verify Closed Invoices")
+def step_impl(context):
+   context.cadency.customadd.verify_closedInvoices()
+
+
+@then("Verify Invoices with Payments received")
+def step_impl(context):
+    context.cadency.customadd.verify_paidinvoices()
+
+
+@then("Verify Credit Notes")
+def step_impl(context):
+    context.cadency.customadd.verify_creditnotes()
+
+
+@then("Verify Number of Tasks")
+def step_impl(context):
+    context.cadency.customadd.verify_Task()

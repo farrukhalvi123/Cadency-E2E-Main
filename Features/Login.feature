@@ -4,7 +4,7 @@ Feature: As an end user i want to login to the cadency and view the dashboard pa
 
  Background:
     Then User Navigates to Merchant Portal
-    Then User Enters clarkkent and Cadency123!
+    Then User Enters clarkkent and Cadency@123
     Then User Clicks on Login Button
 
     @login
