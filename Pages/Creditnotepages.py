@@ -19,6 +19,7 @@ class Cns():
     def __init__(self, driver):
 
         self.driver = driver
+        self.OPENCN = "//p[@class='paragraph-text-navigation active']"
 
         self.open_filter = "//a[contains(text(), 'Open')]"
 
@@ -94,3 +95,6 @@ class Cns():
     #     print(cnclass)
     #
 
+    def go_to_creditnotes(self):
+        self.driver.find_element(By.XPATH,self.OPENCN).click()
+        time.sleep(5)
