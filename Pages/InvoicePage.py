@@ -118,6 +118,7 @@ class InvoicePage():
         self.REFERENCENUMBERID = "referenceNumber"
         self.ENTERNOTE = "//textarea[@placeholder='Enter note']"
         self.BANKTRANSFER = "//span[normalize-space()='Bank Transfer']"
+        self.YOPATTACHMENTS = "material-icons-outlined.i1"
 
 
 
@@ -679,7 +680,27 @@ class InvoicePage():
                 print("Error has occurred in invoice status")
 
 
-
+    def verify_Thankyouemail_Contents(self):
+        driver = webdriver.Chrome(ChromeDriverManager().install())
+        driver.get("https://www.yopmail.com")
+        driver.maximize_window()
+        time.sleep(2)
+        driver.find_element(By.ID, self.yop_EMAILFIELD).send_keys("selinakyle@yopmail.com")
+        driver.find_element(By.ID, self.yop_EMAILFIELD).send_keys(Keys.ENTER)
+        time.sleep(2)
+        inbox_frame = driver.find_element(By.XPATH, '//*[@id="ifinbox"]')
+        driver.switch_to.frame(inbox_frame)
+        # email_subject = driver.find_element(By.XPATH,
+        #                                     "//div[@id='e_ZwZjZmZkZGNlBQN1ZQNjZmR4BQHjBD==']//button[@class='lm']")
+        # email_subject.click()
+        time.sleep(5)
+        file_attachments = self.driver.find_element(By.CLASS_NAME,self.YOPATTACHMENTS)
+        file_attachments.click()
+        self.verify_pdffile()
+        # email_body_frame = driver.find_element(By.ID,'ifmail')
+        # driver.switch_to.frame(email_body_frame)
+        # mailbody = self.driver.find_element(By.ID,"mail")
+        # assert self.body.text == mailbody.text,"body text doesnt match"
 
 
 

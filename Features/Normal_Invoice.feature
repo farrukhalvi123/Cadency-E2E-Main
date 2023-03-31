@@ -121,13 +121,17 @@ Feature: As a admin i want to add a new invoice
     Then Click on View
     Then Click on Record Payment
     Then Record Full Payments
+    Then Verify Sent Email and attachment
 
-  Scenario Record Half Payment Against Invoice
+  Scenario: Record Half Payment Against Invoice
     Then Duplicate an Invoice
     Then Click on More Options on an invoice
     Then Click on View
     Then Click on Record Payment
     Then Record Payments
+    Then Verify Sent Email and attachment
+
+
 
 
 

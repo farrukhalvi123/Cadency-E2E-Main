@@ -267,10 +267,6 @@ def step_impl(context):
 def step_impl(context):
    context.cadency.invoice.verify_sent_email()
 
-
-# @then("Verify Edited invoice details")
-# def step_impl(context):
-#     context.cadency.invoice.verify_edited_invoice()
 @then("Verify Invoice Edited Successfully")
 def step_impl(context):
     context.cadency.invoice.invoice_Edited_successfully()
@@ -290,3 +286,8 @@ def step_impl(context):
 def step_impl(context):
     context.cadency.invoice.record_full_payment_form()
     context.cadency.invoice.verify_status_InvoiceDetail()
+
+
+@then("Verify Sent Email and attachment")
+def step_impl(context):
+   context.cadency.invoice.verify_Thankyouemail_Contents()
