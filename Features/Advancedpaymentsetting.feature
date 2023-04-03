@@ -5,7 +5,7 @@ Feature:abc
 
  Background: Login & Redirect To Invoice Page
     Then User Navigates to Merchant Portal
-    Then User Enters clarkkent and Cadency123!
+    Then User Enters clarkkent and Cadency@123
     Then User Clicks on Login Button
 
  Scenario: Adnavced payment

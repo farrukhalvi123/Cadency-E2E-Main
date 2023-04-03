@@ -149,3 +149,144 @@ def step_impl(context):
 @then("Verify Downloaded CSV")
 def step_impl(context):
     context.cadency.invoice.Download_Excelfile()
+
+
+@then("Go to Disputed Tab and verify disputed invoices")
+def step_impl(context):
+    context.cadency.invoice.Disputedtab()
+    context.cadency.invoice.disputed_invoices()
+
+@then("Verify Number of Invoices")
+def step_impl(context):
+    context.cadency.invoice.verify_numberof_invoices()
+
+@then("Go to All Tab")
+def step_impl(context):
+    context.cadency.invoice.ALLtab()
+
+
+@then("Go to Open Tab")
+def step_impl(context):
+    context.cadency.invoice.OpentabINV()
+
+@then("verify All Open Invoices")
+def step_impl(context):
+    context.cadency.invoice.open_invoices()
+
+
+@then("Go to Paid Tab")
+def step_impl(context):
+    context.cadency.invoice.PaidtabINV()
+
+
+@then("verify All Paid Invoices")
+def step_impl(context):
+    context.cadency.invoice.paid_invoices()
+
+
+@then("Go to Partially Paid Invoices")
+def step_impl(context):
+    context.cadency.invoice.PartiallyPaidtabINV()
+
+
+@then("Verify Partially Paid Invoices")
+def step_impl(context):
+    context.cadency.invoice.partially_paid_invoices()
+
+
+@then("Go to Waiting for Funds Invoices")
+def step_impl(context):
+    context.cadency.invoice.WaitingfofundsTab()
+
+
+@then("Verify Waiting for Funds Invoice")
+def step_impl(context):
+    context.cadency.invoice.waitingforfunds_invoices()
+
+
+@then("Click on More Options on an invoice")
+def step_impl(context):
+    context.cadency.invoice.click_moreoptions()
+
+
+@then("Duplicate an Invoice")
+def step_impl(context):
+   context.cadency.invoice.duplicate_invoice()
+
+
+@then("Delete the Invoice")
+def step_impl(context):
+    context.cadency.invoice.delete_invoice()
+
+
+@then("Click on View")
+def step_impl(context):
+    context.cadency.invoice.view_invoice()
+
+
+@then("Verify Invoice Details")
+def step_impl(context):
+    context.cadency.invoice.verify_invoice_Details()
+
+
+@then("Close Left Side Menu")
+def step_impl(context):
+    context.cadency.invoice.close_leftsidemenu()
+
+
+@then("Click on Edit Invoice")
+def step_impl(context):
+    context.cadency.invoice.editinvoice()
+
+
+@then("Edit Invoice from Detail Page")
+def step_impl(context):
+    context.execute_steps('''
+    Then Enter Reference
+    Then Select DueDate
+    Then Add Item This is test invoice description
+    And Add Items Quantity
+    And Adding Item Price
+    And Adding Items Discount
+    And Select Tax
+    Then Verify Amount
+    Then Verify Total Amount''')
+    context.cadency.invoice.verify_edited_invoice()
+
+@then("Verify Email Sending Details")
+def step_impl(context):
+        context.cadency.invoice.Verify_Send_Email()
+
+
+@then("Send Email")
+def step_impl(context):
+   context.cadency.invoice.send_email()
+
+
+@then("Verify Sent Email")
+def step_impl(context):
+   context.cadency.invoice.verify_sent_email()
+
+
+# @then("Verify Edited invoice details")
+# def step_impl(context):
+#     context.cadency.invoice.verify_edited_invoice()
+@then("Verify Invoice Edited Successfully")
+def step_impl(context):
+    context.cadency.invoice.invoice_Edited_successfully()
+
+
+@then("Click on Record Payment")
+def step_impl(context):
+    context.cadency.invoice.record_payment_btn()
+
+
+@then("Record Payments")
+def step_impl(context):
+    context.cadency.invoice.fill_record_payments_form()
+
+
+@then("Record Full Payments")
+def step_impl(context):
+    context.cadency.invoice.record_full_payment_form()
+    context.cadency.invoice.verify_status_InvoiceDetail()
