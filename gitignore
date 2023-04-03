@@ -14,4 +14,4 @@
 /geckodriver.log
 .idea/
 /allure
-
+.idea/workspace.xml
