@@ -94,3 +94,23 @@ class Cns():
     #     print(cnclass)
     #
 
+# def first_takecn(self):
+#         cnno = self.driver.find_elements(By.CLASS_NAME, self.searchnote)
+#         time.sleep(2)
+#         newcnn = cnno[0].text
+#         # time.sleep(4)
+#         print(newcnn)
+#         ext_cn= newcnn.split("-")[1]
+#         time.sleep(2)
+#         print(ext_cn)
+#         time.sleep(2)
+#     def second_takecn(self):
+#         cnno = self.driver.find_elements(By.CLASS_NAME, self.searchnote)
+#         time.sleep(2)
+#         newcnn = cnno[0].text
+#         # time.sleep(4)
+#         print(newcnn)
+#         ext_cn = newcnn.split("-")[1]
+#         time.sleep(2)
+#         print(ext_cn)
+#         time.sleep(2)
