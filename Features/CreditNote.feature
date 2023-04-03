@@ -9,6 +9,7 @@ Feature: samra
     Then Open Right Side Panel
 #    Then Open Right Side Panel
     #Then User Navigate To Invoice Tab
+
 Scenario: comparing credit note from last to new CN
 
   Then click on customer and receivables tag

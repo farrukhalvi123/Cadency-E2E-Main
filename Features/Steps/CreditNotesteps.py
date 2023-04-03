@@ -38,3 +38,8 @@ def step_impl(context):
 @then("click on customer and receivables tag")
 def step_impl(context):
     context.cadency.creditnote.click_drop_CR()
+
+
+@then("Go to Credit Notes")
+def step_impl(context):
+    context.cadency.creditnote.go_to_creditnotes()
