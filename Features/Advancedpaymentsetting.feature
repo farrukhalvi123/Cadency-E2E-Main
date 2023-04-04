@@ -7,6 +7,9 @@ Feature:abc
     Then User Navigates to Merchant Portal
     Then User Enters clarkkent and Cadency@123
     Then User Clicks on Login Button
+#   Then User Clicks on Login Button
+    Then Open Right Side Panel
+    Then take to CN page
 
  Scenario: Adnavced payment
     Given click on sprocket

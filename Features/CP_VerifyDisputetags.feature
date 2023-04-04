@@ -3,7 +3,7 @@ Feature: Open customer portal and search for anyone invoive from "Invoices" mark
   and verify this thing on 'Account statemnet'
  Background:
    When user is at customer portal
-   Then customer enter ransom and a45GnsKuzYs4
+   Then customer enter ransom and Cadency123@
    Then customer clicks login button
 
   Scenario: go to invoices, and pick any invoice with status disputed and open

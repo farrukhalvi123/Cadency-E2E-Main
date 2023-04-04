@@ -7,7 +7,7 @@ from behave import *
 
 @when("user is at customer portal")
 def step_impl(context):
-    context.cadency.Cportal_login.go_to_login()
+    context.cadency.CustomerPortal.go_to_login()
     time.sleep(4)
 
 
@@ -16,10 +16,10 @@ def step_impl(context):
 
 @then("customer enter {uname} and {pswd}")
 def step_impl(context,uname,pswd):
-    context.cadency.Cportal_login.enter_username1(uname)
-    context.cadency.Cportal_login.enter_password1(pswd)
+    context.cadency.CustomerPortal.enter_username1(uname)
+    context.cadency.CustomerPortal.enter_password1(pswd)
 
 
 @then("customer clicks login button")
 def step_impl(context):
-    context.cadency.Cportal_login.login_button()
+    context.cadency.CustomerPortal.login_button()

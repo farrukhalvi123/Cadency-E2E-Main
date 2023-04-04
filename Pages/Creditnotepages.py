@@ -36,8 +36,10 @@ class Cns():
         self.click_receive_tag = "//p[normalize-space()='Customers & Receivables']"
         # self.showcnum= "//div[@class='text-primary-10 font-bold']"
 
-    def click_drop_CR(self):
-        self.driver.find_element(By.XPATH, self.click_receive_tag).click()
+    # def click_dropdown_CR(self):
+    #     clic= self.driver.find_element(By.XPATH, self.click_receive_tag)
+    #     clic.click()
+    #     time.sleep(3)
 
 
     def Opentab(self):
@@ -69,9 +71,10 @@ class Cns():
 
 
     def CNmodule(self):
-         creditnotepage = self.driver.find_element(By.XPATH, self.creditmodel)
-         creditnotepage.click()
-         time.sleep(3)
+
+        creditnotepage = self.driver.find_element(By.XPATH, self.creditmodel)
+        creditnotepage.click()
+        time.sleep(3)
 
     def takecn(self):
         cnno = self.driver.find_elements(By.CLASS_NAME, self.searchnote)
@@ -79,6 +82,13 @@ class Cns():
         print(newcnn)
         ext_cn= newcnn.split("-")[1]
         print(ext_cn)
+
+    def click_drop_CR(self):
+        clic = self.driver.find_element(By.XPATH, self.click_receive_tag)
+        time.sleep(4)
+        clic.click()
+        time.sleep(3)
+
 
 
 
