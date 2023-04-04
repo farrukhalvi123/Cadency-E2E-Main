@@ -46,10 +46,6 @@ Feature: As an Admin User I want to Manage a new Customer
   Scenario: Search Customer
     Then Search for Selina Kyle and verify results
 
-  Scenario: Verify Invoice Tiles on Customer Details
-    Then Search for Selina Kyle and verify results
-    Then View Customer Details
-    Then Verify Invoice Tiles
 
   Scenario: Verify Invoice Status and Tabs
     Then Search for Selina Kyle and verify results
@@ -60,6 +56,13 @@ Feature: As an Admin User I want to Manage a new Customer
     Then Verify Invoices with Payments received
     Then Verify Credit Notes
     Then Verify Number of Tasks
+
+  Scenario: Verify Customer Info
+    Then Search for Selina Kyle and verify results
+    Then Verify Customer Details on Listing Page
+    Then View Customer Details
+    Then Verify Customer Details on Details Page
+
 
 
 

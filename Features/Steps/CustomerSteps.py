@@ -250,3 +250,13 @@ def step_impl(context):
 @then("Verify Number of Tasks")
 def step_impl(context):
     context.cadency.customadd.verify_Task()
+
+
+@then("Verify Customer Details on Listing Page")
+def step_impl(context):
+    context.cadency.customadd.customer_listings()
+
+
+@then("Verify Customer Details on Details Page")
+def step_impl(context):
+    context.cadency.customadd.customer_details()

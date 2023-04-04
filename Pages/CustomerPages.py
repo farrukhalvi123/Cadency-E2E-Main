@@ -18,7 +18,7 @@ class CustomerPages(unittest.TestCase):
         self.hamburger_icon = "//div[@class='tree-container ng-star-inserted']"
         self.CUSTOMERANDRECEIVABLETAB = "//p[normalize-space()='Customers & Receivables']"
         self.CUSTOMERTAB = "//p[normalize-space()='Customers']"
-        self.CUSTOMERNAME = "title-heading-3 text-primary-3"
+        self.CUSTOMERNAME = "//span[normalize-space()='Selina Kyle']"
         self.NOCUSTOMERFOUND = "//div[@class='title-heading-5']"
         self.ADDFIRSTCUSTOMER = "//button[@class='p-element p-button-primary button-with-icon btn-120 p-button p-component']"
         self.ADDCUSTOMER = "(//button[@class='p-element p-button-primary button-with-icon btn-150 p-button p-component ng-star-inserted'])[1]"
@@ -51,7 +51,8 @@ class CustomerPages(unittest.TestCase):
         self.CITYID = "/html/body/cadency-root/cadency-features/div/div/div/div/cadency-customers-list/div/cadency-add-customer/div/form/p-sidebar/div/div[2]/div/div[2]/p-tabview/div/div[2]/p-tabpanel[2]/div/form/div/div[5]/div/p-dropdown/div/div[2]"
         self.CITYKARACHI = "//li[@aria-label='Karachi']"
         self.CUSTOMERNUMBER_VIEW = "//*[@id='pr_id_2-table']/tbody/tr[1]/td[2]/div/span"
-        self.CUSTOMER_LIST_EMAIL = "paragraph-text-4.wrap-text-all"
+        self.CUSTOMER_LIST_EMAIL = "//span[normalize-space()='datasoft_autotest@hotmail.com']"
+        self.CUSTOMER_LIST_PHONE = "//span[normalize-space()='0340 4781488']"
         self.THREEDOTSBUTTON = "more-icon"
         self.EDITCUSTOMER = "//a[normalize-space()='Edit']"
         self.EDITCUSTOMERTEXT = "//span[normalize-space()='Edit Customer']"
@@ -395,3 +396,24 @@ class CustomerPages(unittest.TestCase):
         time.sleep(1)
         tasks = self.driver.find_elements(By.CLASS_NAME,self.taskcards)
         print(len(tasks))
+
+    def customer_listings(self):
+        global customername , customeremail,customerphone
+        customername = self.driver.find_elements(By.XPATH,self.CUSTOMERNAME)
+        customeremail = self.driver.find_elements(By.XPATH,self.CUSTOMER_LIST_EMAIL)
+        customerphone = self.driver.find_element(By.XPATH,self.CUSTOMER_LIST_PHONE)
+
+    def customer_details(self):
+        global det_customername, det_customeremail, det_customerphone
+        det_customername = self.driver.find_elements(By.XPATH, self.CUSTOMERNAME)
+        det_customeremail = self.driver.find_element(By.XPATH, self.CUSTOMER_LIST_EMAIL)
+        det_customerphone = self.driver.find_element(By.XPATH, self.CUSTOMER_LIST_PHONE)
+        assert customername == det_customername, "Customer name donot match"
+        assert customeremail == det_customeremail, "Customer email donot match"
+        assert customerphone == det_customerphone, "Customer phone donot match"
+
+
+
+
+
+

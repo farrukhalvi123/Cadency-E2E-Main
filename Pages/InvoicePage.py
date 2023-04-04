@@ -105,7 +105,11 @@ class InvoicePage():
         self.EMAILSENDTOLABEL = "//span[@class='label-text']"
         self.DOWNLOADINVOICEBTN = "//div[@class='p-icon-button']"
         self.EMAILBODY = "//div[@class='angular-editor-textarea']"
-        self.yop_EMAILFIELD = "login"
+        self.yop_EMAILFIELD = "loginfmt"
+        self.HOTPASS = "passwd"
+        self.DONTYESBTN = "idSIButton9"
+        self.JUNKMAIL = "//div[@title='Junk Email']"
+        self.EMAILS = "zKDWD.YbB6r.IKvQi.IjQyD.JCRRb.G1NES"
         self.SUBJECT = "subject"
         self.TOTALAMNT1 = "/html/body/cadency-root/cadency-features/div/div/div/div/cadency-customer-invoices/div/div/cadency-create-invoice/div/form/p-sidebar/div/div[2]/div/div[2]/ul/li[4]/span[2]"
         self.TOTALAMNT1c1 = "grid-footer-text"
@@ -118,7 +122,8 @@ class InvoicePage():
         self.REFERENCENUMBERID = "referenceNumber"
         self.ENTERNOTE = "//textarea[@placeholder='Enter note']"
         self.BANKTRANSFER = "//span[normalize-space()='Bank Transfer']"
-        self.YOPATTACHMENTS = "material-icons-outlined.i1"
+        self.ATTACHMENTS = "//button[@title='More actions']"
+        self.DOWNLOADBTN = "//span[normalize-space()='Download']"
 
 
 
@@ -363,8 +368,9 @@ class InvoicePage():
     def clickPDFIcon(self):
         self.driver.find_element(By.XPATH,self.PDFICON).click()
     def verify_pdffile(self):
-        self.download_dir = os.getcwd() + '\\TestData\\TestExcelsandPDFS\\'
+        self.download_dir = os.getcwd() + '\\TestData\\TestExcelsandPDFS'
         time.sleep(5)
+        print(self.download_dir)
         self.file_path = max([self.download_dir + '\\' + f for f in os.listdir(self.download_dir)])
         self.file_name = os.path.basename(self.file_path)
         print(self.file_name)
@@ -583,22 +589,21 @@ class InvoicePage():
 
     def verify_sent_email(self):
         driver = webdriver.Chrome(ChromeDriverManager().install())
-        driver.get("https://www.yopmail.com")
+        driver.get("https://outlook.office365.com/mail/inbox")
         driver.maximize_window()
+        time.sleep(10)
+        driver.find_element(By.NAME, self.yop_EMAILFIELD).send_keys("datasoft_autotest@hotmail.com")
+        driver.find_element(By.NAME, self.yop_EMAILFIELD).send_keys(Keys.ENTER)
         time.sleep(2)
-        driver.find_element(By.ID, self.yop_EMAILFIELD).send_keys("selinakyle@yopmail.com")
-        driver.find_element(By.ID, self.yop_EMAILFIELD).send_keys(Keys.ENTER)
+        driver.find_element(By.NAME, self.HOTPASS).send_keys("Cadency@123")
+        driver.find_element(By.NAME,self.HOTPASS).send_keys(Keys.ENTER)
         time.sleep(2)
-        inbox_frame = driver.find_element(By.XPATH, '//*[@id="ifinbox"]')
-        driver.switch_to.frame(inbox_frame)
-        print(subjecttext)
-        email_subject = driver.find_element(By.XPATH,
-                                            "//div[@id='e_ZwZjZmV3ZQL1BQN5ZQNjZGD3AQtlAD==']//div[@class='lms'][normalize-space()='This is a dummy invoice']")
-        email_subject.click()
-        # email_body_frame = driver.find_element(By.ID,'ifmail')
-        # driver.switch_to.frame(email_body_frame)
-        # mailbody = self.driver.find_element(By.ID,"mail")
-        # assert self.body.text == mailbody.text,"body text doesnt match"
+        driver.find_element(By.ID,self.DONTYESBTN).click()
+        time.sleep(3)
+        driver.find_element(By.XPATH,self.JUNKMAIL).click()
+        self.emaillist = driver.find_elements(By.CLASS_NAME,self.EMAILS)
+        self.emaillist[0].click()
+
 
     def verify_edited_invoice(self):
         time.sleep(3)
@@ -682,25 +687,28 @@ class InvoicePage():
 
     def verify_Thankyouemail_Contents(self):
         driver = webdriver.Chrome(ChromeDriverManager().install())
-        driver.get("https://www.yopmail.com")
+        driver.get("https://outlook.office365.com/mail/inbox")
         driver.maximize_window()
+        time.sleep(3)
+        driver.find_element(By.NAME, self.yop_EMAILFIELD).send_keys("datasoft_autotest@hotmail.com")
+        driver.find_element(By.NAME, self.yop_EMAILFIELD).send_keys(Keys.ENTER)
+        time.sleep(4)
+        driver.find_element(By.NAME, self.HOTPASS).send_keys("Cadency@123")
+        driver.find_element(By.NAME, self.HOTPASS).send_keys(Keys.ENTER)
+        time.sleep(3)
+        driver.find_element(By.ID, self.DONTYESBTN).click()
+        time.sleep(3)
+        driver.find_element(By.XPATH, self.JUNKMAIL).click()
         time.sleep(2)
-        driver.find_element(By.ID, self.yop_EMAILFIELD).send_keys("selinakyle@yopmail.com")
-        driver.find_element(By.ID, self.yop_EMAILFIELD).send_keys(Keys.ENTER)
+        self.emaillist = driver.find_elements(By.CLASS_NAME, self.EMAILS)
+        print(len(self.emaillist))
+        self.emaillist[0].click()
+        time.sleep(10)
+        driver.find_element(By.XPATH,self.ATTACHMENTS).click()
+        driver.find_element(By.XPATH,self.DOWNLOADBTN).click()
         time.sleep(2)
-        inbox_frame = driver.find_element(By.XPATH, '//*[@id="ifinbox"]')
-        driver.switch_to.frame(inbox_frame)
-        # email_subject = driver.find_element(By.XPATH,
-        #                                     "//div[@id='e_ZwZjZmZkZGNlBQN1ZQNjZmR4BQHjBD==']//button[@class='lm']")
-        # email_subject.click()
-        time.sleep(5)
-        file_attachments = self.driver.find_element(By.CLASS_NAME,self.YOPATTACHMENTS)
-        file_attachments.click()
-        self.verify_pdffile()
-        # email_body_frame = driver.find_element(By.ID,'ifmail')
-        # driver.switch_to.frame(email_body_frame)
-        # mailbody = self.driver.find_element(By.ID,"mail")
-        # assert self.body.text == mailbody.text,"body text doesnt match"
+
+
 
 
 

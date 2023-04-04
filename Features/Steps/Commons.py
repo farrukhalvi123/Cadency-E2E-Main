@@ -10,6 +10,7 @@ import time
 from Constants.URLS import TestData
 from Pages.Admin_LoginPage import AdminLoginPage
 from Pages.AdvPaySetPage import AdvancePaymentSetting
+from Pages.CP_loginPage import CustomerPortalLogin
 from Pages.Creditnotepages import Cns
 from Pages.CustomerPages import CustomerPages
 from Pages.LoginPage import LoginPage
@@ -38,6 +39,8 @@ class cadencyweb:
         self.admin_add_users = AdminAddUsers(driver)
         self.admin_manage_teams = ManageTeams(driver)
         self.admin_verify_permissions = VerifyPermissions(driver)
+        #Customer Portal Pages
+        self.Cportal_login = CustomerPortalLogin(driver)
         # self.admin_onboarding_merchant = OnboardingMerchant(driver)
         self.PromisetoPay=Ptop(driver)
         # self.PromisetoPay = Ptop(driver)
