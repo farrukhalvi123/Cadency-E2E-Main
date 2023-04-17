@@ -46,14 +46,6 @@ class Open_dispute_tag():
         # # save_tag_dispute= save_inv_name.find_element(By.XPATH, self.d_tagname)
         # time.sleep(4)
         # print(save_tag_dispute.text)
-
-
-
-
-
-
-
-
         save_inv_name = self.driver.find_element(By.XPATH, self.getclassforinv)
         time.sleep(7)
         # print(save_inv_name)

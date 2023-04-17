@@ -39,5 +39,5 @@ class cadencyweb:
         self.admin_manage_teams = ManageTeams(driver)
         self.admin_verify_permissions = VerifyPermissions(driver)
         # self.admin_onboarding_merchant = OnboardingMerchant(driver)
-        # self.PromisetoPay=Ptop(driver)
-        self.PromisetoPay = Ptop(driver)
+        self.PromisetoPay=Ptop(driver)
+        # self.PromisetoPay = Ptop(driver)
