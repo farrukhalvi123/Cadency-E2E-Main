@@ -126,7 +126,7 @@ class InvoicePage():
         self.driver.execute_script("arguments[0].click()",CART)
         INVT= self.driver.find_element(By.XPATH,self.INVOICETAB)
         self.driver.execute_script("arguments[0].click()", INVT)
-        time.sleep(10)
+        time.sleep(15)
     def close_leftsidemenu(self):
         self.logo = WebDriverWait(self.driver,15).until(EC.presence_of_element_located((By.XPATH,self.LOGO)))
         # self.logo = self.driver.find_element(By.XPATH,self.LOGO)

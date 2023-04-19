@@ -4,7 +4,8 @@ from behave import *
 use_step_matcher("re")
 
 
-# def openfilter(context):
+# @then("click on Open")
+# def openingfilter(context):
 #     context.cadency.PromisetoPay.Opentab()
 #     time.sleep(3)
 
@@ -20,6 +21,9 @@ def promisetop(context):
     time.sleep(3)
 
 
-@then("verify Ptop")
-def tag(context):
-   context.cadency.PromisetoPay.tagcheck()
+# @then("verify Ptop")
+# def tag(context):
+#    context.cadency.PromisetoPay.tagcheck()
+@then("identifying all ptop invoice with invoice no")
+def invnptop(context):
+    context.cadency.PromisetoPay.identifyingallptops()
