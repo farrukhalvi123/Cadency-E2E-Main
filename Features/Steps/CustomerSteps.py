@@ -260,3 +260,8 @@ def step_impl(context):
 @then("Verify Customer Details on Details Page")
 def step_impl(context):
     context.cadency.customadd.customer_details()
+
+
+@then("Select Billing Centre")
+def step_impl(context):
+    context.cadency.customadd.select_billing_centre()

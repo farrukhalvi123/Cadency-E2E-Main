@@ -10,6 +10,7 @@ import time
 from Constants.URLS import TestData
 from Pages.Admin_LoginPage import AdminLoginPage
 from Pages.AdvPaySetPage import AdvancePaymentSetting
+from Pages.CP_Page_verifyDispute import Open_dispute_tag
 from Pages.CP_loginPage import CustomerPortalLogin
 from Pages.Creditnotepages import Cns
 from Pages.CustomerPages import CustomerPages
@@ -43,4 +44,5 @@ class cadencyweb:
         self.Cportal_login = CustomerPortalLogin(driver)
         # self.admin_onboarding_merchant = OnboardingMerchant(driver)
         self.PromisetoPay=Ptop(driver)
+        self.Verify_DisputeTag = Open_dispute_tag(driver)
         # self.PromisetoPay = Ptop(driver)

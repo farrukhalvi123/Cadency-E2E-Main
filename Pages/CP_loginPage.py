@@ -35,7 +35,7 @@ class CustomerPortalLogin():
         except Exception as e:
             attach(str("username field is not displayed"), name=str("Not Displayed"),
                    attachment_type=AttachmentType.TEXT)
-        time.sleep(3)
+        time.sleep(1)
 
     def enter_password1(self,pw):
         try:
@@ -49,4 +49,4 @@ class CustomerPortalLogin():
     def login_button(self):
         clickbutton= self.driver.find_element(By.XPATH, self.login_btn)
         self.driver.execute_script("arguments[0].click()",clickbutton )
-        time.sleep(3)
+        time.sleep(5)

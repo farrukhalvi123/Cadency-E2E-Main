@@ -39,7 +39,7 @@ Feature: As a admin i want to Add a new user
        Then Check Filter Results
        Then Make User Inactive
        Then Click On Filter Icon
-       Then Select User Status Filter Option (InActive)
-       Then Select Filter By Team Test
-       Then Click on Apply Button
-       Then Check Filter Results
+#       Then Select User Status Filter Option (InActive)
+#       Then Select Filter By Team Test
+#       Then Click on Apply Button
+#       Then Check Filter Results

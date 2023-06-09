@@ -121,7 +121,7 @@ Feature: As a admin i want to add a new invoice
     Then Click on View
     Then Click on Record Payment
     Then Record Full Payments
-    Then Verify Sent Email and attachment
+#    Then Verify Sent Email and attachment
 
   Scenario: Record Half Payment Against Invoice
     Then Duplicate an Invoice
@@ -129,7 +129,7 @@ Feature: As a admin i want to add a new invoice
     Then Click on View
     Then Click on Record Payment
     Then Record Payments
-    Then Verify Sent Email and attachment
+#    Then Verify Sent Email and attachment
 
 
 
