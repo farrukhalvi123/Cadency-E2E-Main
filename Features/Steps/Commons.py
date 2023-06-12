@@ -21,7 +21,7 @@ from Pages.Admin_AddNewUser import AdminAddUsers
 from Pages.Manage_Teams import ManageTeams
 from Pages.PormisetoPaypsges import Ptop
 from Pages.TemplatePages import TemplatePage
-from Pages.Verify_Modules_Permissions import VerifyPermissions
+from Pages.Admin_VerifyModules_Permissions import VerifyPermissions
 
 
 class cadencyweb:
