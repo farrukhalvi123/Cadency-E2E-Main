@@ -78,10 +78,20 @@ class Cns():
 
     def takecn(self):
         cnno = self.driver.find_elements(By.CLASS_NAME, self.searchnote)
-        newcnn = cnno[1].text
+        newcnn = cnno[0].text
+        time.sleep(4)
         print(newcnn)
         ext_cn= newcnn.split("-")[1]
         print(ext_cn)
+
+    def second_takecn(self):
+        cnno = self.driver.find_elements(By.CLASS_NAME, self.searchnote)
+        newcnn = cnno[0].text
+        time.sleep(4)
+        print(newcnn)
+        ext_cn= newcnn.split("-")[1]
+        print(ext_cn)
+
 
     def click_drop_CR(self):
         clic = self.driver.find_element(By.XPATH, self.click_receive_tag)

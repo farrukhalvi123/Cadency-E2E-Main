@@ -8,7 +8,7 @@ import string
 
 import requests
 from PyPDF2 import PdfReader
-from bs4 import BeautifulSoup
+
 from Constants.URLS import TestData
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager

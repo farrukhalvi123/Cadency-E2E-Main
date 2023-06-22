@@ -25,7 +25,7 @@ Scenario: comparing credit note from last to new CN
   Then enter values and save
   Then Open Right Side Panel
   Then take to CN page
-  Then get first CN no from text
+  Then get second CN no from text
 
 #  Scenario: credit notes
 #   Then click on Open
