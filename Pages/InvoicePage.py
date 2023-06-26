@@ -30,6 +30,7 @@ class InvoicePage():
 
     def __init__(self, driver):
         self.driver = driver
+        self.CUSTOMERNAME = "//div[@class='side-title']"
         # self.invnum = "//a[normalize-space()='" + INV_NUM + "']"
         self.LOGO = "//div[@class='header-container']//img[@alt='Logo image']"
         self.CUSTOMERANDRECEIVABLETAB = "//p[normalize-space()='Customers & Receivables']"
@@ -124,6 +125,14 @@ class InvoicePage():
         self.BANKTRANSFER = "//span[normalize-space()='Bank Transfer']"
         self.ATTACHMENTS = "//button[@title='More actions']"
         self.DOWNLOADBTN = "//span[normalize-space()='Download']"
+        self.REMINDER = "//button[@class='p-element p-icon-button overlay-secondary-21 p-button p-component ng-star-inserted']"
+        self.DISPUTE_ICON = "//button[@class='p-element p-icon-button overlay-primary-8 p-button p-component ng-star-inserted']"
+        self.EMAILSENT_NOTIF = "//div[@id='toast-container']"
+        self.DISP_INV_NUM = "//input[@id='InvoiceNumber']"
+        self.CUSTOM_NAME = "CustomerName"
+        self.REASON = "//li[@aria-label='Invoice InAccurate']"
+        self.DISPUTEAMOUNT = "minmaxfraction"
+        self.note = "Message"
 
 
 
@@ -538,7 +547,8 @@ class InvoicePage():
     def view_invoice(self):
         INVNUMBER = self.driver.find_elements(By.CLASS_NAME, self.INVOICEANDCUSTOMER)
         print(INVNUMBER[0].text)
-        self.INVM = INVNUMBER[0].text
+        global INVM
+        INVM = INVNUMBER[0].text
         AMOUNTBALANCE = self.driver.find_elements(By.CLASS_NAME, self.AMOUNT_BALANCE)
         print(AMOUNTBALANCE[0].text)
         self.AMNTBAL = AMOUNTBALANCE[0].text
@@ -562,7 +572,8 @@ class InvoicePage():
     def Verify_Send_Email(self): # this is only downloading invoice.
         senderemail = self.driver.find_element(By.XPATH,self.EMAILADDRESS)
         print(senderemail.text)
-        self.driver.find_element(By.XPATH,self.EMAILSEND).click()
+        emailsend = self.driver.find_element(By.XPATH,self.EMAILSEND)
+        self.driver.execute_script("arguments[0].click()",emailsend)
         time.sleep(1)
         sendlabel = self.driver.find_element(By.XPATH, self.EMAILSENDTOLABEL)
         print(sendlabel.text)
@@ -589,6 +600,11 @@ class InvoicePage():
             print(self.pdf_text2)
     def send_email(self):
         self.driver.find_element(By.XPATH,self.CONFIRMATIONBTN).click()
+        time.sleep(5)
+        notif = self.driver.find_element(By.XPATH,self.EMAILSENT_NOTIF)
+        slice = notif.text[2::]
+        print(slice)
+        assert slice in self.driver.page_source
 
     def verify_sent_email(self):
         driver = webdriver.Chrome(ChromeDriverManager().install())
@@ -711,9 +727,45 @@ class InvoicePage():
         driver.find_element(By.XPATH,self.DOWNLOADBTN).click()
         time.sleep(2)
 
+    def click_reminder(self):
+        sub = self.driver.find_element(By.XPATH,self.REMINDER)
+        self.driver.execute_script("arguments[0].click()",sub)
 
 
+    def click_on_dispute(self):
+        self.driver.find_element(By.XPATH,self.DISPUTE_ICON).click()
+    def verify_custom_invoice_num(self):
+        global invnumber
+        invnumber = self.driver.find_element(By.XPATH, self.INVNUMBER)
+        print(invnumber.text)
+        global customname
+        customname = self.driver.find_element(By.XPATH,self.CUSTOMERNAME)
+        print(customname.text)
 
+    def verify_invoice_number(self):
+       time.sleep(5)
+       inv =  self.driver.find_element(By.XPATH,self.DISP_INV_NUM)
+       value = self.driver.execute_script("return arguments[0].value;", inv)
+       print("This is invoice number on dispute form",value)
+       print("This is invoice number on invoice detail",invnumber.text)
+       assert value == invnumber.text, "Invoice number donot match"
+
+    def verify_Customer_Name(self):
+        customer = self.driver.find_element(By.ID,self.CUSTOM_NAME)
+        value = self.driver.execute_script("return arguments[0].value;",customer)
+        assert value == customname.text,"Customer Name donot match"
+
+    def select_reason(self):
+        reasondd = self.driver.find_elements(By.XPATH,self.ADDITEMTYPEDD)
+        reasondd[1].click()
+        self.driver.find_element(By.XPATH,self.REASON).click()
+
+    def add_disputeamount(self):
+        self.driver.find_element(By.ID, self.DISPUTEAMOUNT).clear()
+        self.driver.find_element(By.ID,self.DISPUTEAMOUNT).send_keys(randinteger)
+
+    def add_a_note(self):
+        self.driver.find_element(By.ID,self.note).send_keys(WORDS)
 
 
 

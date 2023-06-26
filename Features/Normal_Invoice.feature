@@ -131,6 +131,32 @@ Feature: As a admin i want to add a new invoice
     Then Record Payments
 #    Then Verify Sent Email and attachment
 
+  Scenario: Send Invoice Reminder
+    Then Duplicate an Invoice
+    Then Click on More Options on an invoice
+    Then Click on View
+    Then Click on Send Reminder
+    Then Verify Email Sending Details
+    Then Send Email
+
+
+  Scenario:   Dispute an Invoice from Main Portal
+    Then Duplicate an Invoice
+    Then Click on More Options on an invoice
+    Then Click on View
+    Then Get Invoice Number and Customer Name
+    Then Click on Dispute Icon
+    Then Verify Invoice Number
+    Then Verify Customer Name
+    Then Select reason to dispute
+    Then Add amount to dispute
+    Then Add a note
+    Then Click on Save Button
+
+
+
+
+
 
 
 

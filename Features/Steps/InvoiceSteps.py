@@ -258,6 +258,8 @@ def step_impl(context):
         context.cadency.invoice.Verify_Send_Email()
 
 
+
+
 @then("Send Email")
 def step_impl(context):
    context.cadency.invoice.send_email()
@@ -291,3 +293,44 @@ def step_impl(context):
 @then("Verify Sent Email and attachment")
 def step_impl(context):
    context.cadency.invoice.verify_Thankyouemail_Contents()
+
+
+@then("Click on Send Reminder")
+def step_impl(context):
+    context.cadency.invoice.click_reminder()
+    time.sleep(5)
+
+
+@then("Click on Dispute Icon")
+def step_impl(context):
+    context.cadency.invoice.click_on_dispute()
+
+
+@then("Verify Invoice Number")
+def step_impl(context):
+    context.cadency.invoice.verify_invoice_number()
+
+
+@then("Get Invoice Number and Customer Name")
+def step_impl(context):
+    context.cadency.invoice.verify_custom_invoice_num()
+
+
+@then("Verify Customer Name")
+def step_impl(context):
+    context.cadency.invoice.verify_Customer_Name()
+
+
+@then("Select reason to dispute")
+def step_impl(context):
+    context.cadency.invoice.select_reason()
+
+
+@then("Add amount to dispute")
+def step_impl(context):
+    context.cadency.invoice.add_disputeamount()
+
+
+@then("Add a note")
+def step_impl(context):
+    context.cadency.invoice.add_a_note()
