@@ -23,4 +23,5 @@ Pages/__pycache__/
 TestData/TestExcelsandPDFS/
 venv/
 .idea/workspace.xml
+.idea/
 
