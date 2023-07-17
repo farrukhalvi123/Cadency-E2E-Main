@@ -48,8 +48,13 @@ Feature: As a admin i want to add a new invoice
     Then Enter Invoice Number in Search Field
     Then Verify Searched Invoice is Found
 
+  Scenario: Search for Customer with Filter
+    Then Enter Customer Selina Kyle into Search Field
+    Then Select 50 Paging
+    Then Verify list of customer name
 
   Scenario: Download Invoice PDF and Excel
+    Then Select 50 Paging
     Then Click on Download Invoices in Excel
     Then Verify Downloaded CSV
     Then Click on PDF File Download
@@ -152,6 +157,13 @@ Feature: As a admin i want to add a new invoice
     Then Add amount to dispute
     Then Add a note
     Then Click on Save Button
+
+  Scenario: Export Invoice PDF from Detail Page.
+    Then Duplicate an Invoice
+    Then Click on More Options on an invoice
+    Then Click on View
+    Then Click on Export Invoice and verify exported text
+#    Then Verify Exported Invoice Details
 
 
 

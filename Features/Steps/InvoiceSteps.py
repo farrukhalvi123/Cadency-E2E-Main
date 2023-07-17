@@ -334,3 +334,23 @@ def step_impl(context):
 @then("Add a note")
 def step_impl(context):
     context.cadency.invoice.add_a_note()
+
+
+@then("Select 50 Paging")
+def step_impl(context):
+   context.cadency.invoice.paging_50()
+
+
+@then("Enter Customer {Name} into Search Field")
+def step_impl(context,Name):
+   context.cadency.invoice.search_customer(Name)
+
+
+@then("Verify list of customer name")
+def step_impl(context):
+    context.cadency.invoice.verify_searched_name()
+
+
+@then("Click on Export Invoice and verify exported text")
+def step_impl(context):
+    context.cadency.invoice.export_invoice()
