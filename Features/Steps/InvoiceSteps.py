@@ -163,6 +163,7 @@ def step_impl(context):
 @then("Go to All Tab")
 def step_impl(context):
     context.cadency.invoice.ALLtab()
+    time.sleep(5)
 
 
 @then("Go to Open Tab")
@@ -290,3 +291,18 @@ def step_impl(context):
 def step_impl(context):
     context.cadency.invoice.record_full_payment_form()
     context.cadency.invoice.verify_status_InvoiceDetail()
+
+
+@then('Click on show "50" dropdown')
+def step_impl(context):
+    context.cadency.invoice.Show_MaxCount_Inv()
+
+
+@then("Take count number from ribbon for ALL tab")
+def step_impl(context):
+    context.cadency.invoice.countRibbon_ALLtab()
+
+
+# @then("Click on next button if invoices >50")
+# def step_impl(context):
+#     context.cadency.invoice.Condition_NextButton()

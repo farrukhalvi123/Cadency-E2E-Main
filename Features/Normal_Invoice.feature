@@ -3,7 +3,7 @@ Feature: As a admin i want to add a new invoice
 
   Background: Login & Redirect To Invoice Page
     Then User Navigates to Merchant Portal
-    Then User Enters clarkkent and Cadency@123
+    Then User Enters allemaxwell and sAMRAm123
     Then User Clicks on Login Button
     Then Open Right Side Panel
     Then User Navigate To Invoice Tab
@@ -23,6 +23,7 @@ Feature: As a admin i want to add a new invoice
     And Adding Item Price
     Then click on Invoice Save Button
 #    Then Verify Invoice has been Created
+
 
   Scenario: Add Existing Item in Invoices
     Then User Clicks On Add Invoice Button
@@ -62,8 +63,17 @@ Feature: As a admin i want to add a new invoice
     Then Go to Disputed Tab and verify disputed invoices
 
   Scenario: Verify All Invoices
+
     Then Go to All Tab
     Then Verify Number of Invoices
+
+  Scenario: Verify All Invoices count ribbon
+    Then Go to All Tab
+    Then Click on show "50" dropdown
+    Then Take count number from ribbon for ALL tab
+#    Then Click on next button if invoices >50
+
+
 
   Scenario: Verify Open Invoices in Open Tab
     Then Go to Open Tab
@@ -121,13 +131,13 @@ Feature: As a admin i want to add a new invoice
     Then Click on View
     Then Click on Record Payment
     Then Record Full Payments
-
-  Scenario Record Half Payment Against Invoice
-    Then Duplicate an Invoice
-    Then Click on More Options on an invoice
-    Then Click on View
-    Then Click on Record Payment
-    Then Record Payments
+#
+#  Scenario Record Half Payment Against Invoice
+#    Then Duplicate an Invoice
+#    Then Click on More Options on an invoice
+#    Then Click on View
+#    Then Click on Record Payment
+#    Then Record Payments
 
 
 

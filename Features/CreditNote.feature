@@ -4,7 +4,7 @@ Feature: samra
 
  Background: Login & Redirect To Invoice Page
     Then User Navigates to Merchant Portal
-    Then User Enters khanbro and s3gxtMerqGtz
+    Then User Enters clarkkent and Cadency@123
     Then User Clicks on Login Button
     Then Open Right Side Panel
     Then click on customer and receivables tag

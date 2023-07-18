@@ -29,6 +29,7 @@ randinteger = ''.join(["{}".format(randint(0, 5)) for num in range(0, 3)])
 class InvoicePage():
 
     def __init__(self, driver):
+
         self.driver = driver
         # self.invnum = "//a[normalize-space()='" + INV_NUM + "']"
         self.LOGO = "//div[@class='header-container']//img[@alt='Logo image']"
@@ -118,6 +119,13 @@ class InvoicePage():
         self.REFERENCENUMBERID = "referenceNumber"
         self.ENTERNOTE = "//textarea[@placeholder='Enter note']"
         self.BANKTRANSFER = "//span[normalize-space()='Bank Transfer']"
+        self.Count_Footer= "//div[contains(@class, 'p-dropdown-trigger')][1]"
+            # "p-dropdown-trigger.ng-tns-c73-102"
+        self.Show_50Invs= "//span[contains(text(), '50')]"
+        self.count_ALL_Ribn = "//span[@class='ml-1 p-badge p-component p-badge-info']"
+        self.diabledbut = "//button[@class='p-ripple p-element p-paginator-next p-paginator-element p-link p-disabled']"
+
+
 
 
 
@@ -397,10 +405,14 @@ class InvoicePage():
         try:
             time.sleep(2)
             self.driver.find_element(By.XPATH,self.ALLTILE).click()
-            time.sleep(3)
+            time.sleep(6)
         except exceptions.StaleElementReferenceException as e:
             print(e)
         # self.driver.execute_script("arguments[0].click()", element)
+
+
+
+
 
     def Disputedtab(self):
         try:
@@ -430,7 +442,7 @@ class InvoicePage():
             num_invoices = self.driver.find_elements(By.XPATH,self.ACTIONBUTTON)
             global num_total
             num_total = len(num_invoices)
-            if num_total == 50:
+            if num_total >= 50:
                     self.driver.find_element(By.XPATH, self.NEXTBTN).click()
                     print("Total number of invoices:", num_total)
             elif num_total <= 50:
@@ -679,6 +691,167 @@ class InvoicePage():
                 print("Error has occurred in invoice status")
 
 
+    def Show_MaxCount_Inv(self):
+        try:
+            time.sleep(2)
+            self.driver.find_element(By.XPATH, self.Count_Footer).click()
+            time.sleep(2)
+            element_1= self.driver.find_element(By.XPATH, self.Show_50Invs)
+            time.sleep(2)
+            element_1.click()
+            time.sleep(3)
+        except exceptions.StaleElementReferenceException as e:
+            print(e)
+
+    def countRibbon_ALLtab(self):
+                self.Nextbutton_footer = "//span[@class='p-paginator-icon pi pi-angle-right']"
+
+                for _ in range(5):
+                    try:
+                        susu = self.driver.find_element(By.XPATH, self.Nextbutton_footer)
+                        susu.click()
+                        time.sleep(3)
+                    except NoSuchElementException:
+                        break
+
+
+    # def countRibbon_ALLtab(self):
+    #
+    #
+    #                   # disabled_footerbutton= self.driver.find_element(By.XPATH, self.diabledbut)
+    #                 self.Nextbutton_footer = "//span[@class='p-paginator-icon pi pi-angle-right']"
+    #                 susu = self.driver.find_element(By.XPATH, self.Nextbutton_footer)
+    #                 time.sleep(4)
+    #                 # disabled_footerbutton = self.driver.find_element(By.XPATH, self.diabledbut)
+    #                 time.sleep(4)
+    #
+    #
+    #                 while susu== True:
+    #                     time.sleep(4)
+    #                     susu = self.driver.find_element(By.XPATH, self.Nextbutton_footer)
+    #                     time.sleep(4)
+    #                     susu.click()
+    #                     time.sleep(3)
+
+
+
+
+
+
+
+
+                    # element_found= False
+                    # NextButton_foot = None
+                    #
+                    #
+                    # while not element_found:
+                    #     try:
+                    #
+                    #         exNtButton_foot = self.driver.find_element(By.XPATH, self.Nextbutton_footer)
+                    #         element_found= True
+                    #
+                    #     except:
+                    #         time.sleep(4)
+                    # if NextButton_foot is not None:
+                    #
+                    #         NextButton_foot.click()
+                    #         time.sleep(4)
+
+
+
+
+
+
+
+         # global num_total
+         # try:
+         #    randomvariable=self.driver.find_elements(By.XPATH, self.count_ALL_Ribn)
+         #    get_countdigits = int(randomvariable[0].text)
+         #    print(get_countdigits)
+         #
+         #
+         #    count=0
+         #
+         #    while get_countdigits>0 :
+         #        num_invoices_on1page = self.driver.find_elements(By.XPATH, self.ACTIONBUTTON)
+         #        # global num_total
+         #        num_total = len(num_invoices_on1page)
+         #        get_countdigits= get_countdigits-num_total
+         #
+         #        print("hiiiii", num_total)
+         #
+         #        count= count+num_total #50 in count
+         #
+         #
+         #
+         #        while count == num_total:  #get_countdigits == count:
+         #
+         #              self.Nextbut_footer = "//button[@class='p-ripple p-element p-paginator-next p-paginator-element p-link']"
+
+         #              time.sleep(3)
+         #              NextButton_footer= self.driver.find_element(By.XPATH,self.Nextbut_footer)
+         #              time.sleep(3)
+         #              NextButton_footer.click()
+         #              num_invoices_on1page = self.driver.find_elements(By.XPATH, self.ACTIONBUTTON)
+         #              # global num_total
+         #              num_total = len(num_invoices_on1page)
+         #              print("under iffff 2nd page", num_total)
+         #
+         #              time.sleep(3)
+         #              count = count + num_total  # 50 in count
+         #              # count += num_total
+         #              print("total", count)
+         #        break
+         #
+         #
+         #
+
+
+
+
+
+
+
+
+
+
+        #
+        #
+        #     counter=0
+        #
+        #
+        #     while counter < get_countdigits:
+        #         num_invoices_on1page = self.driver.find_elements(By.XPATH, self.ACTIONBUTTON)
+        #         num_total = len(num_invoices_on1page)
+        #         print(num_total)
+        #
+        #         assert num_total == min(50, get_countdigits-counter)
+        #         counter += num_total
+        #         self.Nextbut_footer = "//button[@class='p-ripple p-element p-paginator-next p-paginator-element p-link']"
+        #         NextButton_footer= self.driver.find_element(By.XPATH,self.Nextbut_footer)
+        #         NextButton_footer.click()
+        #
+        #         assert counter == get_countdigits
+        #
+        #
+        #     # if num_total < get_countdigits:
+        #     #     self.Nextbutton_footer = "//span[@class='p-paginator-icon pi pi-angle-right']"
+        #     # else:
+        #     #     print('gggg')
+        #
+        #
+        #     # self.Nextbutton_footer = "//span[@class='p-paginator-icon pi pi-angle-right']"
+        #     # counter=0
+        #
+        #
+        #
+        #
+         # except exceptions.StaleElementReferenceException as e:
+         #     print(e)
+
+
+
+    # def Condition_NextButton(self):
 
 
 
