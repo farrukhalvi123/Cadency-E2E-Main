@@ -5,11 +5,10 @@ import time
 from datetime import date, datetime, timedelta
 import random
 import string
-import sys
-import charset_normalizer
+import unittest
 import requests
 from PyPDF2 import PdfReader
-from bs4 import BeautifulSoup
+
 from Constants.URLS import TestData
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
@@ -20,25 +19,24 @@ from selenium.webdriver.support import expected_conditions as EC
 from Constants.URLS import TestData
 # from Elements.InvoiceElements import invoiceelements
 # from Elements.Customer_elements import customerelements
-from selenium.common import exceptions, NoSuchElementException, TimeoutException, StaleElementReferenceException
+from selenium.common import exceptions, NoSuchElementException, TimeoutException
 from selenium.webdriver import ActionChains
 import csv
 import PyPDF2
 
 WORDS = "".join((random.choice(string.ascii_letters) for i in range(10)))
 randinteger = ''.join(["{}".format(randint(0, 5)) for num in range(0, 3)])
-
-class InvoicePage():
+class InvoicePage(unittest.TestCase):
 
     def __init__(self, driver):
+        super().__init__()
         self.driver = driver
-        self.CUSTOMERNAME = "//div[@class='side-title']"
         # self.invnum = "//a[normalize-space()='" + INV_NUM + "']"
         self.LOGO = "//div[@class='header-container']//img[@alt='Logo image']"
         self.CUSTOMERANDRECEIVABLETAB = "//p[normalize-space()='Customers & Receivables']"
         self.INVOICETAB =  "//p[normalize-space()='Invoices']"
         self.ADDINVOICEBTN = "//button[@class='p-element p-button-primary button-with-icon btn-150 p-button p-component']"
-        self.CUSTNAMEDD =  "currency"
+        self.CUSTNAMEDD =  "//*[contains(@class,'p-dropdown-trigger-icon ng-tns')]"
         self.CUSTNAMEDD_VALUE =  "(//li[@role='option'])[2]"
         self.CUSTNAMEDD_VALUE1 =  "//span[normalize-space()='+ Add New Customer']"
         self.CURRENCYDD =  "currency"
@@ -46,7 +44,7 @@ class InvoicePage():
         self.EXCHANGERATE =  "//a[normalize-space()='Modify Rate']"
         self.REFERENCE =  "//input[@placeholder='Enter Reference']"
         self.ITEMSELECTION = "//button[@class='p-element p-ripple p-autocomplete-dropdown ng-tns-c107-56 p-button p-component p-button-icon-only ng-star-inserted']//span[@class='p-button-icon pi pi-chevron-down']"
-        self.DESCRIPTION =  "//input[@placeholder='Note']"
+        self.DESCRIPTION =  "//input[@placeholder='Description']"
         self.QUANTITY =  "//input[@placeholder='Quantity']"
         self.PRICE =  "//input[@placeholder='Price']"
         self.DISCOUNT =  "//input[@placeholder='Disc %']"
@@ -108,13 +106,9 @@ class InvoicePage():
         self.EMAILSENDTOLABEL = "//span[@class='label-text']"
         self.DOWNLOADINVOICEBTN = "//div[@class='p-icon-button']"
         self.EMAILBODY = "//div[@class='angular-editor-textarea']"
-        self.yop_EMAILFIELD = "loginfmt"
-        self.HOTPASS = "passwd"
-        self.DONTYESBTN = "idSIButton9"
-        self.JUNKMAIL = "//div[@title='Junk Email']"
-        self.EMAILS = "zKDWD.YbB6r.IKvQi.IjQyD.JCRRb.G1NES"
+        self.yop_EMAILFIELD = "login"
         self.SUBJECT = "subject"
-        self.TOTALAMNT1 = "//cadency-create-invoice[@class='ng-star-inserted']//li[4]"
+        self.TOTALAMNT1 = "grid-footer-text"
         self.TOTALAMNT1c1 = "grid-footer-text"
         self.INV_DETAIL_TOTAL = "total"
         self.INVTOTAL = "td"
@@ -125,19 +119,8 @@ class InvoicePage():
         self.REFERENCENUMBERID = "referenceNumber"
         self.ENTERNOTE = "//textarea[@placeholder='Enter note']"
         self.BANKTRANSFER = "//span[normalize-space()='Bank Transfer']"
-        self.ATTACHMENTS = "//button[@title='More actions']"
-        self.DOWNLOADBTN = "//span[normalize-space()='Download']"
-        self.EXPORT_INVOICE = "//button[@class='p-element p-icon-button overlay-primary-15 p-button p-component']"
-        self.REMINDER = "//button[@class='p-element p-icon-button overlay-secondary-21 p-button p-component ng-star-inserted']"
-        self.DISPUTE_ICON = "//button[@class='p-element p-icon-button overlay-primary-8 p-button p-component ng-star-inserted']"
-        self.EMAILSENT_NOTIF = "//div[@id='toast-container']"
-        self.DISP_INV_NUM = "//input[@id='InvoiceNumber']"
-        self.CUSTOM_NAME = "CustomerName"
-        self.REASON = "//li[@aria-label='Invoice InAccurate']"
-        self.DISPUTEAMOUNT = "minmaxfraction"
-        self.note = "Message"
-        self.INVOICE_DETAILS = "max-width-300.ng-star-inserted"
-        self.INV_CUSTOMER_NAME = "wrap-text-all.ng-star-inserted"
+        self.CUST_Invoice_amount = "//tbody/tr[1]/td[5]/div[1]/div[1]"
+        self.invoicesorter = "//span[@role='columnheader'][normalize-space()='Invoice #']"
 
 
     def ClickOnInvoiceTab(self):
@@ -147,11 +130,11 @@ class InvoicePage():
         self.driver.execute_script("arguments[0].click()", INVT)
         time.sleep(10)
     def close_leftsidemenu(self):
-        self.logo = WebDriverWait(self.driver,5).until(EC.presence_of_element_located((By.XPATH,self.LOGO)))
+        self.logo = WebDriverWait(self.driver,15).until(EC.presence_of_element_located((By.XPATH,self.LOGO)))
         # self.logo = self.driver.find_element(By.XPATH,self.LOGO)
         action = ActionChains(self.driver)
         action.move_to_element(self.logo).perform()
-        time.sleep(6)
+        time.sleep(4)
 
     def ClickOnAddButton(self):
         element = WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.XPATH,self.ADDINVOICEBTN)))
@@ -159,9 +142,9 @@ class InvoicePage():
         self.driver.execute_script("arguments[0].click()",element)
     def open_customer_selection_dd(self):
         time.sleep(2)
-        inv_dd = self.driver.find_element(By.ID,self.CUSTNAMEDD)
-        inv_dd.click()
-
+        cust_dd = self.driver.find_elements(By.XPATH,self.CUSTNAMEDD)
+        print(len(cust_dd))
+        cust_dd[1].click()
     def select_customer(self):
         time.sleep(2)
         self.driver.find_element(By.XPATH,self.CUSTNAMEDD_VALUE).click()
@@ -240,15 +223,17 @@ class InvoicePage():
 
 
     def Add_inv_items(self):
-        taxdd = self.driver.find_elements(By.XPATH,self.TAXDD)
-        taxdd[0].click()
-        time.sleep(2)
         try:
+            itemsdd = self.driver.find_elements(By.XPATH,self.INVITEMSDD)
+            itemsdd[0].click()
             items = self.driver.find_elements(By.XPATH,self.ADDINVITEMS)
             print("this is the list of items",len(items))
             items[2].click()
         except:
             self.add_an_item()
+        # taxdd = self.driver.find_elements(By.XPATH, self.TAXDD)
+        # taxdd[1].click()
+        # time.sleep(2)
     def Save_invoice(self):
         SaveINV = self.driver.find_element(By.XPATH,self.SAVEBTN)
         self.driver.execute_script("arguments[0].click()",SaveINV)
@@ -290,7 +275,7 @@ class InvoicePage():
     def select_tax(self,tcomp,trate):
         try:
             taxdd = self.driver.find_elements(By.XPATH,self.TAXDD)
-            taxdd[1].click()
+            taxdd[2].click()
             time.sleep(5)
         except:
             taxdd = self.driver.find_elements(By.XPATH, self.TAXDD)
@@ -363,7 +348,6 @@ class InvoicePage():
             print("No Record found")
     def clickCSVIcon(self):
         self.driver.find_element(By.XPATH,self.CSVICON).click()
-
     def Download_Excelfile(self):
         time.sleep(5)
         download_dir = os.getcwd() + '\\TestData\\TestExcelsandPDFS\\'
@@ -371,7 +355,7 @@ class InvoicePage():
         file_path = max([download_dir + '/' + f for f in os.listdir(download_dir)], key=os.path.getctime)
         file_name = os.path.basename(file_path)
         print(file_name)
-        with open(download_dir + file_name, "rb") as f:
+        with open(download_dir + file_name, "r") as f:
             reader = csv.reader(f)
             print(reader)
             for row in reader:
@@ -380,9 +364,8 @@ class InvoicePage():
     def clickPDFIcon(self):
         self.driver.find_element(By.XPATH,self.PDFICON).click()
     def verify_pdffile(self):
-        self.download_dir = os.getcwd() + '\\TestData\\TestExcelsandPDFS'
+        self.download_dir = os.getcwd() + '\\TestData\\TestExcelsandPDFS\\'
         time.sleep(5)
-        print(self.download_dir)
         self.file_path = max([self.download_dir + '\\' + f for f in os.listdir(self.download_dir)])
         self.file_name = os.path.basename(self.file_path)
         print(self.file_name)
@@ -415,7 +398,8 @@ class InvoicePage():
     def ALLtab(self):
         try:
             time.sleep(2)
-            self.driver.find_element(By.XPATH,self.ALLTILE).click()
+            alltab = self.driver.find_element(By.XPATH,self.ALLTILE)
+            self.driver.execute_script("arguments[0].click();",alltab)
             time.sleep(3)
         except exceptions.StaleElementReferenceException as e:
             print(e)
@@ -439,19 +423,13 @@ class InvoicePage():
 
     time.sleep(10)
         # self.driver.execute_script("arguments[0].click()", element)
-    def paging_50(self):
-        paging = self.driver.find_element(By.XPATH, self.PAGING)
-        self.driver.execute_script("arguments[0].click()", paging)
-        self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
-        time.sleep(5)
 
     def verify_numberof_invoices(self):
         try:
-            self.paging_50()
-            # paging = self.driver.find_element(By.XPATH, self.PAGING)
-            # self.driver.execute_script("arguments[0].click()", paging)
-            # self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
-            # time.sleep(2)
+            paging = self.driver.find_element(By.XPATH, self.PAGING)
+            self.driver.execute_script("arguments[0].click()", paging)
+            self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
+            time.sleep(2)
             num_invoices = self.driver.find_elements(By.XPATH,self.ACTIONBUTTON)
             global num_total
             num_total = len(num_invoices)
@@ -474,7 +452,6 @@ class InvoicePage():
         self.verify_numberof_invoices()
         Invoiceopen  = self.driver.find_elements(By.CLASS_NAME,self.OPENSTATUS)
         print("this is the number of open invoices",len(Invoiceopen))
-        print("num_total count = ", num_total)
         assert len(Invoiceopen ) == num_total, "Open invoices donot match"
 
 
@@ -482,7 +459,6 @@ class InvoicePage():
         try:
             time.sleep(1)
             opentab = self.driver.find_elements(By.CLASS_NAME,self.OPENTILE)
-            time.sleep(10)
             opentab[4].click()
             time.sleep(3)
         except exceptions.StaleElementReferenceException as e:
@@ -512,7 +488,7 @@ class InvoicePage():
     def WaitingfofundsTab(self):
         try:
             opentab = self.driver.find_elements(By.CLASS_NAME, self.OPENTILE)
-            opentab[7].click()
+            opentab[6].click()
             time.sleep(3)
         except exceptions.StaleElementReferenceException as e:
             print(e)
@@ -521,7 +497,6 @@ class InvoicePage():
         self.verify_numberof_invoices()
         waitingforfunds_invoice = self.driver.find_elements(By.CLASS_NAME,self.WAITINGFORFUNDSTAB)
         print("this is the number of open invoices",len(waitingforfunds_invoice))
-        print("num_total count = ", num_total)
         assert len(waitingforfunds_invoice) == num_total, "Partially Paid invoices donot match"
 
 
@@ -556,8 +531,7 @@ class InvoicePage():
     def view_invoice(self):
         INVNUMBER = self.driver.find_elements(By.CLASS_NAME, self.INVOICEANDCUSTOMER)
         print(INVNUMBER[0].text)
-        global INVM
-        INVM = INVNUMBER[0].text
+        self.INVM = INVNUMBER[0].text
         AMOUNTBALANCE = self.driver.find_elements(By.CLASS_NAME, self.AMOUNT_BALANCE)
         print(AMOUNTBALANCE[0].text)
         self.AMNTBAL = AMOUNTBALANCE[0].text
@@ -570,8 +544,8 @@ class InvoicePage():
             invnumber = self.driver.find_element(By.XPATH,self.INVNUMBER)
             print(amount.text)
             print(invnumber.text)
-            # assert self.AMNTBAL == amount.text ,"Amount is not equal or invoice listings and details are not the same"
-            # assert self.INVM == invnumber.text,"Invoice number does not match or invoice listings and details are not the same"
+            assert self.AMNTBAL == amount.text ,"Amount is not equal or invoice listings and details are not the same"
+            assert self.INVM == invnumber.text,"Invoice number does not match or invoice listings and details are not the same"
 
     def editinvoice(self):
         edit = self.driver.find_element(By.XPATH,self.INVOICEEDIT)
@@ -581,8 +555,7 @@ class InvoicePage():
     def Verify_Send_Email(self): # this is only downloading invoice.
         senderemail = self.driver.find_element(By.XPATH,self.EMAILADDRESS)
         print(senderemail.text)
-        emailsend = self.driver.find_element(By.XPATH,self.EMAILSEND)
-        self.driver.execute_script("arguments[0].click()",emailsend)
+        self.driver.find_element(By.XPATH,self.EMAILSEND).click()
         time.sleep(1)
         sendlabel = self.driver.find_element(By.XPATH, self.EMAILSENDTOLABEL)
         print(sendlabel.text)
@@ -609,38 +582,34 @@ class InvoicePage():
             print(self.pdf_text2)
     def send_email(self):
         self.driver.find_element(By.XPATH,self.CONFIRMATIONBTN).click()
-        time.sleep(5)
-        notif = self.driver.find_element(By.XPATH,self.EMAILSENT_NOTIF)
-        slice = notif.text[2::]
-        print(slice)
-        assert slice in self.driver.page_source
 
     def verify_sent_email(self):
         driver = webdriver.Chrome(ChromeDriverManager().install())
-        driver.get("https://outlook.office365.com/mail/inbox")
+        driver.get("https://www.yopmail.com")
         driver.maximize_window()
-        time.sleep(10)
-        driver.find_element(By.NAME, self.yop_EMAILFIELD).send_keys("datasoft_autotest@hotmail.com")
-        driver.find_element(By.NAME, self.yop_EMAILFIELD).send_keys(Keys.ENTER)
-        time.sleep(4)
-        driver.find_element(By.NAME,self.HOTPASS).send_keys("Cadency@123")
-        driver.find_element(By.NAME,self.HOTPASS).send_keys(Keys.ENTER)
         time.sleep(2)
-        driver.find_element(By.ID,self.DONTYESBTN).click()
-        time.sleep(3)
-        driver.find_element(By.XPATH,self.JUNKMAIL).click()
-        self.emaillist = driver.find_elements(By.CLASS_NAME,self.EMAILS)
-        self.emaillist[0].click()
-
+        driver.find_element(By.ID, self.yop_EMAILFIELD).send_keys("selinakyle@yopmail.com")
+        driver.find_element(By.ID, self.yop_EMAILFIELD).send_keys(Keys.ENTER)
+        time.sleep(2)
+        inbox_frame = driver.find_element(By.XPATH, '//*[@id="ifinbox"]')
+        driver.switch_to.frame(inbox_frame)
+        print(subjecttext)
+        email_subject = driver.find_element(By.XPATH,
+                                            "//div[@id='e_ZwZjZmV3ZQL1BQN5ZQNjZGD3AQtlAD==']//div[@class='lms'][normalize-space()='This is a dummy invoice']")
+        email_subject.click()
+        # email_body_frame = driver.find_element(By.ID,'ifmail')
+        # driver.switch_to.frame(email_body_frame)
+        # mailbody = self.driver.find_element(By.ID,"mail")
+        # assert self.body.text == mailbody.text,"body text doesnt match"
 
     def verify_edited_invoice(self):
         time.sleep(3)
-        finaltotal = self.driver.find_element(By.XPATH,self.TOTALAMNT1)
+        finaltotal = self.driver.find_elements(By.CLASS_NAME,self.TOTALAMNT1)
         # finaltotal = total[3].find_elements(By.CLASS_NAME,self.TOTALAMNT1c1)
         # for ftotal in finaltotal:
         #     time.sleep(2)
-        print(finaltotal.text)
-        string = finaltotal.text
+        print(finaltotal[7].text)
+        string = finaltotal[7].text
         pattern = r'[0-9,.]+'
         matches = re.findall(pattern, string)
         global result
@@ -712,110 +681,21 @@ class InvoicePage():
             else:
                 print("Error has occurred in invoice status")
 
+    def verify_customer_invoice_amount(self):
+        invamnt = self.driver.find_element(By.XPATH,self.CUST_Invoice_amount)
+        # print(totalamt)
+        amount_without_currency = invamnt.text.replace("CAD","")
+        # amount_without_comma = amount_without_currency.replace(",","")
+        awc = amount_without_currency.strip()
+        expected_amount = awc.replace(',' , '')
+        expected_amount = float  (expected_amount.replace("'", ''))
+        assert totalamt == expected_amount,"Invoice amount donot match"
 
-    def verify_Thankyouemail_Contents(self):
-        driver = webdriver.Chrome(ChromeDriverManager().install())
-        driver.get("https://outlook.office365.com/mail/inbox")
-        driver.maximize_window()
-        time.sleep(3)
-        driver.find_element(By.NAME, self.yop_EMAILFIELD).send_keys("datasoft_autotest@hotmail.com")
-        driver.find_element(By.NAME, self.yop_EMAILFIELD).send_keys(Keys.ENTER)
-        time.sleep(4)
-        driver.find_element(By.NAME, self.HOTPASS).send_keys("Cadency@123")
-        driver.find_element(By.NAME, self.HOTPASS).send_keys(Keys.ENTER)
-        time.sleep(3)
-        driver.find_element(By.ID, self.DONTYESBTN).click()
-        time.sleep(3)
-        driver.find_element(By.XPATH, self.JUNKMAIL).click()
-        time.sleep(2)
-        self.emaillist = driver.find_elements(By.CLASS_NAME, self.EMAILS)
-        print(len(self.emaillist))
-        self.emaillist[0].click()
-        time.sleep(10)
-        driver.find_element(By.XPATH,self.ATTACHMENTS).click()
-        driver.find_element(By.XPATH,self.DOWNLOADBTN).click()
-        time.sleep(2)
-
-    def click_reminder(self):
-        sub = self.driver.find_element(By.XPATH,self.REMINDER)
-        self.driver.execute_script("arguments[0].click()",sub)
+    def click_invoicesort(self):
+        self.driver.find_element(By.XPATH,self.invoicesorter).click()
 
 
-    def click_on_dispute(self):
-        self.driver.find_element(By.XPATH,self.DISPUTE_ICON).click()
-    def verify_custom_invoice_num(self):
-        global invnumber
-        invnumber = self.driver.find_element(By.XPATH, self.INVNUMBER)
-        print(invnumber.text)
-        global customname
-        customname = self.driver.find_element(By.XPATH,self.CUSTOMERNAME)
-        print(customname.text)
 
-    def verify_invoice_number(self):
-       time.sleep(5)
-       inv =  self.driver.find_element(By.XPATH,self.DISP_INV_NUM)
-       value = self.driver.execute_script("return arguments[0].value;", inv)
-       print("This is invoice number on dispute form",value)
-       print("This is invoice number on invoice detail",invnumber.text)
-       assert value == invnumber.text, "Invoice number donot match"
 
-    def verify_Customer_Name(self):
-        customer = self.driver.find_element(By.ID,self.CUSTOM_NAME)
-        value = self.driver.execute_script("return arguments[0].value;",customer)
-        assert value == customname.text,"Customer Name donot match"
 
-    def select_reason(self):
-        reasondd = self.driver.find_elements(By.XPATH,self.ADDITEMTYPEDD)
-        reasondd[1].click()
-        self.driver.find_element(By.XPATH,self.REASON).click()
-
-    def add_disputeamount(self):
-        self.driver.find_element(By.ID, self.DISPUTEAMOUNT).clear()
-        self.driver.find_element(By.ID,self.DISPUTEAMOUNT).send_keys(randinteger)
-
-    def add_a_note(self):
-        self.driver.find_element(By.ID,self.note).send_keys(WORDS)
-
-    def search_customer(self,Name):
-        self.driver.find_element(By.XPATH, self.INVSEARCHFIELD).send_keys(Name + Keys.ENTER)
-        global searchname
-        searchname = Name
-        time.sleep(4)
-
-    def verify_searched_name(self):
-        global all
-        INV_DET = self.driver.find_elements(By.CLASS_NAME,self.INVOICE_DETAILS)
-        all_names = []
-        for all1 in INV_DET:
-            try:
-                CUSTNAME = all1.find_elements(By.CLASS_NAME, self.INV_CUSTOMER_NAME)
-                for all in CUSTNAME:
-                    all_names.append(all.text)
-            except StaleElementReferenceException:
-                # Handle the exception as per your requirements
-                print("Stale element reference encountered.")
-        searchedname = searchname
-        for name in all_names:
-            assert name == searchedname, f"The name '{name}' does not match the target name '{searchedname}'"
-            print(f"All names in the list match the target name: {searchedname}")
-
-    def export_invoice(self):
-        sub = self.driver.find_element(By.XPATH, self.EXPORT_INVOICE)
-        self.driver.execute_script("arguments[0].click()", sub)
-        self.verify_pdffile()
-        # pdf_file_path = os.getcwd() + '\\TestData\\TestExcelsandPDFS'
-        # with open(pdf_file_path, 'rb') as file:
-        #     pdf_reader = PyPDF2.PdfReader(file)
-        #     page = pdf_reader.getPage(0)  # Assuming you want to read the first page
-        #     text_from_pdf = page.extract_text()
-        # expected_columns_headers = ["Invoice Number", "Invoice to","Total"]
-        # elements = []
-        # for column_header in expected_columns_headers:
-        #     try:
-        #         element = self.driver.find_element(By.XPATH,
-        #                                       f'//td[contains(text(), "{column_header}")]')  # Modify the locator as per your HTML structure
-        #         elements.append(element)
-        #     except NoSuchElementException:
-        #         pass
-        #
 

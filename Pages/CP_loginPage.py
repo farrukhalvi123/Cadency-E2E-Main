@@ -31,7 +31,6 @@ class CustomerPortalLogin():
     def enter_username1(self,uname4):
         try:
             self.driver.find_element(By.XPATH,self.username_tb).send_keys(uname4)
-            time.sleep(3)
         except Exception as e:
             attach(str("username field is not displayed"), name=str("Not Displayed"),
                    attachment_type=AttachmentType.TEXT)
@@ -50,3 +49,7 @@ class CustomerPortalLogin():
         clickbutton= self.driver.find_element(By.XPATH, self.login_btn)
         self.driver.execute_script("arguments[0].click()",clickbutton )
         time.sleep(5)
+
+    def open_newtab(self):
+        self.driver.execute_script("window.open();")
+        self.driver.switch_to.window(self.driver.window_handles[1])
