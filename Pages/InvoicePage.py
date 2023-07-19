@@ -124,6 +124,18 @@ class InvoicePage():
         self.Show_50Invs= "//span[contains(text(), '50')]"
         self.count_ALL_Ribn = "//span[@class='ml-1 p-badge p-component p-badge-info']"
         self.diabledbut = "//button[@class='p-ripple p-element p-paginator-next p-paginator-element p-link p-disabled']"
+        self.inv_num_details= "//a[@class='p-element title-heading-1 text-primary-3'][position() mod 2 = 1]"
+    #     //td[position() mod 2 = 1]
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -704,15 +716,34 @@ class InvoicePage():
             print(e)
 
     def countRibbon_ALLtab(self):
-                self.Nextbutton_footer = "//span[@class='p-paginator-icon pi pi-angle-right']"
 
-                for _ in range(5):
-                    try:
-                        susu = self.driver.find_element(By.XPATH, self.Nextbutton_footer)
-                        susu.click()
-                        time.sleep(3)
-                    except NoSuchElementException:
-                        break
+        column_elements = self.driver.find_elements(By.XPATH, "//a[@class='p-element title-heading-1 text-primary-3']")
+        odd_column_elements = [element for index, element in enumerate(column_elements) if index % 2 == 0]
+        odd_columns_texts = [element.text for element in odd_column_elements]
+        print("Odd Column Texts:", odd_columns_texts)
+        length = len(odd_columns_texts)
+        print("Length of Odd Column Texts:", length)
+
+        # inv_details1 = self.driver.find_elements(By.XPATH, self.inv_num_details)
+                  # time.sleep(5)
+                  # count = len(inv_details1)
+                  # time.sleep(5)
+                  # print("Total count:", count)
+                  # for element in inv_details1:
+                  #  text = element.text
+                  #  print("Element text:", text)
+                  #  time.sleep(5)
+
+
+                # self.Nextbutton_footer = "//span[@class='p-paginator-icon pi pi-angle-right']"
+                #
+                # for _ in range(5):
+                #     try:
+                #         susu = self.driver.find_element(By.XPATH, self.Nextbutton_footer)
+                #         susu.click()
+                #         time.sleep(3)
+                #     except NoSuchElementException:
+                #         break
 
 
     # def countRibbon_ALLtab(self):
@@ -762,7 +793,6 @@ class InvoicePage():
 
 
 
-
          # global num_total
          # try:
          #    randomvariable=self.driver.find_elements(By.XPATH, self.count_ALL_Ribn)
@@ -802,20 +832,7 @@ class InvoicePage():
          #              # count += num_total
          #              print("total", count)
          #        break
-         #
-         #
-         #
-
-
-
-
-
-
-
-
-
-
-        #
+         #===================================================
         #
         #     counter=0
         #
