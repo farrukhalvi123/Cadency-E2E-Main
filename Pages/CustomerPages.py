@@ -97,6 +97,8 @@ class CustomerPages(unittest.TestCase):
         self.taskcards = "p-element.text-primary-3"
         self.BILLCENTER = '//*[@id="billingCenter"]/div/div[2]/div'
         self.BILLCENTER1 = "//body//cadency-root//p-multiselectitem[1]"
+        self.INVOICE_DETAILS = "ng-star-inserted"
+        self.INV_CUSTOMER_NAME = "p-element.title-heading-1.text-primary-3"
     def hover_hamburger(self):
         element = WebDriverWait(self.driver,20).until(EC.presence_of_element_located((By.XPATH,self.hamburger_icon)))
         actions = ActionChains(self.driver)
@@ -302,9 +304,7 @@ class CustomerPages(unittest.TestCase):
         time.sleep(2)
         element = self.driver.find_element(By.XPATH,self.OPENINVOICES)
         element.click()
-        self.driver.find_element(By.XPATH, self.PAGINGDD).click()
-        time.sleep(1)
-        self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
+        self.paging_50()
         print("i am already inside open invoices")
         # self.driver.execute_script("arguments[0].click();", element)
         time.sleep(2)
@@ -318,14 +318,17 @@ class CustomerPages(unittest.TestCase):
             assert "No records found" in self.driver.page_source
             print("No records found")
 
+    def paging_50(self):
+        time.sleep(2)
+        self.driver.find_element(By.XPATH, self.PAGINGDD).click()
+        time.sleep(1)
+        self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
+        time.sleep(5)
+
 
     def verify_closedInvoices(self):
         self.driver.find_element(By.ID,self.CLOSEDINVOICES).click()
-        time.sleep(2)
-        self.driver.find_element(By.XPATH,self.PAGINGDD).click()
-        time.sleep(1)
-        self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
-        time.sleep(1)
+        self.paging_50()
         try:
             invoicestatpaid = self.driver.find_elements(By.CLASS_NAME,self.INVOICEPAIDSTATUS)
             print(len(invoicestatpaid))
@@ -363,11 +366,7 @@ class CustomerPages(unittest.TestCase):
 
     def verify_paidinvoices(self):
         self.driver.find_element(By.ID,self.PAYMENTINVOICES).click()
-        time.sleep(2)
-        self.driver.find_element(By.XPATH, self.PAGINGDD).click()
-        time.sleep(1)
-        self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
-        time.sleep(1)
+        self.paging_50()
         try:
             invoicestatpaid = self.driver.find_elements(By.CLASS_NAME, self.INVOICEPAIDSTATUS)
             print(len(invoicestatpaid))
@@ -377,11 +376,7 @@ class CustomerPages(unittest.TestCase):
 
     def verify_creditnotes(self):
         self.driver.find_element(By.ID, self.CREDITNOTES).click()
-        time.sleep(2)
-        self.driver.find_element(By.XPATH, self.PAGINGDD).click()
-        time.sleep(1)
-        self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
-        time.sleep(1)
+        self.paging_50()
         try:
             CreditesApplied = self.driver.find_elements(By.CLASS_NAME,self.CN_APPLIED)
             print(len(CreditesApplied))
@@ -418,7 +413,5 @@ class CustomerPages(unittest.TestCase):
     def select_billing_centre(self):
         self.driver.find_element(By.XPATH,self.BILLCENTER).click()
         self.driver.find_element(By.XPATH,self.BILLCENTER1).click()
-
-
 
 

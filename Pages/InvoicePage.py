@@ -19,7 +19,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from Constants.URLS import TestData
 # from Elements.InvoiceElements import invoiceelements
 # from Elements.Customer_elements import customerelements
-from selenium.common import exceptions, NoSuchElementException, TimeoutException
+from selenium.common import exceptions, NoSuchElementException, TimeoutException, StaleElementReferenceException
 from selenium.webdriver import ActionChains
 import csv
 import PyPDF2
@@ -121,6 +121,7 @@ class InvoicePage(unittest.TestCase):
         self.BANKTRANSFER = "//span[normalize-space()='Bank Transfer']"
         self.CUST_Invoice_amount = "//tbody/tr[1]/td[5]/div[1]/div[1]"
         self.invoicesorter = "//span[@role='columnheader'][normalize-space()='Invoice #']"
+        self.INVOICE_DETAILS = "wrap-text-all.ng-star-inserted"
 
 
     def ClickOnInvoiceTab(self):
@@ -693,7 +694,39 @@ class InvoicePage(unittest.TestCase):
 
     def click_invoicesort(self):
         self.driver.find_element(By.XPATH,self.invoicesorter).click()
+    def searchfor_customer(self,name):
+        global customname
+        customname = name
+        self.driver.find_element(By.XPATH, self.INVSEARCHFIELD).send_keys(name + Keys.ENTER)
 
+    # def paging_50(self):
+    #     self.driver.find_element(By.XPATH, self.PAGINGDD).click()
+    #     self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
+
+    def verify_searched_name(self):
+        all_names = []  # Create an empty list
+        try:
+            CUSTNAME = self.driver.find_elements(By.CLASS_NAME, self.INVOICE_DETAILS)
+            for all in CUSTNAME:
+                print("This the list of customer name",all.text)
+                all_names.append(all.text)  # Append name to the list
+        except StaleElementReferenceException:
+            print("This is the list of stale reference")
+
+        searched_name = customname
+        for name in all_names:
+            assert name == searched_name, f"The name '{name}' does not match the target name '{searched_name}'"
+
+        print(f"All names in the list match the target name: {searched_name}")
+        # global element
+        # INV_DET = self.driver.find_elements(By.CLASS_NAME, self.INVOICE_DETAILS)
+        # for element in INV_DET:
+        #     print(element.text)
+        # targetname = customname
+        # for name in targetname:
+        #     assert name == element.text, f"The name '{name}' does not match the target name '{targetname}'"
+        #
+        # print(f"All names in the list match the target name: {targetname}")
 
 
 
