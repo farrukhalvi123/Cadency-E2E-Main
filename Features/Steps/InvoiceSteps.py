@@ -338,11 +338,12 @@ def step_impl(context):
 @then("Enter Customer {Name} into Search Field")
 def step_impl(context,Name):
    context.cadency.invoice.searchfor_customer(Name)
+   time.sleep(5)
 
 
 @then("Verify list of customer name")
 def step_impl(context):
-    context.cadency.invoice.verify_searched_name()
+    context.cadency.invoice.verify_search_name()
 
 
 @then("Click on Export Invoice and verify exported text")
@@ -380,3 +381,10 @@ def step_impl(context):
 @then("Click on Invoice Sort Button")
 def step_impl(context):
    context.cadency.invoice.click_invoicesort()
+
+
+
+@then("Verify Invoices are sorted in Descending order")
+def step_impl(context):
+   time.sleep(4)
+   context.cadency.invoice.verifyInvoicesorted()

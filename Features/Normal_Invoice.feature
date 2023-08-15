@@ -146,13 +146,20 @@ Feature: As a admin i want to add a new invoice
     Then Click on Record Payment
     Then Record Payments
 
-  Scenario: Search Customer name and apply filter
-    Then Enter Customer Selina Kyle into Search Field
-    Then Select 50 Paging
+  Scenario Outline: Search Customer name and apply filter
+    Then Enter Customer <Name> into Search Field
+#    Then Select 50 Paging
     Then Verify list of customer name
+  Examples:
+    |Name|
+    |Selina Kyle    |
+    |Johnny         |
+    |James        |
+
 
   Scenario: Verify Invoice Sort Orders
-    Then Click on Invoice Sort Button
-#    Then Verify Invoices are sorted in Descending order
+
+    Then Verify Invoices are sorted in Descending order
+    #    Then Click on Invoice Sort Button
 
 

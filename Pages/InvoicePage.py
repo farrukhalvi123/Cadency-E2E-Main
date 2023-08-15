@@ -122,8 +122,10 @@ class InvoicePage(unittest.TestCase):
         self.CUST_Invoice_amount = "//tbody/tr[1]/td[5]/div[1]/div[1]"
         self.invoicesorter = "//span[@role='columnheader'][normalize-space()='Invoice #']"
         self.INVOICE_DETAILS = "wrap-text-all.ng-star-inserted"
-
-
+        self.NORECORDFOUND = "//td[normalize-space()='No records found']"
+        self.INVOICENUMNAME = "p-element.title-heading-1.text-primary-3"
+        self.INVOCEDETAILS = "max-width-300.ng-star-inserted"
+        self.INVOICEDETS = "p-column-title"
     def ClickOnInvoiceTab(self):
         CART = self.driver.find_element(By.XPATH,self.CUSTOMERANDRECEIVABLETAB)
         self.driver.execute_script("arguments[0].click()",CART)
@@ -703,30 +705,46 @@ class InvoicePage(unittest.TestCase):
     #     self.driver.find_element(By.XPATH, self.PAGINGDD).click()
     #     self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
 
-    def verify_searched_name(self):
+    def verify_search_name(self):
         all_names = []  # Create an empty list
         try:
             CUSTNAME = self.driver.find_elements(By.CLASS_NAME, self.INVOICE_DETAILS)
             for all in CUSTNAME:
-                print("This the list of customer name",all.text)
+                print("This is the list of customer name",all.text)
                 all_names.append(all.text)  # Append name to the list
         except StaleElementReferenceException:
             print("This is the list of stale reference")
+        try:
+            searched_name = customname
+            for name in all_names:
+                assert name == searched_name, f"The name '{name}' does not match the target name '{searched_name}'"
 
-        searched_name = customname
-        for name in all_names:
-            assert name == searched_name, f"The name '{name}' does not match the target name '{searched_name}'"
+            print(f"All names in the list match the target name: {searched_name}")
+        except:
+            self.NRF = self.driver.find_element(By.XPATH,self.NORECORDFOUND)
+            assert self.NRF.text == "No records found" in self.driver.page_source
+            print(f"There are no records associated with this name")
 
-        print(f"All names in the list match the target name: {searched_name}")
-        # global element
-        # INV_DET = self.driver.find_elements(By.CLASS_NAME, self.INVOICE_DETAILS)
-        # for element in INV_DET:
-        #     print(element.text)
-        # targetname = customname
-        # for name in targetname:
-        #     assert name == element.text, f"The name '{name}' does not match the target name '{targetname}'"
-        #
-        # print(f"All names in the list match the target name: {targetname}")
+    def verifyInvoicesorted(self):
+        invdets = self.driver.find_elements(By.CLASS_NAME, self.INVOCEDETAILS)
+        for index, inv in enumerate(invdets):
+            print(f" Index: {index}, Element: {inv.text}")
+            # details_inv = inv.find_elements(By.CLASS_NAME, self.INVOICEDETS)
+            # for item in details_inv:
+            #     print(item.text)
+        # inv = []
+        # INVNAME_NUMBER = self.driver.find_elements(By.CLASS_NAME,self.INVOICENUMNAME)
+        # for invname in INVNAME_NUMBER:
+        #     print (inv[len(invname.text)])
+        # invoicehead = self.driver.find_element(By.XPATH,self.invoicesorter)
+        # self.driver.execute_script("arguments[0].click;",invoicehead)
+
+
+
+
+
+
+
 
 
 
