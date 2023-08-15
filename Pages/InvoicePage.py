@@ -112,7 +112,7 @@ class InvoicePage(unittest.TestCase):
         self.TOTALAMNT1c1 = "grid-footer-text"
         self.INV_DETAIL_TOTAL = "total"
         self.INVTOTAL = "td"
-        self.RECORDPAYMENT = "Group_19996"
+        self.RECORDPAYMENT = "p-element.p-icon-button.overlay-primary-7.p-button.p-component.ng-star-inserted"
         self.AMOUNTRECIEVED = "//input[@placeholder='Enter amount received']"
         self.PAYMENTDATE = "//input[@placeholder='Select date']"
         self.PAYMENTMODEID = "paymentTypeId"
@@ -124,20 +124,20 @@ class InvoicePage(unittest.TestCase):
         self.INVOICE_DETAILS = "wrap-text-all.ng-star-inserted"
         self.NORECORDFOUND = "//td[normalize-space()='No records found']"
         self.INVOICENUMNAME = "p-element.title-heading-1.text-primary-3"
-        self.INVOCEDETAILS = "max-width-300.ng-star-inserted"
+        self.INVOCEDETAILS = "p-element.title-heading-1.text-primary-3"
         self.INVOICEDETS = "p-column-title"
     def ClickOnInvoiceTab(self):
         CART = self.driver.find_element(By.XPATH,self.CUSTOMERANDRECEIVABLETAB)
         self.driver.execute_script("arguments[0].click()",CART)
         INVT= self.driver.find_element(By.XPATH,self.INVOICETAB)
         self.driver.execute_script("arguments[0].click()", INVT)
-        time.sleep(10)
+        time.sleep(15)
     def close_leftsidemenu(self):
         self.logo = WebDriverWait(self.driver,15).until(EC.presence_of_element_located((By.XPATH,self.LOGO)))
         # self.logo = self.driver.find_element(By.XPATH,self.LOGO)
         action = ActionChains(self.driver)
         action.move_to_element(self.logo).perform()
-        time.sleep(4)
+        time.sleep(8)
 
     def ClickOnAddButton(self):
         element = WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.XPATH,self.ADDINVOICEBTN)))
@@ -508,6 +508,7 @@ class InvoicePage(unittest.TestCase):
         moreoption[0].click()
 
     def duplicate_invoice(self):
+        time.sleep(2)
         INVNUMBER = self.driver.find_elements(By.CLASS_NAME, self.INVOICEANDCUSTOMER)
         print(INVNUMBER[0].text)
         AMOUNTBALANCE = self.driver.find_elements(By.CLASS_NAME, self.AMOUNT_BALANCE)
@@ -629,11 +630,16 @@ class InvoicePage(unittest.TestCase):
             print(famount)
             print(totalamt)
     def record_payment_btn(self):
-        self.driver.find_element(By.ID,self.RECORDPAYMENT).click()
-        time.sleep(1)
+        time.sleep(3)
+        recordpayment = self.driver.find_element(By.CLASS_NAME,self.RECORDPAYMENT).click()
+        # self.driver.execute_script("arguments[0].click()",recordpayment)
+        time.sleep(3)
     def fill_record_payments_form(self):
-        self.driver.find_element(By.XPATH, self.AMOUNTRECIEVED).clear()
-        self.driver.find_element(By.XPATH,self.AMOUNTRECIEVED).send_keys(randinteger)
+        amntrec = WebDriverWait(self.driver,15).until(EC.presence_of_element_located((By.XPATH, self.AMOUNTRECIEVED)))
+        amntrec.clear()
+        amntrec.send_keys(randinteger)
+        # self.driver.find_element(By.XPATH, self.AMOUNTRECIEVED).clear()
+        # self.driver.find_element(By.XPATH,self.AMOUNTRECIEVED).send_keys(randinteger)
         current_time = date.today().strftime('%m/%d/%Y')
         self.driver.find_element(By.XPATH,self.PAYMENTDATE).send_keys(Keys.CONTROL + 'a' + Keys.NULL, current_time,Keys.ENTER)
         self.driver.find_element(By.ID,self.PAYMENTMODEID).click()
@@ -727,17 +733,24 @@ class InvoicePage(unittest.TestCase):
 
     def verifyInvoicesorted(self):
         invdets = self.driver.find_elements(By.CLASS_NAME, self.INVOCEDETAILS)
+        invoice_numbers = []
         for index, inv in enumerate(invdets):
-            print(f" Index: {index}, Element: {inv.text}")
-            # details_inv = inv.find_elements(By.CLASS_NAME, self.INVOICEDETS)
-            # for item in details_inv:
-            #     print(item.text)
-        # inv = []
-        # INVNAME_NUMBER = self.driver.find_elements(By.CLASS_NAME,self.INVOICENUMNAME)
-        # for invname in INVNAME_NUMBER:
-        #     print (inv[len(invname.text)])
-        # invoicehead = self.driver.find_element(By.XPATH,self.invoicesorter)
-        # self.driver.execute_script("arguments[0].click;",invoicehead)
+            if index % 2 ==0:
+                invoice_number = inv.text.strip()
+                if re.match(r'INV-\d{6}', invoice_number):
+                    invoice_numbers.append(invoice_number)
+
+            # Remove duplicates
+            invoice_numbers = [invoice_numbers]
+            print(invoice_numbers)
+
+            # Check if the list is sorted in descending order
+            is_sorted_descending = invoice_numbers == sorted(invoice_numbers, reverse=True)
+            if is_sorted_descending:
+                print("The list of invoice numbers is sorted in descending order.")
+            else:
+                print("The list of invoice numbers is not sorted in descending order.")
+
 
 
 

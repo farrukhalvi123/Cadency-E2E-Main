@@ -158,7 +158,7 @@ Feature: As a admin i want to add a new invoice
 
 
   Scenario: Verify Invoice Sort Orders
-
+    Then Select 50 Paging
     Then Verify Invoices are sorted in Descending order
     #    Then Click on Invoice Sort Button
 

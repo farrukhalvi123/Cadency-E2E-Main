@@ -320,8 +320,10 @@ class CustomerPages(unittest.TestCase):
 
     def paging_50(self):
         time.sleep(2)
-        self.driver.find_element(By.XPATH, self.PAGINGDD).click()
-        time.sleep(1)
+        pagedd = self.driver.find_element(By.XPATH, self.PAGINGDD)
+        self.driver.execute_script("arguments[0].click();",pagedd)
+
+        time.sleep(0.5)
         self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
         time.sleep(5)
 
@@ -396,6 +398,7 @@ class CustomerPages(unittest.TestCase):
         print(len(tasks))
 
     def customer_listings(self):
+        time.sleep(2)
         global customername , customeremail,customerphone
         customername = self.driver.find_elements(By.XPATH,self.CUSTOMERNAME)
         customeremail = self.driver.find_elements(By.XPATH,self.CUSTOMER_LIST_EMAIL)
