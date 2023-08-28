@@ -1,0 +1,51 @@
+Index: Features/Steps/steps/CreditNotesteps.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from behave import *\r\nimport time\r\n\r\n\r\n\r\n\r\n@then(\"click on Open\")\r\ndef openfilter(context):\r\n    context.cadency.creditnote.Opentab()\r\n\r\n\r\n@then(\"click on three dots and click to apply credit notes\")\r\ndef threedots(context):\r\n    context.cadency.creditnote.selectCn()\r\n\r\n\r\n@then(\"enter values and save\")\r\ndef tofillform(context):\r\n    context.cadency.creditnote.fillvalue()\r\n\r\n\r\n# @then(\"get first CN no from text\")\r\n# def getCNtext(context):\r\n#     context.cadency.creditnote.CNtext()\r\n@then(\"take to CN page\")\r\ndef Cnpage(context):\r\n    time.sleep(3)\r\n    context.cadency.creditnote.CNmodule()\r\n    time.sleep(3)\r\n\r\n\r\n\r\n@then(\"get first CN no from text\")\r\ndef step_impl(context):\r\n    context.cadency.creditnote.takecn()\r\n\r\n\r\n@then(\"click on customer and receivables tag\")\r\ndef step_impl(context):\r\n    context.cadency.creditnote.click_drop_CR()\r\n
+===================================================================
+diff --git a/Features/Steps/steps/CreditNotesteps.py b/Features/Steps/steps/CreditNotesteps.py
+--- a/Features/Steps/steps/CreditNotesteps.py	
++++ b/Features/Steps/steps/CreditNotesteps.py	
+@@ -4,13 +4,13 @@
+ 
+ 
+ 
+-@then("click on Open")
+-def openfilter(context):
++ @then("click on Open")
++ def openfilter(context):
+     context.cadency.creditnote.Opentab()
+ 
+ 
+-@then("click on three dots and click to apply credit notes")
+-def threedots(context):
++ @then("click on three dots and click to apply credit notes")
++ def threedots(context):
+     context.cadency.creditnote.selectCn()
+ 
+ 
+@@ -22,7 +22,7 @@
+ # @then("get first CN no from text")
+ # def getCNtext(context):
+ #     context.cadency.creditnote.CNtext()
+-@then("take to CN page")
++ @then("take to CN page")
+ def Cnpage(context):
+     time.sleep(3)
+     context.cadency.creditnote.CNmodule()
+@@ -30,11 +30,11 @@
+ 
+ 
+ 
+-@then("get first CN no from text")
++ @then("get first CN no from text")
+ def step_impl(context):
+     context.cadency.creditnote.takecn()
+ 
+ 
+-@then("click on customer and receivables tag")
+-def step_impl(context):
+-    context.cadency.creditnote.click_drop_CR()
++# @then("click on customer and receivables tag")
++# def step_impl(context):
++#     context.cadency.creditnote.click_dropdown_CR()

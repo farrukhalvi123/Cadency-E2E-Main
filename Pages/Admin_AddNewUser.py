@@ -167,6 +167,7 @@ class AdminAddUsers():
         self.driver.execute_script("arguments[0].click()", var)
         time.sleep(1)
         self.driver.find_element(By.XPATH,self.TEAMSEARCHBAR).send_keys(test)
+        time.sleep(5)
         element = self.driver.find_element(By.XPATH,self.ENTERTEAMNAME)
         self.driver.execute_script("arguments[0].click()", element)
         time.sleep(1)

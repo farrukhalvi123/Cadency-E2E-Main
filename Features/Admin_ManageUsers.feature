@@ -22,7 +22,7 @@ Feature: As a admin i want to Add a new user
       | Kylian | Mbappe | NinjaTurtle | +923212323777 | ninja@yopmail.com | Talha123 | Talha123 |
 
   Scenario: Check user exist
-      Given Enter text in search field Kylian
+      Given Enter text in search field Ninja
       Then Verify Username if Already Exist
 
   Scenario: Clear Filter Button
@@ -39,7 +39,7 @@ Feature: As a admin i want to Add a new user
        Then Check Filter Results
        Then Make User Inactive
        Then Click On Filter Icon
-#       Then Select User Status Filter Option (InActive)
-#       Then Select Filter By Team Test
-#       Then Click on Apply Button
-#       Then Check Filter Results
+       Then Select User Status Filter Option (InActive)
+       Then Select Filter By Team Test
+       Then Click on Apply Button
+       Then Check Filter Results

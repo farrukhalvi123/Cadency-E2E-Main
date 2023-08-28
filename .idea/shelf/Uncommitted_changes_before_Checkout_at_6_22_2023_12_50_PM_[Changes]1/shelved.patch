@@ -1,0 +1,161 @@
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_3_29_2023_11_16_AM__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_3_29_2023_11_16_AM__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_3_29_2023_11_16_AM__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_3_29_2023_11_16_AM__Changes_.xml	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_3_29_2023_11_16_AM_[Changes]" date="1680070647794" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_29_2023_11_16_AM_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 3/29/2023 11:16 AM [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_3_29_2023_11_16_AM_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_3_29_2023_11_16_AM_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_3_29_2023_11_16_AM_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_3_29_2023_11_16_AM_[Changes]/shelved.patch	
++++ /dev/null	
+@@ -1,142 +0,0 @@
+-Index: Features/CreditNote.feature
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+># Created by Datasoft at 2/17/2023\r\n\r\nFeature: abc\r\n\r\n Background: Login & Redirect To Invoice Page\r\n    Then User Navigates to Merchant Portal\r\n    Then User Enters khanbro and s3gxtMerqGtz\r\n    Then User Clicks on Login Button\r\n    Then Open Right Side Panel\r\n    Then User Navigate To Invoice Tab\r\n\r\n\r\n Scenario: credit notes\r\n   Then click on Open\r\n   Then click on three dots and click to apply credit notes\r\n   Then enter values\r\n   Then Open Right Side Panel\r\n   Then take to CN page\r\n   Then get first CN no from text\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/Features/CreditNote.feature b/Features/CreditNote.feature
+---- a/Features/CreditNote.feature	(revision 2532d15dba02c29a818d9e6b62c65b38821d466e)
+-+++ b/Features/CreditNote.feature	(date 1680069799999)
+-@@ -7,13 +7,29 @@
+-     Then User Enters khanbro and s3gxtMerqGtz
+-     Then User Clicks on Login Button
+-     Then Open Right Side Panel
+--    Then User Navigate To Invoice Tab
+--
+--
+-- Scenario: credit notes
+--   Then click on Open
+--   Then click on three dots and click to apply credit notes
+--   Then enter values
+--   Then Open Right Side Panel
+--   Then take to CN page
+--   Then get first CN no from text
+-+
+-+#    Then Open Right Side Panel
+-+    #Then User Navigate To Invoice Tab
+-+
+-+
+-+
+-+
+-+
+-+Scenario: comparing credit note from last to new CN
+-+
+-+#  Then take to CN page
+-+#  Then get first CN no from text
+-+  Then Open Right Side Panel
+-+  Then User Navigate To Invoice Tab
+-+  Then click on Open
+-+  Then click on three dots and click to apply credit notes
+-+  Then enter values and save
+-+  Then Open Right Side Panel
+-+  Then take to CN page
+-+  Then get first CN no from text
+-+
+-+#  Scenario: credit notes
+-+#   Then click on Open
+-+#   Then click on three dots and click to apply credit notes
+-+#   Then enter values
+-+
+-Index: Pages/Creditnotepages.py
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>import datetime\r\nimport os\r\nimport re\r\nimport time\r\nfrom random import randint\r\nfrom selenium.webdriver.common.by import By\r\nfrom selenium.webdriver.common.keys import Keys\r\nfrom selenium.webdriver.support.select import Select\r\nfrom selenium.webdriver.support.wait import WebDriverWait\r\nfrom selenium.webdriver.support import expected_conditions as EC\r\n# from Elements.LoginElements import loginelements\r\nfrom allure_commons._allure import attach\r\nfrom allure_commons.types import AttachmentType\r\nfrom webdriver_manager.core import driver\r\n\r\nfrom Constants.URLS import TestData\r\n\r\nclass Cns():\r\n    def __init__(self, driver):\r\n\r\n        self.driver = driver\r\n\r\n        self.open_filter = \"//a[contains(text(), 'Open')]\"\r\n\r\n        self.nukhty3 = \"//tbody/tr[1]/td[9]/div[1]/button[1]/*[1]//*[name()='svg']\"\r\n        self.add_cn = \"//a[normalize-space()='Add Credit Note']\"\r\n        # self.cn_number = \"//input[@id='customerName']\"\r\n        # self.cn_amount = \"//input[@placeholder='Enter Amount']\"\r\n        self.billing_add_dd = \"//*[@id='billingCentreId']\"\r\n        self.ba_2 = \"//span[normalize-space()='sam']\"\r\n        self.save_but = \"//button[@type='submit']\"\r\n\r\n        self.creditmodel=\"//p[normalize-space()='Credit Notes']\"\r\n        self.searchnote = \"text-primary-10.font-bold\"\r\n        # self.showcnum= \"//div[@class='text-primary-10 font-bold']\"\r\n\r\n    def Opentab(self):\r\n        openfil = self.driver.find_element(By.XPATH, self.open_filter)\r\n        # driver.execute_script(\"arguments[3].click;\", openfil)\r\n        openfil.click()\r\n        time.sleep(3)\r\n\r\n    def selectCn(self):\r\n        threedash = self.driver.find_element(By.XPATH, self.nukhty3)\r\n        threedash.click()\r\n        selectCnote = self.driver.find_element(By.XPATH, self.add_cn)\r\n        selectCnote.click()\r\n        time.sleep(3)\r\n\r\n    def fillvalue(self):\r\n        # enteritem=self.driver.find_element(By.XPATH, self.cn_number)\r\n        # enteritem.click()\r\n        time.sleep(3)\r\n        addbillcenter=self.driver.find_element(By.XPATH, self.billing_add_dd)\r\n        addbillcenter.click()\r\n        time.sleep(3)\r\n        selectcenter= self.driver.find_element(By.XPATH, self.ba_2)\r\n        selectcenter.click()\r\n        time.sleep(3)\r\n        save=self.driver.find_element(By.XPATH, self.save_but)\r\n        save.click()\r\n        time.sleep(3)\r\n\r\n    def CNmodule(self):\r\n         creditnotepage = self.driver.find_element(By.XPATH, self.creditmodel)\r\n         creditnotepage.click()\r\n         time.sleep(3)\r\n\r\n    def takecn(self):\r\n        cnno = self.driver.find_elements(By.CLASS_NAME, self.searchnote)\r\n        newcnn = cnno[1].text\r\n        print(newcnn)\r\n        ext_cn= newcnn.split(\"-\")[1]\r\n        print(ext_cn)\r\n\r\n\r\n\r\n        # digi = newcnn.isdigit()\r\n        # print(digi)\r\n        # print(newcnn)\r\n        # res = [int(i) for i in newcnn.split() if i.isdigit()]\r\n        # print(res)\r\n        # abc = \"CRN 00004\"\r\n        # res1 = [int(i) for i in abc.split() if i.isdigit()]\r\n        # print(res1)\r\n    # def CNtext(self):\r\n    #     cnclass = self.driver.find_element(By.XPATH,self.showcnum).text()\r\n    #     print(cnclass)\r\n    #\r\n\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/Pages/Creditnotepages.py b/Pages/Creditnotepages.py
+---- a/Pages/Creditnotepages.py	(revision 2532d15dba02c29a818d9e6b62c65b38821d466e)
+-+++ b/Pages/Creditnotepages.py	(date 1679996416950)
+-@@ -38,14 +38,14 @@
+-         openfil = self.driver.find_element(By.XPATH, self.open_filter)
+-         # driver.execute_script("arguments[3].click;", openfil)
+-         openfil.click()
+--        time.sleep(3)
+-+        time.sleep(1)
+- 
+-     def selectCn(self):
+-         threedash = self.driver.find_element(By.XPATH, self.nukhty3)
+-         threedash.click()
+-         selectCnote = self.driver.find_element(By.XPATH, self.add_cn)
+-         selectCnote.click()
+--        time.sleep(3)
+-+        time.sleep(1)
+- 
+-     def fillvalue(self):
+-         # enteritem=self.driver.find_element(By.XPATH, self.cn_number)
+-@@ -53,22 +53,23 @@
+-         time.sleep(3)
+-         addbillcenter=self.driver.find_element(By.XPATH, self.billing_add_dd)
+-         addbillcenter.click()
+--        time.sleep(3)
+-+        time.sleep(1)
+-         selectcenter= self.driver.find_element(By.XPATH, self.ba_2)
+-         selectcenter.click()
+--        time.sleep(3)
+-+        time.sleep(1)
+-         save=self.driver.find_element(By.XPATH, self.save_but)
+-         save.click()
+--        time.sleep(3)
+-+        time.sleep(1)
+- 
+-     def CNmodule(self):
+-          creditnotepage = self.driver.find_element(By.XPATH, self.creditmodel)
+-+         time.sleep(4)
+-          creditnotepage.click()
+--         time.sleep(3)
+-+         time.sleep(1)
+- 
+-     def takecn(self):
+-         cnno = self.driver.find_elements(By.CLASS_NAME, self.searchnote)
+--        newcnn = cnno[1].text
+-+        newcnn = cnno[0].text
+-         print(newcnn)
+-         ext_cn= newcnn.split("-")[1]
+-         print(ext_cn)
+-Index: Features/Steps/CreditNotesteps.py
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>from behave import *\r\n\r\n\r\n\r\n\r\n@then(\"click on Open\")\r\ndef openfilter(context):\r\n    context.cadency.creditnote.Opentab()\r\n\r\n\r\n@then(\"click on three dots and click to apply credit notes\")\r\ndef threedots(context):\r\n    context.cadency.creditnote.selectCn()\r\n\r\n\r\n@then(\"enter values\")\r\ndef tofillform(context):\r\n    context.cadency.creditnote.fillvalue()\r\n\r\n\r\n# @then(\"get first CN no from text\")\r\n# def getCNtext(context):\r\n#     context.cadency.creditnote.CNtext()\r\n@then(\"take to CN page\")\r\ndef Cnpage(context):\r\n   context.cadency.creditnote.CNmodule()\r\n\r\n\r\n\r\n@then(\"get first CN no from text\")\r\ndef step_impl(context):\r\n    context.cadency.creditnote.takecn()
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/Features/Steps/CreditNotesteps.py b/Features/Steps/CreditNotesteps.py
+---- a/Features/Steps/CreditNotesteps.py	(revision 2532d15dba02c29a818d9e6b62c65b38821d466e)
+-+++ b/Features/Steps/CreditNotesteps.py	(date 1679999944583)
+-@@ -1,4 +1,5 @@
+- from behave import *
+-+import time
+- 
+- 
+- 
+-@@ -13,7 +14,7 @@
+-     context.cadency.creditnote.selectCn()
+- 
+- 
+--@then("enter values")
+-+@then("enter values and save")
+- def tofillform(context):
+-     context.cadency.creditnote.fillvalue()
+- 
+-@@ -23,7 +24,9 @@
+- #     context.cadency.creditnote.CNtext()
+- @then("take to CN page")
+- def Cnpage(context):
+--   context.cadency.creditnote.CNmodule()
+-+    time.sleep(3)
+-+    context.cadency.creditnote.CNmodule()
+-+    time.sleep(3)
+- 
+- 
+- 

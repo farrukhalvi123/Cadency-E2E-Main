@@ -3,7 +3,7 @@ Feature: As a admin i want to add a new invoice
 
   Background: Login & Redirect To Invoice Page
     Then User Navigates to Merchant Portal
-    Then User Enters allemaxwell and sAMRAm123
+    Then User Enters clarkkent and Cadency@123
     Then User Clicks on Login Button
     Then Open Right Side Panel
     Then User Navigate To Invoice Tab
@@ -23,7 +23,6 @@ Feature: As a admin i want to add a new invoice
     And Adding Item Price
     Then click on Invoice Save Button
 #    Then Verify Invoice has been Created
-
 
   Scenario: Add Existing Item in Invoices
     Then User Clicks On Add Invoice Button
@@ -63,7 +62,6 @@ Feature: As a admin i want to add a new invoice
     Then Go to Disputed Tab and verify disputed invoices
 
   Scenario: Verify All Invoices
-
     Then Go to All Tab
     Then Verify Number of Invoices
 
@@ -131,6 +129,51 @@ Feature: As a admin i want to add a new invoice
     Then Click on View
     Then Click on Record Payment
     Then Record Full Payments
+#    Then Verify Sent Email and attachment
+
+  Scenario: Record Half Payment Against Invoice
+    Then Duplicate an Invoice
+    Then Click on More Options on an invoice
+    Then Click on View
+    Then Click on Record Payment
+    Then Record Payments
+#    Then Verify Sent Email and attachment
+
+  Scenario: Send Invoice Reminder
+    Then Duplicate an Invoice
+    Then Click on More Options on an invoice
+    Then Click on View
+    Then Click on Send Reminder
+    Then Verify Email Sending Details
+    Then Send Email
+
+
+  Scenario:   Dispute an Invoice from Main Portal
+    Then Duplicate an Invoice
+    Then Click on More Options on an invoice
+    Then Click on View
+    Then Get Invoice Number and Customer Name
+    Then Click on Dispute Icon
+    Then Verify Invoice Number
+    Then Verify Customer Name
+    Then Select reason to dispute
+    Then Add amount to dispute
+    Then Add a note
+    Then Click on Save Button
+
+  Scenario: Export Invoice PDF from Detail Page.
+    Then Duplicate an Invoice
+    Then Click on More Options on an invoice
+    Then Click on View
+    Then Click on Export Invoice and verify exported text
+#    Then Verify Exported Invoice Details
+
+
+
+
+
+
+
 #
 #  Scenario Record Half Payment Against Invoice
 #    Then Duplicate an Invoice

@@ -26,4 +26,6 @@ venv/
 workspace.xml
 
 
+.idea/workspace.xml
+.idea/
 

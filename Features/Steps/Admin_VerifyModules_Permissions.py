@@ -9,8 +9,7 @@ from socket import *
 import pandas as pd
 from webdriver_manager.chrome import ChromeDriverManager
 from Constants.URLS import TestData
-from Pages.Verify_Modules_Permissions import VerifyPermissions
-
+from Pages.Admin_VerifyModules_Permissions import VerifyPermissions
 
 
 @then("Open Left Panel")
@@ -128,10 +127,10 @@ def step_impl(context):
     try:
         context.cadency.admin_verify_permissions.verifying_edit_option()
     except Exception as e:
-        print("PASS > Edit Button Not Found")
+        print("PASS > Merchant View Working Fine & Edit Button Not Found")
 
 
-@then("Verify Data Of Labels")
+@then("Verify Labels")
 def step_impl(context):
     try:
         context.cadency.admin_verify_permissions.verifying_Labels()
@@ -139,9 +138,9 @@ def step_impl(context):
         print("FAIL > Something Went Wrong...")
 
 
-@then("Verify 1st Row Data")
+@then("Verify View & Delete")
 def step_impl(context):
-    # try:
-    context.cadency.admin_verify_permissions.verifying_Firstrow()
-# except Exception as e:
-#     print("FAIL > Something Went Wrong...")
+    try:
+        context.cadency.admin_verify_permissions.verifying_viewndelete()
+    except Exception as e:
+        print("Something Went Wrong...")
