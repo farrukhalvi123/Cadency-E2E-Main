@@ -7,6 +7,7 @@ import time
 @then("click on Open")
 def openfilter(context):
     context.cadency.creditnote.Opentab()
+    time.sleep(3)
 
 
 @then("click on three dots and click to apply credit notes")
