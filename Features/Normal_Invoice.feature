@@ -71,7 +71,7 @@ Feature: As a admin i want to add a new invoice
     Then Go to All Tab
     Then Click on show "50" dropdown
     Then Take count number from ribbon for ALL tab
-#    Then Click on next button if invoices >50
+#    Then Click on next button if invoices is greater than >50
 
 
 
