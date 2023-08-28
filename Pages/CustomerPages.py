@@ -18,7 +18,7 @@ class CustomerPages(unittest.TestCase):
         self.hamburger_icon = "//div[@class='tree-container ng-star-inserted']"
         self.CUSTOMERANDRECEIVABLETAB = "//p[normalize-space()='Customers & Receivables']"
         self.CUSTOMERTAB = "//p[normalize-space()='Customers']"
-        self.CUSTOMERNAME = "title-heading-3 text-primary-3"
+        self.CUSTOMERNAME = "//span[normalize-space()='Selina Kyle']"
         self.NOCUSTOMERFOUND = "//div[@class='title-heading-5']"
         self.ADDFIRSTCUSTOMER = "//button[@class='p-element p-button-primary button-with-icon btn-120 p-button p-component']"
         self.ADDCUSTOMER = "(//button[@class='p-element p-button-primary button-with-icon btn-150 p-button p-component ng-star-inserted'])[1]"
@@ -31,7 +31,7 @@ class CustomerPages(unittest.TestCase):
         self.EMAIL = "email"
         self.CURRENCY = "currencyId"
         self.WEBSITE = "website"
-        self.CCEMAIL = "ccEmail"
+        self.CCEMAIL = "//input[@role='searchbox']"
         self.CUSTOMER_TOGGLE_ACTIVE = "//div[@class='p-inputswitch p-component p-inputswitch-checked']"
         self.CUSTOMER_TOGGLE_INACTIVE = "//div[@class='p-inputswitch p-component']"
         self.SHOWATTACH = "//a[normalize-space()='+ Show/Add attachment']"
@@ -46,17 +46,18 @@ class CustomerPages(unittest.TestCase):
         self.POSTALCODE = "postalCode"
         self.COUNTRY_FIELD = "countryId"
         self.COUNTRY_PAK = "//div[contains(text(),'Pakistan')]"
-        self.STATEFIELD = "/html/body/cadency-root/cadency-features/div/div/div/div/cadency-customers-list/div/cadency-add-customer/div/form/p-sidebar/div/div[2]/div/div[2]/p-tabview/div/div[2]/p-tabpanel[2]/div/form/div/div[4]/div/p-dropdown/div/div[2]"
+        self.STATEFIELD = "//*[@id='stateName']/div/div[2]"
         self.STATEFIELD_SINDH = "//li[@aria-label='Sindh']"
-        self.CITYID = "/html/body/cadency-root/cadency-features/div/div/div/div/cadency-customers-list/div/cadency-add-customer/div/form/p-sidebar/div/div[2]/div/div[2]/p-tabview/div/div[2]/p-tabpanel[2]/div/form/div/div[5]/div/p-dropdown/div/div[2]"
+        self.CITYID = '//*[@id="cityName"]/div/div[2]'
         self.CITYKARACHI = "//li[@aria-label='Karachi']"
         self.CUSTOMERNUMBER_VIEW = "//*[@id='pr_id_2-table']/tbody/tr[1]/td[2]/div/span"
-        self.CUSTOMER_LIST_EMAIL = "paragraph-text-4.wrap-text-all"
+        self.CUSTOMER_LIST_EMAIL = "//span[normalize-space()='datasoft_autotest@hotmail.com']"
+        self.CUSTOMER_LIST_PHONE = "//span[normalize-space()='0340 4781488']"
         self.THREEDOTSBUTTON = "more-icon"
         self.EDITCUSTOMER = "//a[normalize-space()='Edit']"
         self.EDITCUSTOMERTEXT = "//span[normalize-space()='Edit Customer']"
-        self.CUSTOMERPHONE_VIEW = '/html/body/cadency-root/cadency-features/div/div/div/div/cadency-customers-list/div/div/div[2]/p-table/div/div[2]/table/tbody/tr[1]/td[4]/div/div[1]/span'
-        self.CUSTOMEREMAIL_VIEW = '/html/body/cadency-root/cadency-features/div/div/div/div/cadency-customers-list/div/div[2]/p-table/div/div[2]/table/tbody/tr[1]/td[4]/div/div[2]/span'
+        self.CUSTOMERPHONE_VIEW = '/html/body/cadency-root/div/cadency-features/div/div/div/div/cadency-customers-list/div/div/div[2]/p-table/div/div[2]/table/tbody/tr[1]/td[4]/div/div[1]/span'
+        self.CUSTOMEREMAIL_VIEW = 'p-element.paragraph-text-4.wrap-text-all.wrap-one'
         self.CUSTOMER_LIST = "//tbody"
         self.FILTERBUTTON = "//button[@class='p-element p-button-secondary filter-btn-count button-with-icon btn-150 p-button p-component']"
         self.SELECTCOUNTRY = "//p-dropdown[@placeholder='Select country']"
@@ -94,6 +95,8 @@ class CustomerPages(unittest.TestCase):
         self.CN_PARTIALLYAPPLIED = "status-container.status-blue.ng-star-inserted"
         self.TASKTABS = "p-tabpanel-4-label"
         self.taskcards = "p-element.text-primary-3"
+        self.BILLCENTER = '//*[@id="billingCenter"]/div/div[2]/div'
+        self.BILLCENTER1 = "//body//cadency-root//p-multiselectitem[1]"
     def hover_hamburger(self):
         element = WebDriverWait(self.driver,20).until(EC.presence_of_element_located((By.XPATH,self.hamburger_icon)))
         actions = ActionChains(self.driver)
@@ -147,8 +150,8 @@ class CustomerPages(unittest.TestCase):
         phonenum = phno
         self.driver.find_element(By.ID, self.WEBSITE).clear()
         self.driver.find_element(By.ID, self.WEBSITE).send_keys(web)
-        self.driver.find_element(By.ID, self.CCEMAIL).clear()
-        self.driver.find_element(By.ID, self.CCEMAIL).send_keys(ccemail)
+        self.driver.find_element(By.XPATH, self.CCEMAIL).clear()
+        self.driver.find_element(By.XPATH, self.CCEMAIL).send_keys(ccemail)
 
     def select_customer_currency(self):
         self.driver.find_element(By.ID, self.CURRENCY_FIELD).click()
@@ -221,8 +224,9 @@ class CustomerPages(unittest.TestCase):
     def updated_customerdata(self):
         time.sleep(8)
         custom_ph = self.driver.find_element(By.XPATH,self.CUSTOMERPHONE_VIEW)
+        # for custph in custom_ph:
         # custom_email = self.get_element_text(self.CUSTOMEREMAIL_VIEW)
-        print(custom_ph.text)
+        #     print(custph.text)
         # print(custom_email)
         print(phonenum)
         self.assertEqual(custom_ph.text, phonenum, "Phone number cannot be viewed")
@@ -395,3 +399,26 @@ class CustomerPages(unittest.TestCase):
         time.sleep(1)
         tasks = self.driver.find_elements(By.CLASS_NAME,self.taskcards)
         print(len(tasks))
+
+    def customer_listings(self):
+        global customername , customeremail,customerphone
+        customername = self.driver.find_elements(By.XPATH,self.CUSTOMERNAME)
+        customeremail = self.driver.find_elements(By.XPATH,self.CUSTOMER_LIST_EMAIL)
+        customerphone = self.driver.find_element(By.XPATH,self.CUSTOMER_LIST_PHONE)
+
+    def customer_details(self):
+        global det_customername, det_customeremail, det_customerphone
+        det_customername = self.driver.find_elements(By.XPATH, self.CUSTOMERNAME)
+        det_customeremail = self.driver.find_element(By.XPATH, self.CUSTOMER_LIST_EMAIL)
+        det_customerphone = self.driver.find_element(By.XPATH, self.CUSTOMER_LIST_PHONE)
+        assert customername == det_customername, "Customer name donot match"
+        assert customeremail == det_customeremail, "Customer email donot match"
+        assert customerphone == det_customerphone, "Customer phone donot match"
+
+    def select_billing_centre(self):
+        self.driver.find_element(By.XPATH,self.BILLCENTER).click()
+        self.driver.find_element(By.XPATH,self.BILLCENTER1).click()
+
+
+
+

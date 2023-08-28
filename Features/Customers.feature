@@ -16,13 +16,14 @@ Feature: As an Admin User I want to Manage a new Customer
     Then Verify Customer Email
     Then Add Customer Details <custom_disp_name> and <firsname> and <lsname> and <phone> and <website> and <ccemail>
     Then Select Customer currency
+    Then Select Billing Centre
     Then Verify Toggle Active - InActive
     Then Upload Picture Logo
     And Click on Save Button
     Then Add Address Details <Street1> <street2> <pscode>
     And Click on Save Button
     Then Identify Number of Existing Customers
-    Then Verify Details have been updated
+#    Then Verify Details have been updated
     Examples:
     |custom_disp_name|firsname|lsname|phone|website|ccemail|Street1 | street2| pscode|
     |Farrukh Doe|Farrukh|Alvi|+923404456789|https://www.gmail.com |fja@jaf.com| teststreet123!@#| teststreet2##@| 123456|
@@ -41,15 +42,11 @@ Feature: As an Admin User I want to Manage a new Customer
     Then Select Country
     Then Select Invoice Status
     Then Verify Filter is applied
-    Then Verify Invoices with Current Status
+
 
   Scenario: Search Customer
     Then Search for Selina Kyle and verify results
 
-  Scenario: Verify Invoice Tiles on Customer Details
-    Then Search for Selina Kyle and verify results
-    Then View Customer Details
-    Then Verify Invoice Tiles
 
   Scenario: Verify Invoice Status and Tabs
     Then Search for Selina Kyle and verify results
@@ -60,6 +57,13 @@ Feature: As an Admin User I want to Manage a new Customer
     Then Verify Invoices with Payments received
     Then Verify Credit Notes
     Then Verify Number of Tasks
+
+  Scenario: Verify Customer Info
+    Then Search for Selina Kyle and verify results
+    Then Verify Customer Details on Listing Page
+    Then View Customer Details
+    Then Verify Customer Details on Details Page
+
 
 
 

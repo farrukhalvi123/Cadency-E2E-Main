@@ -1,0 +1,6 @@
+﻿Invoice #,Customer,Date,Due Date,Amount,Balance,Status,
+"INV-000347","Selina","Jun 9, 2023","Aug 6, 2023","3,773.95 CAD ","3,773.95 CAD ","Open"
+"INV-000346","Selina Kyle","Jun 6, 2023","Jul 6, 2023","432.00 CAD ","0.00 CAD ","Paid"
+"INV-000345","Selina Kyle","Jun 6, 2023","Jul 6, 2023","56.00 CAD ","56.00 CAD ","Open"
+"INV-000344","Selina Kyle","Jun 6, 2023","Jul 6, 2023","432.00 CAD ","432.00 CAD ","Open"
+"INV-000343","Selina Kyle","Jun 5, 2023","Jul 5, 2023","432.00 CAD ","0.00 CAD ","Paid"

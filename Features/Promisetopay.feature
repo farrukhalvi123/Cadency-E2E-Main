@@ -7,3 +7,4 @@ Feature: samra
     Then User Clicks on Login Button
     Then Open Right Side Panel
     Then User Navigate To Invoice Tab
+

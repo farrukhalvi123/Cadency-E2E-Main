@@ -163,7 +163,6 @@ def step_impl(context):
 @then("Go to All Tab")
 def step_impl(context):
     context.cadency.invoice.ALLtab()
-    time.sleep(5)
 
 
 @then("Go to Open Tab")
@@ -259,6 +258,8 @@ def step_impl(context):
         context.cadency.invoice.Verify_Send_Email()
 
 
+
+
 @then("Send Email")
 def step_impl(context):
    context.cadency.invoice.send_email()
@@ -268,10 +269,6 @@ def step_impl(context):
 def step_impl(context):
    context.cadency.invoice.verify_sent_email()
 
-
-# @then("Verify Edited invoice details")
-# def step_impl(context):
-#     context.cadency.invoice.verify_edited_invoice()
 @then("Verify Invoice Edited Successfully")
 def step_impl(context):
     context.cadency.invoice.invoice_Edited_successfully()
@@ -293,16 +290,67 @@ def step_impl(context):
     context.cadency.invoice.verify_status_InvoiceDetail()
 
 
-@then('Click on show "50" dropdown')
+@then("Verify Sent Email and attachment")
 def step_impl(context):
-    context.cadency.invoice.Show_MaxCount_Inv()
+   context.cadency.invoice.verify_Thankyouemail_Contents()
 
 
-@then("Take count number from ribbon for ALL tab")
+@then("Click on Send Reminder")
 def step_impl(context):
-    context.cadency.invoice.countRibbon_ALLtab()
+    context.cadency.invoice.click_reminder()
+    time.sleep(5)
 
 
-# @then("Click on next button if invoices >50")
-# def step_impl(context):
-#     context.cadency.invoice.Condition_NextButton()
+@then("Click on Dispute Icon")
+def step_impl(context):
+    context.cadency.invoice.click_on_dispute()
+
+
+@then("Verify Invoice Number")
+def step_impl(context):
+    context.cadency.invoice.verify_invoice_number()
+
+
+@then("Get Invoice Number and Customer Name")
+def step_impl(context):
+    context.cadency.invoice.verify_custom_invoice_num()
+
+
+@then("Verify Customer Name")
+def step_impl(context):
+    context.cadency.invoice.verify_Customer_Name()
+
+
+@then("Select reason to dispute")
+def step_impl(context):
+    context.cadency.invoice.select_reason()
+
+
+@then("Add amount to dispute")
+def step_impl(context):
+    context.cadency.invoice.add_disputeamount()
+
+
+@then("Add a note")
+def step_impl(context):
+    context.cadency.invoice.add_a_note()
+
+
+@then("Select 50 Paging")
+def step_impl(context):
+   context.cadency.invoice.paging_50()
+
+
+@then("Enter Customer {Name} into Search Field")
+def step_impl(context,Name):
+   context.cadency.invoice.search_customer(Name)
+
+
+@then("Verify list of customer name")
+def step_impl(context):
+    context.cadency.invoice.verify_searched_name()
+
+
+@then("Click on Export Invoice and verify exported text")
+def step_impl(context):
+    context.cadency.invoice.export_invoice()
