@@ -148,7 +148,7 @@ Feature: As a admin i want to add a new invoice
 
   Scenario Outline: Search Customer name and apply filter
     Then Enter Customer <Name> into Search Field
-#    Then Select 50 Paging
+    Then Select 50 Paging
     Then Verify list of customer name
   Examples:
     |Name|

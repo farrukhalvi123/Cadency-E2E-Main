@@ -2,53 +2,46 @@ import os
 import re
 from random import *
 import time
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 import random
 import string
 import unittest
-import requests
 from PyPDF2 import PdfReader
 
-from Constants.URLS import TestData
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from Constants.URLS import TestData
-# from Elements.InvoiceElements import invoiceelements
-# from Elements.Customer_elements import customerelements
 from selenium.common import exceptions, NoSuchElementException, TimeoutException, StaleElementReferenceException
 from selenium.webdriver import ActionChains
 import csv
-import PyPDF2
 
 WORDS = "".join((random.choice(string.ascii_letters) for i in range(10)))
 randinteger = ''.join(["{}".format(randint(0, 5)) for num in range(0, 3)])
 class InvoicePage(unittest.TestCase):
-
     def __init__(self, driver):
         super().__init__()
         self.driver = driver
         # self.invnum = "//a[normalize-space()='" + INV_NUM + "']"
         self.LOGO = "//div[@class='header-container']//img[@alt='Logo image']"
         self.CUSTOMERANDRECEIVABLETAB = "//p[normalize-space()='Customers & Receivables']"
-        self.INVOICETAB =  "//p[normalize-space()='Invoices']"
+        self.INVOICETAB ="//p[normalize-space()='Invoices']"
         self.ADDINVOICEBTN = "//button[@class='p-element p-button-primary button-with-icon btn-150 p-button p-component']"
-        self.CUSTNAMEDD =  "//*[contains(@class,'p-dropdown-trigger-icon ng-tns')]"
-        self.CUSTNAMEDD_VALUE =  "(//li[@role='option'])[2]"
-        self.CUSTNAMEDD_VALUE1 =  "//span[normalize-space()='+ Add New Customer']"
-        self.CURRENCYDD =  "currency"
-        self.CURRENCY = "p-ripple.p-element.p-dropdown-item"
-        self.EXCHANGERATE =  "//a[normalize-space()='Modify Rate']"
-        self.REFERENCE =  "//input[@placeholder='Enter Reference']"
-        self.ITEMSELECTION = "//button[@class='p-element p-ripple p-autocomplete-dropdown ng-tns-c107-56 p-button p-component p-button-icon-only ng-star-inserted']//span[@class='p-button-icon pi pi-chevron-down']"
-        self.DESCRIPTION =  "//input[@placeholder='Description']"
-        self.QUANTITY =  "//input[@placeholder='Quantity']"
-        self.PRICE =  "//input[@placeholder='Price']"
-        self.DISCOUNT =  "//input[@placeholder='Disc %']"
-        self.TAXDD = "//*[contains(@class,'p-element p-ripple p-autocomplete-dropdown ng-tns')]"
+        self.CUSTNAMEDD ="//*[contains(@class,'p-dropdown-trigger-icon ng-tns')]"
+        self.CUSTNAMEDD_VALUE ="(//li[@role='option'])[2]"
+        self.CUSTNAMEDD_VALUE1 ="//span[normalize-space()='+ Add New Customer']"
+        self.CURRENCYDD ="currency"
+        self.CURRENCY ="p-ripple.p-element.p-dropdown-item"
+        self.EXCHANGERATE ="//a[normalize-space()='Modify Rate']"
+        self.REFERENCE ="//input[@placeholder='Enter Reference']"
+        self.ITEMSELECTION ="//button[@class='p-element p-ripple p-autocomplete-dropdown ng-tns-c107-56 p-button p-component p-button-icon-only ng-star-inserted']//span[@class='p-button-icon pi pi-chevron-down']"
+        self.DESCRIPTION ="//input[@placeholder='Description']"
+        self.QUANTITY ="//input[@placeholder='Quantity']"
+        self.PRICE ="//input[@placeholder='Price']"
+        self.DISCOUNT ="//input[@placeholder='Disc %']"
+        self.TAXDD ="//*[contains(@class,'p-element p-ripple p-autocomplete-dropdown ng-tns')]"
         self.TAXSELECT = "//*[contains(@class,'p-ripple p-element p-autocomplete-item ng-tns')]"
         self.SAVEBTN =  "//button[@class='p-element p-button-primary btn-150 p-button p-component']"
         self.INV_EMAIL =  "customerEmail"
@@ -149,12 +142,14 @@ class InvoicePage(unittest.TestCase):
         print(len(cust_dd))
         cust_dd[1].click()
     def select_customer(self):
-        time.sleep(2)
-        self.driver.find_element(By.XPATH,self.CUSTNAMEDD_VALUE).click()
-        global custname
-        custname = self.driver.find_element(By.XPATH,self.CUSTNAMEDD_VALUE)
-        print(custname.text)
-
+        try:
+            global custname
+            time.sleep(2)
+            custname = self.driver.find_element(By.XPATH,self.CUSTNAMEDD_VALUE)
+            custname.click()
+            print(custname.text)
+        except exceptions.StaleElementReferenceException as e:
+            print(e)
     def add_new_customer(self):
         self.driver.find_element(By.XPATH,self.CUSTNAMEDD_VALUE1)
         # if len(self.get_all_elements(self.CUSTNAMEDD_VALUE)) > 0 :
@@ -725,7 +720,6 @@ class InvoicePage(unittest.TestCase):
             for name in all_names:
                 assert name == searched_name, f"The name '{name}' does not match the target name '{searched_name}'"
 
-            print(f"All names in the list match the target name: {searched_name}")
         except:
             self.NRF = self.driver.find_element(By.XPATH,self.NORECORDFOUND)
             assert self.NRF.text == "No records found" in self.driver.page_source
