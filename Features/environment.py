@@ -57,7 +57,7 @@ def launch_browser(context,scenario):
                 command_executor='https://speedhomebrowser_tiWF2J:s9coaxk36do24scdqy5Q@hub-cloud.browserstack.com/wd/hub',
                 desired_capabilities=desired_cap)  # we need to add the account url on which we want to run this test
         elif TestData.PLATFORM == 'local':
-            context.driver = webdriver.Chrome(options=options, executable_path=ChromeDriverManager().install())
+            context.driver = webdriver.Chrome(options=options, executable_path= os.getcwd() +  '\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe')
         elif TestData.PLATFORM == 'docker':
             remote_url = os.getenv('SELENIUM_GRID_URL')
             # os.environ['DISPLAY'] = ':0'

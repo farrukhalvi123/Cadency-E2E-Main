@@ -50,6 +50,7 @@ Feature: As an Admin User I want to Manage a new Customer
 
   Scenario: Verify Invoice Status and Tabs
     Then Search for Selina Kyle and verify results
+    Then Select 50 Paging
     Then View Customer Details
     Then Verify Invoice Tiles
     Then Verify Open Invoices

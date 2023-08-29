@@ -217,6 +217,7 @@ def step_impl(context,name):
     context.cadency.customadd.search_customer(name)
 
 
+
 @then("Select Invoice Status")
 def step_impl(context):
     context.cadency.customadd.apply_invoice_filter()
@@ -265,3 +266,7 @@ def step_impl(context):
 @then("Select Billing Centre")
 def step_impl(context):
     context.cadency.customadd.select_billing_centre()
+
+@then("Select 50 Paging")
+def step_impl(context):
+   context.cadency.customadd.paging_50()
