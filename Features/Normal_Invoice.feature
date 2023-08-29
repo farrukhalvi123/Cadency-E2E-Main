@@ -105,6 +105,7 @@ Feature: As a admin i want to add a new invoice
     Then Verify Invoice Details
 
   Scenario: Edit Invoice from Detail Page
+    Then Duplicate an Invoice
     Then Click on More Options on an invoice
     Then Click on View
     Then Click on Edit Invoice

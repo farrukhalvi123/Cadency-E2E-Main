@@ -271,21 +271,22 @@ class InvoicePage(unittest.TestCase):
         self.driver.find_element(By.XPATH,self.DISCOUNT).send_keys(disc)
 
     def select_tax(self,tcomp,trate):
+
         try:
             taxdd = self.driver.find_elements(By.XPATH,self.TAXDD)
-            taxdd[2].click()
+            taxdd[1].click()
             time.sleep(5)
-        except:
+        except exceptions.StaleElementReferenceException as e:
             taxdd = self.driver.find_elements(By.XPATH, self.TAXDD)
             taxdd[1].click()
             time.sleep(5)
         try:
             taxes = self.driver.find_elements(By.XPATH,self.TAXSELECT)
-            print("This is the selected tax",taxes[2].text)
             taxes[2].click()
-            global select_tax
-            select_tax = taxes[2].text
-        except:
+            print("This is the selected tax",taxes[2].text)
+            # global select_tax
+            # select_tax = taxes[1].text
+        except exceptions.StaleElementReferenceException as e:
             taxes = self.driver.find_elements(By.XPATH,self.TAXSELECT)
             taxes[0].click()
             self.enter_new_tax(tcomp,trate)
@@ -519,6 +520,7 @@ class InvoicePage(unittest.TestCase):
         assert AMOUNTBALANCE[0].text == AMOUNTBALANCE[2].text, "Invoice is not duplicate"
         Invoiceopen = self.driver.find_elements(By.CLASS_NAME,self.OPENSTATUS)
         assert Invoiceopen[0].text == "Open"
+        time.sleep(10)
 
     def delete_invoice(self):
         self.driver.find_element(By.XPATH,self.DELETE).click()
@@ -545,10 +547,10 @@ class InvoicePage(unittest.TestCase):
             print(invnumber.text)
             assert self.AMNTBAL == amount.text ,"Amount is not equal or invoice listings and details are not the same"
             assert self.INVM == invnumber.text,"Invoice number does not match or invoice listings and details are not the same"
-
+            time.sleep(2)
     def editinvoice(self):
         edit = self.driver.find_element(By.XPATH,self.INVOICEEDIT)
-        edit.click()
+        self.driver.execute_script("arguments[0].click();",edit)
         time.sleep(2)
 
     def Verify_Send_Email(self): # this is only downloading invoice.

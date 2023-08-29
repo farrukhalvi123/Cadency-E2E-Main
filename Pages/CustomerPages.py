@@ -322,8 +322,7 @@ class CustomerPages(unittest.TestCase):
         time.sleep(2)
         pagedd = self.driver.find_element(By.XPATH, self.PAGINGDD)
         self.driver.execute_script("arguments[0].click();",pagedd)
-
-        time.sleep(0.5)
+        time.sleep(1)
         self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
         time.sleep(5)
 
