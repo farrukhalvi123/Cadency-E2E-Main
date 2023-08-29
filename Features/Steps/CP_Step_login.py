@@ -23,3 +23,8 @@ def step_impl(context,uname,pswd):
 @then("customer clicks login button")
 def step_impl(context):
     context.cadency.CustomerPortal.login_button()
+
+
+@then("Open a new tab")
+def step_impl(context):
+    context.cadency.Cportal_login.open_newtab()

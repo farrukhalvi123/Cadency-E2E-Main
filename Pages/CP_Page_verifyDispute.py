@@ -38,22 +38,14 @@ class Open_dispute_tag():
                self.driver.find_element(By.XPATH, self.inv_sp).click()
 
     def catch_tag(self):
-        save_inv_name = self.driver.find_element(By.XPATH, self.getclassforinv)
-        time.sleep(5)
-        print(save_inv_name.text)
-        time.sleep(5)
-        save_tag_dispute = self.driver.find_element(By.XPATH, self.d_tagname)
-        # save_tag_dispute= save_inv_name.find_element(By.XPATH, self.d_tagname)
-        time.sleep(4)
-        print(save_tag_dispute.text)
-
-
-
-
-
-
-
-
+        # save_inv_name = self.driver.find_element(By.XPATH, self.getclassforinv)
+        # time.sleep(5)
+        # print(save_inv_name.text)
+        # time.sleep(5)
+        # save_tag_dispute = self.driver.find_element(By.XPATH, self.d_tagname)
+        # # save_tag_dispute= save_inv_name.find_element(By.XPATH, self.d_tagname)
+        # time.sleep(4)
+        # print(save_tag_dispute.text)
         save_inv_name = self.driver.find_element(By.XPATH, self.getclassforinv)
         time.sleep(7)
         # print(save_inv_name)

@@ -44,6 +44,7 @@ class Cns():
 
     def Opentab(self):
         openfil = self.driver.find_element(By.XPATH, self.open_filter)
+        time.sleep(3)
         # driver.execute_script("arguments[3].click;", openfil)
         openfil.click()
         time.sleep(3)
@@ -83,6 +84,10 @@ class Cns():
         print(newcnn)
         ext_cn= newcnn.split("-")[1]
         print(ext_cn)
+        # newcnn = cnno[2].text
+        # print(newcnn)
+        # ext_cn= newcnn.split("-")[1]
+        # print(ext_cn)
 
     def second_takecn(self):
         cnno = self.driver.find_elements(By.CLASS_NAME, self.searchnote)

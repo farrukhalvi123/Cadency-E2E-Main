@@ -21,6 +21,7 @@ Feature: As a admin i want to add a new invoice
     Then Select DueDate
     Then Select an Item
     And Adding Item Price
+    Then Select Tax
     Then click on Invoice Save Button
 #    Then Verify Invoice has been Created
 
@@ -43,6 +44,15 @@ Feature: As a admin i want to add a new invoice
     Then Verify Total Amount
     Then Click on Save Button
     Then Verify amount on detail page
+
+  Scenario: Invoice Creation and verification on Customer Portal
+    Then Invoice has Been Created
+    Then Open a new tab
+    When user is at customer portal
+    Then customer enter selinakyle@yopmail.com and 1QnKwL1nvht7
+    Then customer clicks login button
+    When customer at dashboard and hover over side panel and click invoice option
+    Then Verify Invoice Amount
 
   Scenario: Search an Invoice with Invoice Name
     Then Enter Invoice Number in Search Field
@@ -97,17 +107,25 @@ Feature: As a admin i want to add a new invoice
     Then Delete the Invoice
 
   Scenario: View and Verify Invoice Details
+    Then Duplicate an Invoice
     Then Click on More Options on an invoice
     Then Click on View
     Then Verify Invoice Details
 
   Scenario: Edit Invoice from Detail Page
+    Then Duplicate an Invoice
     Then Click on More Options on an invoice
     Then Click on View
     Then Click on Edit Invoice
     Then Edit Invoice from Detail Page
     Then Click on Save Button
     Then Verify Invoice Edited Successfully
+    Then Open a new tab
+    When user is at customer portal
+    Then customer enter selinakyle@yopmail.com and 1QnKwL1nvht7
+    Then customer clicks login button
+    When customer at dashboard and hover over side panel and click invoice option
+    Then Verify Invoice Amount
 
   Scenario: Check Sending Email of Invoice
     Then Click on More Options on an invoice
@@ -129,7 +147,6 @@ Feature: As a admin i want to add a new invoice
     Then Click on View
     Then Click on Record Payment
     Then Record Full Payments
-#    Then Verify Sent Email and attachment
 
   Scenario: Record Half Payment Against Invoice
     Then Duplicate an Invoice
@@ -137,42 +154,16 @@ Feature: As a admin i want to add a new invoice
     Then Click on View
     Then Click on Record Payment
     Then Record Payments
-#    Then Verify Sent Email and attachment
 
-  Scenario: Send Invoice Reminder
-    Then Duplicate an Invoice
-    Then Click on More Options on an invoice
-    Then Click on View
-    Then Click on Send Reminder
-    Then Verify Email Sending Details
-    Then Send Email
-
-
-  Scenario:   Dispute an Invoice from Main Portal
-    Then Duplicate an Invoice
-    Then Click on More Options on an invoice
-    Then Click on View
-    Then Get Invoice Number and Customer Name
-    Then Click on Dispute Icon
-    Then Verify Invoice Number
-    Then Verify Customer Name
-    Then Select reason to dispute
-    Then Add amount to dispute
-    Then Add a note
-    Then Click on Save Button
-
-  Scenario: Export Invoice PDF from Detail Page.
-    Then Duplicate an Invoice
-    Then Click on More Options on an invoice
-    Then Click on View
-    Then Click on Export Invoice and verify exported text
-#    Then Verify Exported Invoice Details
-
-
-
-
-
-
+  Scenario Outline: Search Customer name and apply filter
+    Then Enter Customer <Name> into Search Field
+    Then Select 50 Paging
+    Then Verify list of customer name
+  Examples:
+    |Name|
+    |Selina Kyle    |
+    |Johnny         |
+    |James        |
 
 #
 #  Scenario Record Half Payment Against Invoice
@@ -182,5 +173,9 @@ Feature: As a admin i want to add a new invoice
 #    Then Click on Record Payment
 #    Then Record Payments
 
+  Scenario: Verify Invoice Sort Orders
+    Then Select 50 Paging
+    Then Verify Invoices are sorted in Descending order
+    #    Then Click on Invoice Sort Button
 
 

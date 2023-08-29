@@ -6,5 +6,6 @@ Background:
 
     @login
     Scenario: Valid login on customer portal
-      Then customer enter ransom and a45GnsKuzYs4
+      Then customer enter selinakyle@yopmail.com and 1QnKwL1nvht7
       Then customer clicks login button
+
