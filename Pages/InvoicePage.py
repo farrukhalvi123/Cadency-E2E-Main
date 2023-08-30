@@ -95,7 +95,7 @@ class InvoicePage(unittest.TestCase):
         self.INVNUMBER = "//div[@class='invoice-title']"
         self.INVOICEEDIT = "//button[@class='p-element p-icon-button overlay-primary-6 p-button p-component ng-star-inserted']"
         self.EMAILSEND = "//button[@class='p-element p-icon-button overlay-primary-13 p-button p-component ng-star-inserted']"
-        self.EMAILADDRESS = "//a[normalize-space()='talha.test24@gmail.com']"
+        self.EMAILADDRESS = "//a[normalize-space()='cust1@yopmail.com']"
         self.EMAILSENDTOLABEL = "//span[@class='label-text']"
         self.DOWNLOADINVOICEBTN = "//button[@class='p-element p-icon-button overlay-primary-7 p-button p-component ng-star-inserted']"
         self.EMAILBODY = "//div[@class='angular-editor-textarea']"

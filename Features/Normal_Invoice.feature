@@ -120,6 +120,7 @@ Feature: As a admin i want to add a new invoice
     Then Verify Invoice Amount
 
   Scenario: Check Sending Email of Invoice
+    Then Duplicate an Invoice
     Then Click on More Options on an invoice
     Then Click on View
     Then Verify Email Sending Details
