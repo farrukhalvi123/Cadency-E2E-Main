@@ -25,7 +25,7 @@ class CustomerPortalLogin():
         self.logout = "//a[normalize-space()='Logout']"
 
     def go_to_login(self):
-        self.driver.get(TestData.CUSTOMERMANAGEMENT)
+        self.driver.get(TestData. STAGING_CUSTOMER)
 
 
     def enter_username1(self,uname4):
