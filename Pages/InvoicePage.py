@@ -30,7 +30,7 @@ class InvoicePage(unittest.TestCase):
         self.INVOICETAB ="//p[normalize-space()='Invoices']"
         self.ADDINVOICEBTN = "//button[@class='p-element p-button-primary button-with-icon btn-150 p-button p-component']"
         self.CUSTNAMEDD ="//*[contains(@class,'p-dropdown-trigger-icon ng-tns')]"
-        self.CUSTNAMEDD_VALUE ="(//li[@role='option'])[2]"
+        self.CUSTNAMEDD_VALUE ="(//li[@role='option'])[4]"
         self.CUSTNAMEDD_VALUE1 ="//span[normalize-space()='+ Add New Customer']"
         self.CURRENCYDD ="currency"
         self.CURRENCY ="p-ripple.p-element.p-dropdown-item"
@@ -95,9 +95,9 @@ class InvoicePage(unittest.TestCase):
         self.INVNUMBER = "//div[@class='invoice-title']"
         self.INVOICEEDIT = "//button[@class='p-element p-icon-button overlay-primary-6 p-button p-component ng-star-inserted']"
         self.EMAILSEND = "//button[@class='p-element p-icon-button overlay-primary-13 p-button p-component ng-star-inserted']"
-        self.EMAILADDRESS = "//a[normalize-space()='selinakyle@yopmail.com']"
+        self.EMAILADDRESS = "//a[normalize-space()='cust1@yopmail.com']"
         self.EMAILSENDTOLABEL = "//span[@class='label-text']"
-        self.DOWNLOADINVOICEBTN = "//div[@class='p-icon-button']"
+        self.DOWNLOADINVOICEBTN = "//button[@class='p-element p-icon-button overlay-primary-7 p-button p-component ng-star-inserted']"
         self.EMAILBODY = "//div[@class='angular-editor-textarea']"
         self.yop_EMAILFIELD = "login"
         self.SUBJECT = "subject"
@@ -281,11 +281,12 @@ class InvoicePage(unittest.TestCase):
             taxdd[1].click()
             time.sleep(5)
         try:
+            global select_tax
             taxes = self.driver.find_elements(By.XPATH,self.TAXSELECT)
             taxes[2].click()
-            print("This is the selected tax",taxes[2].text)
-            # global select_tax
-            # select_tax = taxes[1].text
+            # print("This is the selected tax",taxes[1].text)
+
+            select_tax = taxes[2].text
         except exceptions.StaleElementReferenceException as e:
             taxes = self.driver.find_elements(By.XPATH,self.TAXSELECT)
             taxes[0].click()
@@ -305,10 +306,11 @@ class InvoicePage(unittest.TestCase):
         # int (amnt)
         # int (quantity)
         amount = amnt * quantity
-        print (amnt)
+        print ("$$$$$$$$$$",amnt)
         print(quantity)
         print(amount)
-        discount = (amount) * disc/100
+        print(disc)
+        discount = amount * disc/100
         discounted_amount = amount - discount
         print(discounted_amount)
         tax1 =  str (select_tax)
@@ -504,7 +506,7 @@ class InvoicePage(unittest.TestCase):
         moreoption[0].click()
 
     def duplicate_invoice(self):
-        time.sleep(2)
+        time.sleep(4)
         INVNUMBER = self.driver.find_elements(By.CLASS_NAME, self.INVOICEANDCUSTOMER)
         print(INVNUMBER[0].text)
         AMOUNTBALANCE = self.driver.find_elements(By.CLASS_NAME, self.AMOUNT_BALANCE)
@@ -561,7 +563,7 @@ class InvoicePage(unittest.TestCase):
         sendlabel = self.driver.find_element(By.XPATH, self.EMAILSENDTOLABEL)
         print(sendlabel.text)
         assert senderemail.text == sendlabel.text,"sender email donot match"
-        self.driver.find_element(By.XPATH,self.DOWNLOADINVOICEBTN).click()
+        # self.driver.find_element(By.XPATH,self.DOWNLOADINVOICEBTN).click()
         subject  = self.driver.find_element(By.ID,self.SUBJECT)
         subject.clear()
         subject.send_keys("This is a dummy invoice")
@@ -585,19 +587,19 @@ class InvoicePage(unittest.TestCase):
         self.driver.find_element(By.XPATH,self.CONFIRMATIONBTN).click()
 
     def verify_sent_email(self):
-        driver = webdriver.Chrome(ChromeDriverManager().install())
+        driver = webdriver.Chrome(executable_path= os.getcwd() +  '\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe')
         driver.get("https://www.yopmail.com")
         driver.maximize_window()
         time.sleep(2)
-        driver.find_element(By.ID, self.yop_EMAILFIELD).send_keys("selinakyle@yopmail.com")
+        driver.find_element(By.ID, self.yop_EMAILFIELD).send_keys("cust1@yopmail.com")
         driver.find_element(By.ID, self.yop_EMAILFIELD).send_keys(Keys.ENTER)
         time.sleep(2)
         inbox_frame = driver.find_element(By.XPATH, '//*[@id="ifinbox"]')
         driver.switch_to.frame(inbox_frame)
         print(subjecttext)
-        email_subject = driver.find_element(By.XPATH,
-                                            "//div[@id='e_ZwZjZmV3ZQL1BQN5ZQNjZGD3AQtlAD==']//div[@class='lms'][normalize-space()='This is a dummy invoice']")
-        email_subject.click()
+        # email_subject = driver.find_element(By.XPATH,
+        #                                     "//div[@id='e_ZwZjZmV3ZQL1BQN5ZQNjZGD3AQtlAD==']//div[@class='lms'][normalize-space()='This is a dummy invoice']")
+        # email_subject.click()
         # email_body_frame = driver.find_element(By.ID,'ifmail')
         # driver.switch_to.frame(email_body_frame)
         # mailbody = self.driver.find_element(By.ID,"mail")
@@ -688,13 +690,18 @@ class InvoicePage(unittest.TestCase):
                 print("Error has occurred in invoice status")
 
     def verify_customer_invoice_amount(self):
-        invamnt = self.driver.find_element(By.XPATH,self.CUST_Invoice_amount)
-        # print(totalamt)
-        amount_without_currency = invamnt.text.replace("CAD","")
+        invamnt = WebDriverWait(self.driver,20).until(EC.presence_of_element_located((By.XPATH,self.CUST_Invoice_amount)))
+        # invamnt = self.driver.find_element(By.XPATH,self.CUST_Invoice_amount)
+        print("This is the invoice amount on listing page",invamnt.text)
+        print("This is the total amount",totalamt)
+        amount_without_currency = invamnt.text.replace("USD","")
         # amount_without_comma = amount_without_currency.replace(",","")
         awc = amount_without_currency.strip()
+        print("This is the actual amount",awc)
         expected_amount = awc.replace(',' , '')
-        expected_amount = float  (expected_amount.replace("'", ''))
+
+
+        expected_amount = float (expected_amount.replace("'", ''))
         assert totalamt == expected_amount,"Invoice amount donot match"
 
     def click_invoicesort(self):

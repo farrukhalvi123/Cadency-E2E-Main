@@ -25,7 +25,7 @@ class AdvancePaymentSetting():
         #Xpath = // *[contains( @ name, 'btn')]
 
     def go_to_main(self):
-        self.driver.get(TestData.CADENCY_MAIN)
+        self.driver.get(TestData.STAGING_MAIN)
 
     def star(self):
         time.sleep(5)

@@ -77,5 +77,3 @@ class Ptop():
       if index %9 == 0:
           print(index ,invoice_text)
 
-
-

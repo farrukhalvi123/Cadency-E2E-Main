@@ -33,7 +33,7 @@ class LoginPage():
         self.CODEID = "token"
 
     def go_to_main(self):
-        self.driver.get(TestData.CADENCY_MAIN)
+        self.driver.get(TestData.STAGING_MAIN)
 
     def verify_hompage(self):
         assert self.homepage_logo in self.driver.page_source

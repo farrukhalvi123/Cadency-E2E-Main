@@ -60,7 +60,8 @@ class Open_dispute_tag():
             # save_tag = save_inv_name.find_element(By.XPATH, self.d_tagname)
             # print(save_tag.text)
             # time.sleep(6)
-
+    def test_method(self):
+        self.hovering()
 
         # save_tag = save_inv_name.find_element(By.XPATH, self.d_tagname)
         # print(save_tag.text)

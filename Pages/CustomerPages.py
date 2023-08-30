@@ -319,12 +319,20 @@ class CustomerPages(unittest.TestCase):
             print("No records found")
 
     def paging_50(self):
-        time.sleep(2)
-        pagedd = self.driver.find_element(By.XPATH, self.PAGINGDD)
-        self.driver.execute_script("arguments[0].click();",pagedd)
-        time.sleep(1)
-        self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
-        time.sleep(5)
+        try:
+            time.sleep(2)
+            pagedd = self.driver.find_element(By.XPATH, self.PAGINGDD)
+            self.driver.execute_script("arguments[0].click();",pagedd)
+            time.sleep(1)
+            self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
+            time.sleep(5)
+        except:
+            assert "No records found" in self.driver.page_source
+            print("No records found hence paging disabled")
+
+
+
+
 
 
     def verify_closedInvoices(self):

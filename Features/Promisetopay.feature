@@ -2,7 +2,7 @@
 Feature: samra
   Background:
    Then User Navigates to Merchant Portal
-    Then User Enters clarkkent and Cadency@123
+    Then User Enters jaxsonbriggs and 7sItGjWVfZgc
     Then User Clicks on Login Button
     Then Open Right Side Panel
 
