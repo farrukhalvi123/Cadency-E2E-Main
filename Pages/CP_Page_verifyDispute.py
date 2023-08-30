@@ -34,8 +34,10 @@ class Open_dispute_tag():
         # self.p1_subclass_for_inv_name=getclassforinv=       "//div[@class='ng-star-inserted']"
 
     def hovering(self):
-               self.driver.find_element(By.XPATH, self.panel).click()
-               self.driver.find_element(By.XPATH, self.inv_sp).click()
+        panel = WebDriverWait(self.driver,15).until(EC.presence_of_element_located((By.XPATH,self.panel)))
+        panel.click()
+        inv_sp = WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.XPATH, self.inv_sp)))
+        inv_sp.click()
 
     def catch_tag(self):
         # save_inv_name = self.driver.find_element(By.XPATH, self.getclassforinv)

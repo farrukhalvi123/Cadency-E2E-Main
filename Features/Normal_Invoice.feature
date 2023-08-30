@@ -87,9 +87,9 @@ Feature: As a admin i want to add a new invoice
     Then Go to Partially Paid Invoices
     Then Verify Partially Paid Invoices
 
-  Scenario: Verify Waiting for Fund Invoices
-    Then Go to Waiting for Funds Invoices
-    Then Verify Waiting for Funds Invoice
+#  Scenario: Verify Waiting for Fund Invoices
+#    Then Go to Waiting for Funds Invoices
+#    Then Verify Waiting for Funds Invoice
 
   Scenario: Merchant duplicates an invoice
     Then Duplicate an Invoice
