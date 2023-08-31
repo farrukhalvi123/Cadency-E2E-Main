@@ -320,10 +320,10 @@ class CustomerPages(unittest.TestCase):
 
     def paging_50(self):
         try:
-            time.sleep(2)
+            time.sleep(5)
             pagedd = self.driver.find_element(By.XPATH, self.PAGINGDD)
             self.driver.execute_script("arguments[0].click();",pagedd)
-            time.sleep(1)
+            time.sleep(2)
             self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
             time.sleep(5)
         except:
@@ -347,7 +347,7 @@ class CustomerPages(unittest.TestCase):
 
 
     def search_customer(self,name):
-        WebDriverWait(self.driver,5).until(EC.presence_of_element_located((By.ID,self.SEARCHCUSTOMER))).send_keys(name)
+        WebDriverWait(self.driver,15).until(EC.presence_of_element_located((By.ID,self.SEARCHCUSTOMER))).send_keys(name)
         try:
             time.sleep(2)
             customername = self.driver.find_element(By.XPATH,"//a[normalize-space()='"+name+"']")
