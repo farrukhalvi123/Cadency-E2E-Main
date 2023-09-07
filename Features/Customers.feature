@@ -8,6 +8,7 @@ Feature: As an Admin User I want to Manage a new Customer
     Then User Clicks on Login Button
     Then Open Right Side Panel
     Then Go to Customer Tab
+    Then Close Left Side Menu
 
   Scenario Outline: Add a Customer
 
@@ -22,7 +23,7 @@ Feature: As an Admin User I want to Manage a new Customer
     And Click on Save Button
     Then Add Address Details <Street1> <street2> <pscode>
     And Click on Save Button
-    Then Select 50 Paging
+#    Then Select 50 Paging
     Then Identify Number of Existing Customers
 #    Then Verify Details have been updated
     Examples:
@@ -63,9 +64,29 @@ Feature: As an Admin User I want to Manage a new Customer
     Then Search for Talha Bm DN and verify results
     Then Verify Customer Details on Listing Page
     Then View Customer Details
+#    Then Verify Customer Details on Details Page
+
+  Scenario: Verify Invoice Current Amount
+    Then Verify total amount on listing page against a customer
+    Then View Customer Details
     Then Verify Customer Details on Details Page
 
+  Scenario: Delete a Customer
+    Then Select 50 Paging
+    Then Click on 3 dots
+    Then Click on Remove Customer
+    Then Verify Customer has been removed
 
 
+  Scenario: Verify Customer Amount on Listing page
+    Then Verify Total amount against any customer
+    Then View Customer Details
+    Then Verify Total Amount on Detail Page
+
+  Scenario: Verify Over Due Amount
+    Then View Customer Details
+    Then Select 50 Paging
+    Then Get Customer Balance
+#    Then Verify it with Over Due Amount
 
 

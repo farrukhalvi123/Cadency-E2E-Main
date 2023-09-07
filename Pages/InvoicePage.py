@@ -119,6 +119,8 @@ class InvoicePage(unittest.TestCase):
         self.INVOICENUMNAME = "p-element.title-heading-1.text-primary-3"
         self.INVOCEDETAILS = "p-element.title-heading-1.text-primary-3"
         self.INVOICEDETS = "p-column-title"
+        self.count_ALL_Ribn = "//a[@id='p-tabpanel-0-label']//p-badge[@class='p-element badge ng-star-inserted']"
+
     def ClickOnInvoiceTab(self):
         CART = self.driver.find_element(By.XPATH,self.CUSTOMERANDRECEIVABLETAB)
         self.driver.execute_script("arguments[0].click()",CART)
@@ -761,14 +763,6 @@ class InvoicePage(unittest.TestCase):
                 print("The list of invoice numbers is sorted in descending order.")
             else:
                 print("The list of invoice numbers is not sorted in descending order.")
-
-
-
-
-
-
-
-
 
 
 

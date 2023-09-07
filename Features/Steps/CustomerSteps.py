@@ -116,6 +116,7 @@ def step_impl(context):
 
 @then("Click on 3 dots and open edit customer form")
 def step_impl(context):
+    context.cadency.customadd.click_on_3dots()
     context.cadency.customadd.edit_Customer()
 
 
@@ -270,3 +271,38 @@ def step_impl(context):
 @then("Select 50 Paging")
 def step_impl(context):
    context.cadency.customadd.paging_50()
+
+
+@then("Click on 3 dots")
+def step_impl(context):
+    context.cadency.customadd.click_on_3dots()
+
+
+@then("Click on Remove Customer")
+def step_impl(context):
+    context.cadency.customadd.delete_Customer()
+
+
+@then("Verify Customer has been removed")
+def step_impl(context):
+    context.cadency.customadd.verify_customerdeleted()
+
+
+@then("Verify total amount on listing page against a customer")
+def step_impl(context):
+    context.cadency.customadd.verify_customeramount()
+
+
+@then("Verify Total amount against any customer")
+def step_impl(context):
+   context.cadency.customadd.verify_customeramount()
+
+
+@then("Verify Total Amount on Detail Page")
+def step_impl(context):
+    context.cadency.customadd.verify_customeramount_det()
+
+
+@then("Get Customer Balance")
+def step_impl(context):
+    context.cadency.customadd.get_customerbalance()
