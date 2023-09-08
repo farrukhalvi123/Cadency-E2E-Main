@@ -105,6 +105,7 @@ class CustomerPages(unittest.TestCase):
         self.AMOUNT_LISTING = "title-heading-3.text-primary-9.wrap-text-all"
         self.Amount_DETAIL = "//div[@class='amount wrap-text-all']"
         self.BALANCE = "font-bold.ng-star-inserted"
+        self.count_openinvoices_RBN = "//span[@class='ml-1 p-badge p-component p-badge-info']"
     def hover_hamburger(self):
         element = WebDriverWait(self.driver,20).until(EC.presence_of_element_located((By.XPATH,self.hamburger_icon)))
         actions = ActionChains(self.driver)
@@ -479,26 +480,63 @@ class CustomerPages(unittest.TestCase):
         assert amount_det.text == amount1, "Amount mismatch"
 
     def get_customerbalance(self):
+        newcounts = None
+        currency_pattern = r'[A-Z]+'
         numeric_amounts = []
         balance = self.driver.find_elements(By.CLASS_NAME,self.BALANCE)
         balance_amount = [element for index, element in enumerate(balance) if index % 4 == 0]
         # onlybalance = [element for index, element in enumerate(balance_amount) if index % 2 == 0]
-        pattern = r"\d{1,3}(,\d{3})*\.\d{2} USD"  # Regular expression pattern to match amounts like "1,550.00 USD"
+        pattern = r"\d{1,3}(,\d{3})*\.\d{2} [A-Z]+"  # Regular expression pattern to match amounts like "1,550.00 USD
 
         for index, amounts in enumerate(balance_amount):
             text = amounts.text
             match = re.search(pattern, text)
             if match:
                 extracted_amount = match.group()
-                amount_without_currency = extracted_amount.replace("USD", "")
+                amount_without_currency = re.sub(currency_pattern, "", extracted_amount)
                 # amount_without_comma = amount_without_currency.replace(",","")
                 awc = amount_without_currency.strip()
                 amount_without_comma = amount_without_currency.replace(",", "")
                 numeric_amount = float(amount_without_comma)
                 numeric_amounts.append(numeric_amount)
-                total_balance = sum(numeric_amounts)
         total_balance = sum(numeric_amounts)
         print(f"Total Balance: {total_balance:.2f}")
+        inv_details = self.driver.find_elements(By.XPATH, self.count_openinvoices_RBN)
+        invnumber_element = inv_details[0]  # WebElement containing the invoice number
+        invnumber_text = invnumber_element.text  # Get the text content of the WebElement
+
+        # Convert the text to an integer
+        actualinvnumber = int(invnumber_text)
+        print(actualinvnumber)
+        invoice_numbers = self.driver.find_elements(By.CLASS_NAME, "p-element.title-heading-1.text-primary-3.dot-line")
+        invcount = int(len(invoice_numbers))
+        suminvoicenum = 0
+        while actualinvnumber > suminvoicenum:
+            invoice_numbers = self.driver.find_elements(By.CLASS_NAME,
+                                                        "p-element.title-heading-1.text-primary-3.dot-line")
+            invcount = int(len(invoice_numbers))
+
+            suminvoicenum += invcount
+            print("this is the count of invoice numbers",invcount,suminvoicenum)
+            try:
+             self.driver.find_element(By.XPATH,
+                                         "//button[@class='p-ripple p-element p-paginator-next p-paginator-element p-link']").click()
+             time.sleep(5)
+            except:
+                print("next button is now disbled")
+        assert suminvoicenum == actualinvnumber, "Invoice count donot match"
+
+
+
+
+
+
+
+            # invoicenum = [element for index, element in enumerate(invoice_numbers) if index % 2 == 0]
+            # print(invoicenum)
+
+
+
 
 
 
