@@ -145,7 +145,8 @@ class OnboardingMerchant():
 
     def click_merchant_filters(self):
         element = self.driver.find_elements(By.XPATH, self.ONBOARDMERCHANTFILTERS)
-        element[5].click()
+        self.driver.execute_script("arguments[0].click",element[4])
+        # element[5].click()
         time.sleep(3)
 
     def select_entity_status_filters(self):

@@ -1,9 +1,7 @@
 Feature: I want to Onboard a new merchant
 
  Background:
-   Then User Navigates to Admin Portal
-   Then Enters Credentials NinjaTurtle and Talha123 and login into system
-   Then Open Left Panel
+   Then Admin Enters Login Credentials
 
  Scenario: Onboarding New Merchant
    Then Click On Onboard Merchants

@@ -2,9 +2,7 @@
 Feature: As a admin i want to add a new invoice
 
   Background: Login & Redirect To Invoice Page
-    Then User Navigates to Merchant Portal
-    Then User Enters jaxsonbriggs and 7sItGjWVfZgc
-    Then User Clicks on Login Button
+    Then User Logins with Main Credentials
     Then Open Right Side Panel
     Then User Navigate To Invoice Tab
     Then Close Left Side Menu

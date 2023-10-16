@@ -30,7 +30,7 @@ class InvoicePage(unittest.TestCase):
         self.INVOICETAB ="//p[normalize-space()='Invoices']"
         self.ADDINVOICEBTN = "//button[@class='p-element p-button-primary button-with-icon btn-150 p-button p-component']"
         self.CUSTNAMEDD ="//*[contains(@class,'p-dropdown-trigger-icon ng-tns')]"
-        self.CUSTNAMEDD_VALUE ="(//li[@role='option'])[4]"
+        self.CUSTNAMEDD_VALUE ="(//li[@role='option'])[2]"
         self.CUSTNAMEDD_VALUE1 ="//span[normalize-space()='+ Add New Customer']"
         self.CURRENCYDD ="currency"
         self.CURRENCY ="p-ripple.p-element.p-dropdown-item"

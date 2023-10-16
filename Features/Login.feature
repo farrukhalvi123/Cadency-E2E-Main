@@ -3,9 +3,8 @@
 Feature: As an end user i want to login to the cadency and view the dashboard page
 
  Background:
-    Then User Navigates to Merchant Portal
-    Then User Enters jaxsonbriggs and 7sItGjWVfZgc
-    Then User Clicks on Login Button
+    Then User Logins with Main Credentials
+
 
     @login
  Scenario Outline: Invalid Login Scenarios to Cadency loginPage

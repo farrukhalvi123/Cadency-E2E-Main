@@ -170,3 +170,17 @@ def step_impl(context):
 @then("Close the Browser")
 def step_impl(context):
    context.cadency.logpage.close_browser()
+
+
+@then("User Logins with Main Credentials")
+def step_impl(context):
+    context.cadency.logpage.environment_main()
+
+
+@then("Admin Enters Login Credentials")
+def step_impl(context):
+    context.cadency.logpage.environment_admin()
+
+@then("Customer Enters Login Credentials")
+def step_impl(context):
+    context.cadency.logpage.environment_customer()

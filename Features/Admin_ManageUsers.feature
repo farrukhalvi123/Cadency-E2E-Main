@@ -1,10 +1,7 @@
 Feature: As a admin i want to Add a new user
 
  Background:
-   Then User Navigates to Admin Portal
-   Then Enters Credentials Talhaadmin and Talha123 and login into system
-   Then Open Left Side Panel
-
+   Then Admin Enters Login Credentials
     @login
  Scenario Outline: Add New User
       Given Click On Add New User Button
