@@ -25,7 +25,7 @@ class LoginPage():
         self.HomePage_sidenavbar = "//div[@class='side-navigation-menu-container half-content']"
         self.login_successful_popup = "toast-container"
         self.login_unsuccessful_popup = "//*[@id='toast-container']/div/div[1]"
-        self.PROFILETHUMBNAIL = "//p-avatar[@class='p-element avatar-square-54']//div[@class='p-avatar p-component']"
+        self.PROFILETHUMBNAIL = "//div[@class='p-avatar p-component p-avatar-circle']"
         self.LOGOUT = "//span[normalize-space()='Logout']"
         self.FORGETPASS = "//a[normalize-space()='Forgot Password?']"
         self.EMAILFIELD = "Email"
