@@ -41,8 +41,8 @@ class InvoicePage(unittest.TestCase):
         self.QUANTITY ="//input[@placeholder='Quantity']"
         self.PRICE ="//input[@placeholder='Price']"
         self.DISCOUNT ="//input[@placeholder='Disc %']"
-        self.TAXDD ="//*[contains(@class,'p-element p-ripple p-autocomplete-dropdown ng-tns')]"
-        self.TAXSELECT = "//*[contains(@class,'p-ripple p-element p-autocomplete-item ng-tns')]"
+        self.TAXDD ="//*[contains(@class,'p-element p-ripple p-autocomplete-dropdown ng-tns-c')]"
+        self.TAXSELECT = "//*[contains(@class,'p-ripple p-element p-autocomplete-item ng-tns-c')]"
         self.SAVEBTN =  "//button[@class='p-element p-button-primary btn-150 p-button p-component']"
         self.INV_EMAIL =  "customerEmail"
         self.INVNUM =  "customerName"
@@ -87,7 +87,7 @@ class InvoicePage(unittest.TestCase):
         self.INVDETAILOPENSTATUS = "status-container.mr-2.status-blue.ng-star-inserted"
         self.DUPLICATE = "//a[normalize-space()='Duplicate']"
         self.INVOICEANDCUSTOMER = "p-element.title-heading-1.text-primary-3"
-        self.AMOUNT_BALANCE = "max-width-300.amount-column.font-bold.ng-star-inserted"
+        self.AMOUNT_BALANCE = "amount-column.font-bold.ng-star-inserted"
         self.DELETE = "//a[normalize-space()='Delete']"
         self.DELETEMSG = "//div[@aria-label='Invoice deleted successfully.']"
         self.VIEW = "//a[normalize-space()='View']"
@@ -132,7 +132,7 @@ class InvoicePage(unittest.TestCase):
         # self.logo = self.driver.find_element(By.XPATH,self.LOGO)
         action = ActionChains(self.driver)
         action.move_to_element(self.logo).perform()
-        time.sleep(8)
+        time.sleep(2)
 
     def ClickOnAddButton(self):
         element = WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.XPATH,self.ADDINVOICEBTN)))
@@ -198,20 +198,20 @@ class InvoicePage(unittest.TestCase):
 
     def invoice_date(self):
         global current_time
-        current_time = date.today().strftime('%m/%d/%Y')
+        current_time = date.today().strftime('%d/%m/%Y')
         datefield = self.driver.find_element(By.XPATH,self.INVDATE)
         time.sleep(2)
-        datefield.send_keys(Keys.CONTROL + 'a' + Keys.NULL, current_time,Keys.ENTER)
-        time.sleep(5)
+        datefield.clear()
+        datefield.send_keys(Keys.CONTROL + 'a' + Keys.NULL,current_time,Keys.ENTER)
+        datefield.send_keys(Keys.TAB)
 
     def invoice_duedate(self):
         dom = float (''.join(["{}".format(randint(0, 9)) for num in range(0, 2)]))
         current_time = date.today()
         day = timedelta(days = dom)
-        dudate = (current_time+day).strftime('%m/%d/%Y')
+        dudate = (current_time+day).strftime('%d/%m/%Y')
         datefield = self.driver.find_element(By.XPATH,self.INVDUEDATE)
         datefield.send_keys(Keys.CONTROL + 'a' + Keys.NULL, dudate, Keys.ENTER)
-        time.sleep(2)
     def add_an_item(self):
         items = self.driver.find_elements(By.XPATH,self.ADDINVITEMS).click()
         self.driver.find_element(By.ID,self.ADDITEMNAME).send_keys(WORDS)
@@ -276,23 +276,32 @@ class InvoicePage(unittest.TestCase):
 
         try:
             taxdd = self.driver.find_elements(By.XPATH,self.TAXDD)
-            taxdd[1].click()
-            time.sleep(5)
+            for taxdrop in taxdd:
+                taxdrop.click()
+
         except exceptions.StaleElementReferenceException as e:
             taxdd = self.driver.find_elements(By.XPATH, self.TAXDD)
-            taxdd[1].click()
-            time.sleep(5)
+            for taxdrop in taxdd:
+                taxdrop.click()
         try:
             global select_tax
             taxes = self.driver.find_elements(By.XPATH,self.TAXSELECT)
+            select_tax = taxes[2].text
+            print("This is the tax percentage selected here----1",select_tax)
             taxes[2].click()
             # print("This is the selected tax",taxes[1].text)
-
-            select_tax = taxes[2].text
         except exceptions.StaleElementReferenceException as e:
-            taxes = self.driver.find_elements(By.XPATH,self.TAXSELECT)
-            taxes[0].click()
-            self.enter_new_tax(tcomp,trate)
+            try:
+                taxes = self.driver.find_elements(By.XPATH, self.TAXSELECT)
+                select_tax = taxes[2].text
+                print("This is the tax percentage selected here----2", select_tax)
+                taxes[2].click()
+            except exceptions.StaleElementReferenceException as e:
+                taxes = self.driver.find_elements(By.XPATH,self.TAXSELECT)
+                select_tax = taxes[2].text
+                print("This is the tax percentage selected here----3", select_tax)
+                taxes[0].click()
+                self.enter_new_tax(tcomp,trate)
 
     def enter_new_tax(self,tcomp,trate):
         self.driver.find_element(By.ID,self.TAXRATENAME).send_keys(WORDS)
@@ -305,6 +314,8 @@ class InvoicePage(unittest.TestCase):
         print(self.amount.text)
 
     def total_amount(self):
+        global percentage , totalamt
+        percentage = 0.0
         # int (amnt)
         # int (quantity)
         amount = amnt * quantity
@@ -315,16 +326,17 @@ class InvoicePage(unittest.TestCase):
         discount = amount * disc/100
         discounted_amount = amount - discount
         print(discounted_amount)
-        tax1 =  str (select_tax)
-        match = re.search(r'\d+\.\d+', tax1)
-        ftax = float(match.group())
-        # final_tax =  ''.join(x for x in tax1  if x.isdigit())
-        # ftax = int (final_tax)
-        # print(ftax)
-        tax_percentage = discounted_amount * ftax/100
+        time.sleep(3)
+        tax1 =  str(select_tax)
+        print("This tax1 is for caluclating total amount of invoice",tax1)
+        pattern = r'\((\d+(?:\.\d+)?)%\)'
+        match = re.search(pattern, tax1)
+        if match is not None:
+            percentage = float(match.group(1))
+            print(percentage)
+        tax_percentage = discounted_amount * percentage/100
         # print(tax_percentage)
         final_total = tax_percentage + discounted_amount
-        global totalamt
         totalamt = round(final_total,2)
         print(totalamt)
         time.sleep(10)
@@ -699,7 +711,7 @@ class InvoicePage(unittest.TestCase):
         # invamnt = self.driver.find_element(By.XPATH,self.CUST_Invoice_amount)
         print("This is the invoice amount on listing page",invamn0.text)
         print("This is the total amount",totalamt)
-        amount_without_currency = invamn0.text.replace("USD","")
+        amount_without_currency = invamn0.text.replace("CAD","")
         # amount_without_comma = amount_without_currency.replace(",","")
         awc = amount_without_currency.strip()
         print("This is the actual amount",awc)

@@ -95,6 +95,7 @@ def step_impl(context):
 @step("Adding Items Discount")
 def step_impl(context):
     context.cadency.invoice.enter_discount()
+    time.sleep(1)
 
 
 @step("Select Tax")

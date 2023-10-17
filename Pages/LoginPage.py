@@ -109,23 +109,28 @@ class LoginPage():
             Emailfied = WebDriverWait(self.driver,10).until(EC.presence_of_element_located((By.ID,self.emailfield)))
             Emailfied.send_keys("clarkkent")
             self.driver.find_element(By.ID, self.password).send_keys("Cadency@123")
-            self.driver.find_element(By.XPATH, self.loginbtn).click()
+            logbtn = self.driver.find_element(By.XPATH, self.loginbtn)
+            self.driver.execute_script("arguments[0].click()", logbtn)
+            # self.driver.find_element(By.XPATH, self.loginbtn).click()
             time.sleep(5)
         elif TestData.ENVIRONMENT == "Staging":
             self.driver.get(TestData.STAGING_MAIN)
             Emailfied = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.ID, self.emailfield)))
             Emailfied.send_keys("z.chapman")
             self.driver.find_element(By.ID, self.password).send_keys("Cadency@123")
-            self.driver.find_element(By.XPATH, self.loginbtn).click()
+            logbtn = self.driver.find_element(By.XPATH, self.loginbtn)
+            self.driver.execute_script("arguments[0].click()", logbtn)
+            # self.driver.find_element(By.XPATH, self.loginbtn).click()
             time.sleep(5)
 
     def environment_customer(self):
         if TestData.ENVIRONMENT == "Dev":
             self.driver.get(TestData.CUSTOMERMANAGEMENT)
             Emailfied = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, self.username_tb)))
-            Emailfied.send_keys("hanzo")
+            Emailfied.send_keys("selinakyle@yopmail.com")
             self.driver.find_element(By.XPATH, self.password_tb).send_keys("Cadency@123")
-            self.driver.find_element(By.XPATH, self.loginbtn).click()
+            logbtn = self.driver.find_element(By.XPATH, self.login_btn)
+            self.driver.execute_script("arguments[0].click()", logbtn)
             time.sleep(5)
         elif TestData.ENVIRONMENT == "Staging":
             self.driver.get(TestData.STAGING_CUSTOMER)
@@ -133,7 +138,8 @@ class LoginPage():
                 EC.presence_of_element_located((By.XPATH, self.username_tb)))
             Emailfied.send_keys("Tbm")
             self.driver.find_element(By.XPATH, self.password_tb).send_keys("Talha123")
-            self.driver.find_element(By.XPATH, self.login_btn).click()
+            logbtn = self.driver.find_element(By.XPATH, self.login_btn)
+            self.driver.execute_script("arguments[0].click()", logbtn)
             time.sleep(5)
 
     def environment_admin(self):
