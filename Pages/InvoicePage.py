@@ -61,6 +61,7 @@ class InvoicePage(unittest.TestCase):
         self.TAXCOMP =  "//span[normalize-space()='Tax Component']"
         self.TAXRATE =  "//p-inputnumber[@placeholder='Tax %']"
         self.AMOUNT =  "//td[@class='td-amount max-width-100']"
+        self.CUSTOMERSEARCH = "searchText"
         self.INVSEARCHFIELD =  "//input[@placeholder='Search']"
         # self.INVOICE_NUMBER = "//a[normalize-space()='"+INV_NUM+"']"
         self.CSVICON =  "//div[@class='pages-section']//li[1]//div[1]"
@@ -131,7 +132,7 @@ class InvoicePage(unittest.TestCase):
         # self.logo = self.driver.find_element(By.XPATH,self.LOGO)
         action = ActionChains(self.driver)
         action.move_to_element(self.logo).perform()
-        time.sleep(2)
+        time.sleep(15)
 
     def ClickOnAddButton(self):
         element = WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.XPATH,self.ADDINVOICEBTN)))
@@ -730,7 +731,7 @@ class InvoicePage(unittest.TestCase):
     def searchfor_customer(self,name):
         global customname
         customname = name
-        self.driver.find_element(By.XPATH, self.INVSEARCHFIELD).send_keys(name + Keys.ENTER)
+        self.driver.find_element(By.ID, self.CUSTOMERSEARCH).send_keys(name + Keys.ENTER)
 
     # def paging_50(self):
     #     self.driver.find_element(By.XPATH, self.PAGINGDD).click()

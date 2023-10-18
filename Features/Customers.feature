@@ -82,9 +82,9 @@ Feature: As an Admin User I want to Manage a new Customer
     Then Verify Total Amount on Detail Page
 
   Scenario: Verify Over Due Amount
-    Then Enter Customer Talha Bm DN into Search Field
+    Then Enter Customer Selina Kyle into Search Field
     Then View Customer Details
-    Then Select 50 Paging
+#    Then Select 50 Paging
     Then Get Customer Balance
 #    Then Verify it with Over Due Amount
 

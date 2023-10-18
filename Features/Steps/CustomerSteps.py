@@ -305,4 +305,5 @@ def step_impl(context):
 
 @then("Get Customer Balance")
 def step_impl(context):
+    context.cadency.customadd.get_allinvoices()
     context.cadency.customadd.get_customerbalance()
