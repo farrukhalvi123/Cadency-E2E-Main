@@ -1,4 +1,5 @@
 import os
+import re
 import time
 import random
 import string
@@ -6,7 +7,6 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from Constants.URLS import TestData
 import unittest
 
 
@@ -20,7 +20,7 @@ class CustomerPages(unittest.TestCase):
         self.CUSTOMERTAB = "//p[normalize-space()='Customers']"
         self.CUSTOMERNAME = "//span[normalize-space()='Selina Kyle']"
         self.NOCUSTOMERFOUND = "//div[@class='title-heading-5']"
-        self.ADDFIRSTCUSTOMER = "//button[@class='p-element p-button-primary button-with-icon btn-120 p-button p-component']"
+        self.ADDFIRSTCUSTOMER = "//*[contains(@class,'p-element p-button-primary button-with-icon btn')]"
         self.ADDCUSTOMER = "(//button[@class='p-element p-button-primary button-with-icon btn-150 p-button p-component ng-star-inserted'])[1]"
         self.TITLE_ADD_CUSTOMER = "//span[normalize-space()='Add Customer']"
         self. CUSTOMERNUMBER = "//input[@placeholder='Enter customer number']"
@@ -45,14 +45,14 @@ class CustomerPages(unittest.TestCase):
         self.STREETLINE2 = "line2"
         self.POSTALCODE = "postalCode"
         self.COUNTRY_FIELD = "countryId"
-        self.COUNTRY_PAK = "//div[contains(text(),'Pakistan')]"
+        self.COUNTRY_PAK = "//div[contains(text(),'Canada')]"
         self.STATEFIELD = "//*[@id='stateName']/div/div[2]"
-        self.STATEFIELD_SINDH = "//li[@aria-label='Sindh']"
+        self.STATEFIELD_SINDH = "//li[@aria-label='Alberta']"
         self.CITYID = '//*[@id="cityName"]/div/div[2]'
-        self.CITYKARACHI = "//li[@aria-label='Karachi']"
+        self.CITYKARACHI = "//li[@aria-label='Calgary']"
         self.CUSTOMERNUMBER_VIEW = "//*[@id='pr_id_2-table']/tbody/tr[1]/td[2]/div/span"
-        self.CUSTOMER_LIST_EMAIL = "//span[normalize-space()='datasoft_autotest@hotmail.com']"
-        self.CUSTOMER_LIST_PHONE = "//span[normalize-space()='0340 4781488']"
+        self.CUSTOMER_LIST_EMAIL = "//tbody/tr[1]/td[4]/div[1]/div[2]"
+        self.CUSTOMER_LIST_PHONE = "//span[@class='paragraph-text-4 wrap-text-all']"
         self.THREEDOTSBUTTON = "more-icon"
         self.EDITCUSTOMER = "//a[normalize-space()='Edit']"
         self.EDITCUSTOMERTEXT = "//span[normalize-space()='Edit Customer']"
@@ -88,7 +88,7 @@ class CustomerPages(unittest.TestCase):
         self.STATUSACTIVE = "//span[normalize-space()='Active']"
         self.CURRENTSTATUSONINVOICE = "//div[@class='status-container status-green']"
         self.PAGINGDD = "//div[@aria-label='dropdown trigger']"
-        self.FIFTYITEMS = "//li[@aria-label='50']"
+        self. FIFTYITEMS = "//span[normalize-space()='50']"
         self.CREDITNOTES = "p-tabpanel-3-label"
         self.CN_APPLIED = "status-container.status-green.ng-star-inserted"
         self.CN_NOTAPPLIED = "status-container.status-orange2.ng-star-inserted"
@@ -99,15 +99,22 @@ class CustomerPages(unittest.TestCase):
         self.BILLCENTER1 = "//body//cadency-root//p-multiselectitem[1]"
         self.INVOICE_DETAILS = "ng-star-inserted"
         self.INV_CUSTOMER_NAME = "p-element.title-heading-1.text-primary-3"
+        self.RemoveCustomer = "//a[normalize-space()='Remove']"
+        self.delete_customerpopup = 'toast-container'
+        self.AMOUNT_LISTING = "title-heading-3.text-primary-9.wrap-text-all"
+        self.Amount_DETAIL = "//div[@class='amount wrap-text-all']"
+        self.BALANCE = "font-bold.ng-star-inserted"
+        self.count_openinvoices_RBN = "//span[@class='ml-1 p-badge p-component p-badge-info']"
     def hover_hamburger(self):
         element = WebDriverWait(self.driver,20).until(EC.presence_of_element_located((By.XPATH,self.hamburger_icon)))
         actions = ActionChains(self.driver)
         actions.move_to_element(element).perform()
     def Go_to_customerTab(self):
-        self.driver.find_element(By.XPATH,self.CUSTOMERANDRECEIVABLETAB).click()
+        custrectab = self.driver.find_element(By.XPATH,self.CUSTOMERANDRECEIVABLETAB)
+        self.driver.execute_script("arguments[0].click()", custrectab)
         customertab = self.driver.find_element(By.XPATH,self.CUSTOMERTAB)
         self.driver.execute_script("arguments[0].click()",customertab)
-        time.sleep(5)
+        time.sleep(10)
 
     def customer_number(self):
         time.sleep(5)
@@ -207,7 +214,7 @@ class CustomerPages(unittest.TestCase):
 
     def click_save(self):
         self.driver.find_element(By.XPATH,self.SAVEBUTTON).click()
-        time.sleep(5)
+        time.sleep(1)
 
     def customer_alreadypresent(self):
         time.sleep(2)
@@ -234,10 +241,13 @@ class CustomerPages(unittest.TestCase):
         self.assertEqual(custom_ph.text, phonenum, "Phone number cannot be viewed")
         # assert phonenum == custom_ph,"Phone number cannot be viewed"
         # self.assert_equal(emailadd,custom_email,"Email Cannot be viewed")
-    def edit_Customer(self):
-        element = WebDriverWait(self.driver,5).until(EC.presence_of_element_located((By.ID,self.THREEDOTSBUTTON)))
+
+    def click_on_3dots(self):
+        element = WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.ID, self.THREEDOTSBUTTON)))
         element.click()
         time.sleep(2)
+    def edit_Customer(self):
+
         self.driver.find_element(By.XPATH,self.EDITCUSTOMER).click()
         time.sleep(1)
         editcustom = self.driver.find_element(By.XPATH,self.EDITCUSTOMERTEXT)
@@ -249,7 +259,7 @@ class CustomerPages(unittest.TestCase):
         return editcustomlist.text
 
     def select_filter(self):
-        element = WebDriverWait(self.driver,5).until(EC.element_to_be_clickable((By.XPATH, self.FILTERBUTTON)))
+        element = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, self.FILTERBUTTON)))
         element.click()
         #
         # self.driver.execute_script("arguments[0].click()", element)
@@ -294,6 +304,7 @@ class CustomerPages(unittest.TestCase):
         element = WebDriverWait(self.driver,5).until(EC.presence_of_element_located((By.ID, self.THREEDOTSBUTTON)))
         element.click()
         self.driver.find_element(By.XPATH,self.VIEWCUSTOMER).click()
+        time.sleep(10)
 
     def verify_invoice_tiles(self):
         self.driver.find_element(By.XPATH,self.INVOICETILES)
@@ -319,14 +330,17 @@ class CustomerPages(unittest.TestCase):
             print("No records found")
 
     def paging_50(self):
-        time.sleep(2)
-        pagedd = self.driver.find_element(By.XPATH, self.PAGINGDD)
-        self.driver.execute_script("arguments[0].click();",pagedd)
-
-        time.sleep(0.5)
-        self.driver.find_element(By.XPATH, self.FIFTYITEMS).click()
-        time.sleep(5)
-
+        try:
+            time.sleep(5)
+            pagedd = self.driver.find_element(By.XPATH, self.PAGINGDD).click()
+            # self.driver.execute_script("arguments[0].click();",pagedd)
+            time.sleep(2)
+            fiftycount = WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.XPATH,self.FIFTYITEMS)))
+            fiftycount.click()
+            time.sleep(10)
+        except:
+            assert "No records found" in self.driver.page_source
+            print("No records found hence paging disabled")
 
     def verify_closedInvoices(self):
         self.driver.find_element(By.ID,self.CLOSEDINVOICES).click()
@@ -340,7 +354,7 @@ class CustomerPages(unittest.TestCase):
 
 
     def search_customer(self,name):
-        WebDriverWait(self.driver,5).until(EC.presence_of_element_located((By.ID,self.SEARCHCUSTOMER))).send_keys(name)
+        WebDriverWait(self.driver,15).until(EC.presence_of_element_located((By.ID,self.SEARCHCUSTOMER))).send_keys(name)
         try:
             time.sleep(2)
             customername = self.driver.find_element(By.XPATH,"//a[normalize-space()='"+name+"']")
@@ -407,14 +421,124 @@ class CustomerPages(unittest.TestCase):
     def customer_details(self):
         global det_customername, det_customeremail, det_customerphone
         det_customername = self.driver.find_elements(By.XPATH, self.CUSTOMERNAME)
-        det_customeremail = self.driver.find_element(By.XPATH, self.CUSTOMER_LIST_EMAIL)
+        det_customeremail = self.driver.find_elements(By.XPATH, self.CUSTOMER_LIST_EMAIL)
         det_customerphone = self.driver.find_element(By.XPATH, self.CUSTOMER_LIST_PHONE)
-        assert customername == det_customername, "Customer name donot match"
-        assert customeremail == det_customeremail, "Customer email donot match"
-        assert customerphone == det_customerphone, "Customer phone donot match"
+        print(customeremail.text)
+        print(det_customeremail.text)
+        print(customerphone.text)
+        print(det_customerphone.text)
+        assert customername.text == det_customername.text, "Customer name donot match"
+        assert customeremail.text == det_customeremail.text, "Customer email donot match"
+        assert customerphone.text == det_customerphone.text, "Customer phone donot match"
+
 
     def select_billing_centre(self):
         self.driver.find_element(By.XPATH,self.BILLCENTER).click()
         self.driver.find_element(By.XPATH,self.BILLCENTER1).click()
+
+
+    def delete_Customer(self):
+        global deleted_customeremail, deleted_customerphone
+
+        # deleted_customername = self.driver.find_element(By.XPATH, self.CUSTOMERNAME)
+        # print(deleted_customername.text)
+        deleted_customeremail = self.driver.find_element(By.XPATH, self.CUSTOMER_LIST_EMAIL)
+        print(deleted_customeremail.text)
+        deleted_customerphone = self.driver.find_element(By.XPATH, self.CUSTOMER_LIST_PHONE)
+        print(deleted_customerphone.text)
+        self.driver.find_element(By.XPATH,self.RemoveCustomer).click()
+        self.click_save()
+
+
+    def verify_customerdeleted(self):
+        time.sleep(2)
+
+        try:
+            # existing_custname = self.driver.find_elements(By.XPATH, self.CUSTOMERNAME)
+            # print(existing_custname.text)
+            existing_customermail = self.driver.find_element(By.XPATH, self.CUSTOMER_LIST_EMAIL)
+            print(existing_customermail.text)
+            existing_customerphone = self.driver.find_element(By.XPATH, self.CUSTOMER_LIST_PHONE)
+            print(existing_customerphone.text)
+            # assert deleted_customername.text != existing_custname.text,"Customer name already exist"
+            assert deleted_customeremail != existing_customermail,"Customer email already exist"
+            assert deleted_customerphone != existing_customerphone,"Customer Phone already exist"
+        except:
+            # delpop = self.driver.find_elements(By.ID,self.delete_customerpopup)
+            # assert  delpop[18].text ==  "Cannot delete customer due to existing invoices .", "Customer cannot be deleted because of existing invoice."
+            assert  "Cannot delete customer due to existing invoices ." in self.driver.page_source
+
+    def verify_customeramount(self):
+        amount = self.driver.find_elements(By.CLASS_NAME,self.AMOUNT_LISTING)
+        global amount1
+        amount1 = amount[0].text
+    def verify_customeramount_det(self):
+        amount_det = self.driver.find_element(By.XPATH,self.Amount_DETAIL)
+        print(amount_det.text)
+        print(amount1)
+        assert amount_det.text == amount1, "Amount mismatch"
+
+    def get_customerbalance(self):
+        newcounts = None
+        currency_pattern = r'[A-Z]+'
+        numeric_amounts = []
+        balance = self.driver.find_elements(By.CLASS_NAME,self.BALANCE)
+        balance_amount = [element for index, element in enumerate(balance) if index % 4 == 0]
+        # onlybalance = [element for index, element in enumerate(balance_amount) if index % 2 == 0]
+        pattern = r"\d{1,3}(,\d{3})*\.\d{2} [A-Z]+"  # Regular expression pattern to match amounts like "1,550.00 USD
+
+        for index, amounts in enumerate(balance_amount):
+            text = amounts.text
+            match = re.search(pattern, text)
+            if match:
+                extracted_amount = match.group()
+                amount_without_currency = re.sub(currency_pattern, "", extracted_amount)
+                # amount_without_comma = amount_without_currency.replace(",","")
+                awc = amount_without_currency.strip()
+                amount_without_comma = amount_without_currency.replace(",", "")
+                numeric_amount = float(amount_without_comma)
+                numeric_amounts.append(numeric_amount)
+        total_balance = sum(numeric_amounts)
+        print(f"Total Balance: {total_balance:.2f}")
+    def get_allinvoices(self):
+        self.paging_50()
+        time.sleep(20)
+        inv_details = self.driver.find_elements(By.XPATH, self.count_openinvoices_RBN)
+        invnumber_element = inv_details[0]  # WebElement containing the invoice number
+        invnumber_text = invnumber_element.text  # Get the text content of the WebElement
+        actualinvnumber = int(invnumber_text)
+        print(actualinvnumber)
+        invoice_numbers = self.driver.find_elements(By.CLASS_NAME, "p-element.title-heading-1.text-primary-3.dot-line")
+        invcount = int(len(invoice_numbers))
+        suminvoicenum = 0
+        while actualinvnumber > suminvoicenum:
+            invoice_numbers = self.driver.find_elements(By.CLASS_NAME,
+                                                        "p-element.title-heading-1.text-primary-3.dot-line")
+            invcount = int(len(invoice_numbers))
+
+            suminvoicenum = suminvoicenum + invcount
+            print("this is the count of invoice numbers",invcount,suminvoicenum)
+            try:
+             self.driver.find_element(By.XPATH,
+                                         "//button[@class='p-ripple p-element p-paginator-next p-paginator-element p-link']").click()
+             time.sleep(20)
+            except:
+                print("next button is now disbled")
+        assert suminvoicenum == actualinvnumber, "Invoice count donot match"
+
+
+
+
+
+
+
+            # invoicenum = [element for index, element in enumerate(invoice_numbers) if index % 2 == 0]
+            # print(invoicenum)
+
+
+
+
+
+
 
 

@@ -1,19 +1,5 @@
-import datetime
-import os
-import re
 import time
-from random import randint
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.select import Select
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-# from Elements.LoginElements import loginelements
-from allure_commons._allure import attach
-from allure_commons.types import AttachmentType
-from webdriver_manager.core import driver
-
-from Constants.URLS import TestData
 
 class Cns():
     def __init__(self, driver):
@@ -42,6 +28,7 @@ class Cns():
 
     def Opentab(self):
         openfil = self.driver.find_element(By.XPATH, self.open_filter)
+        time.sleep(3)
         # driver.execute_script("arguments[3].click;", openfil)
         openfil.click()
         time.sleep(3)
@@ -75,10 +62,10 @@ class Cns():
 
     def takecn(self):
         cnno = self.driver.find_elements(By.CLASS_NAME, self.searchnote)
-        newcnn = cnno[1].text
-        print(newcnn)
-        ext_cn= newcnn.split("-")[1]
-        print(ext_cn)
+        # newcnn = cnno[2].text
+        # print(newcnn)
+        # ext_cn= newcnn.split("-")[1]
+        # print(ext_cn)
 
 
 

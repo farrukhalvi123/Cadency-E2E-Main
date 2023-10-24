@@ -1,8 +1,7 @@
 Feature: As a admin i want to Add a new user
 
  Background:
-   Then User Navigates to Admin Portal
-   Then Enters Credentials Talhaadmin and Talha123 and login into system
+   Then Admin Enters Login Credentials
    Then Open Left Side Panel
 
     @login

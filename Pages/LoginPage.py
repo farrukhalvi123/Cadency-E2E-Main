@@ -1,13 +1,8 @@
-import datetime
-import os
+
 import time
-from random import randint
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-# from Elements.LoginElements import loginelements
 from allure_commons._allure import attach
 from allure_commons.types import AttachmentType
 from Constants.URLS import TestData
@@ -25,15 +20,22 @@ class LoginPage():
         self.HomePage_sidenavbar = "//div[@class='side-navigation-menu-container half-content']"
         self.login_successful_popup = "toast-container"
         self.login_unsuccessful_popup = "//*[@id='toast-container']/div/div[1]"
-        self.PROFILETHUMBNAIL = "//p-avatar[@class='p-element avatar-square-54']//div[@class='p-avatar p-component']"
+        self.PROFILETHUMBNAIL = "//div[@class='p-avatar p-component p-avatar-circle']"
         self.LOGOUT = "//span[normalize-space()='Logout']"
         self.FORGETPASS = "//a[normalize-space()='Forgot Password?']"
         self.EMAILFIELD = "Email"
         self.CLICKSEND = "//button[@type='button']"
         self.CODEID = "token"
+        self.username_tb = "//input[@placeholder='Enter Username']"
+        self.password_tb =  " //input[@placeholder='Enter Password']"
+        self.login_btn =  "//span[normalize-space()='Login']"
+        self.right_topdropdown =  "//span[@class='p-button-label']"
+        self.USERNAME = "//input[@id='login-email']"
+        self.PASSWORD = "//input[@placeholder='Enter Password']"
+        self.LOGINBUTTON = "//button[@type='submit']"
 
     def go_to_main(self):
-        self.driver.get(TestData.CADENCY_MAIN)
+        self.driver.get(TestData.STAGING_MAIN)
 
     def verify_hompage(self):
         assert self.homepage_logo in self.driver.page_source
@@ -95,3 +97,64 @@ class LoginPage():
 
     def close_browser(self):
         self.driver.close()
+
+    def environment_main(self):
+        if TestData.ENVIRONMENT == "Dev":
+            self.driver.get(TestData.CADENCY_MAIN)
+            Emailfied = WebDriverWait(self.driver,10).until(EC.presence_of_element_located((By.ID,self.emailfield)))
+            Emailfied.send_keys(TestData.LOCAL_MAIN_USERNAME)
+            self.driver.find_element(By.ID, self.password).send_keys(TestData.LOCAL_MAIN_PASSWORD)
+            logbtn = self.driver.find_element(By.XPATH, self.loginbtn)
+            self.driver.execute_script("arguments[0].click()", logbtn)
+            # self.driver.find_element(By.XPATH, self.loginbtn).click()
+            time.sleep(5)
+        elif TestData.ENVIRONMENT == "Staging":
+            self.driver.get(TestData.STAGING_MAIN)
+            Emailfied = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.ID, self.emailfield)))
+            Emailfied.send_keys(TestData.STAGING_MAIN_USERNAME)
+            self.driver.find_element(By.ID, self.password).send_keys(TestData.STAGING_MAIN_PASSWORD)
+            logbtn = self.driver.find_element(By.XPATH, self.loginbtn)
+            self.driver.execute_script("arguments[0].click()", logbtn)
+            # self.driver.find_element(By.XPATH, self.loginbtn).click()
+            time.sleep(5)
+
+    def environment_customer(self):
+        if TestData.ENVIRONMENT == "Dev":
+            self.driver.get(TestData.CUSTOMERMANAGEMENT)
+            Emailfied = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, self.username_tb)))
+            Emailfied.send_keys(TestData.LOCAL_CUSTOMER_USERNAME)
+            self.driver.find_element(By.XPATH, self.password_tb).send_keys(TestData.LOCAL_CUSTOMER_PASSWORD)
+            logbtn = self.driver.find_element(By.XPATH, self.login_btn)
+            self.driver.execute_script("arguments[0].click()", logbtn)
+            time.sleep(5)
+        elif TestData.ENVIRONMENT == "Staging":
+            self.driver.get(TestData.STAGING_CUSTOMER)
+            Emailfied = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, self.username_tb)))
+            Emailfied.send_keys(TestData.STAGING_CUSTOMER_USERNAME)
+            self.driver.find_element(By.XPATH, self.password_tb).send_keys(TestData.STAGING_CUSTOMER_PASSWORD)
+            logbtn = self.driver.find_element(By.XPATH, self.login_btn)
+            self.driver.execute_script("arguments[0].click()", logbtn)
+            time.sleep(5)
+
+    def environment_admin(self):
+        if TestData.ENVIRONMENT == "Dev":
+            self.driver.get(TestData.CADENCY_MANAGEMENT)
+            Emailfied = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, self.USERNAME)))
+            Emailfied.send_keys(TestData.LOCAL_ADMIN_USERNAME)
+            self.driver.find_element(By.XPATH, self.PASSWORD).send_keys(TestData.LOCAL_ADMIN_PASSWORD)
+            logbtn = self.driver.find_element(By.XPATH, self.LOGINBUTTON)
+            self.driver.execute_script("arguments[0].click()", logbtn)
+            time.sleep(5)
+        elif TestData.ENVIRONMENT == "Staging":
+            self.driver.get(TestData.STAGING_MANAGEMENT)
+            Emailfied = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, self.USERNAME)))
+            Emailfied.send_keys(TestData.STAGING_ADMIN_USERNAME)
+            self.driver.find_element(By.XPATH, self.PASSWORD).send_keys(TestData.STAGING_ADMIN_PASSWORD)
+            logbtn = self.driver.find_element(By.XPATH, self.LOGINBUTTON)
+            self.driver.execute_script("arguments[0].click()", logbtn)
+            time.sleep(5)
+
+

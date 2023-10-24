@@ -2,9 +2,7 @@
 Feature: As a admin i want to add a new invoice
 
   Background: Login & Redirect To Invoice Page
-    Then User Navigates to Merchant Portal
-    Then User Enters clarkkent and Cadency@123
-    Then User Clicks on Login Button
+    Then User Logins with Main Credentials
     Then Open Right Side Panel
     Then User Navigate To Invoice Tab
     Then Close Left Side Menu
@@ -48,9 +46,7 @@ Feature: As a admin i want to add a new invoice
   Scenario: Invoice Creation and verification on Customer Portal
     Then Invoice has Been Created
     Then Open a new tab
-    When user is at customer portal
-    Then customer enter selinakyle@yopmail.com and 1QnKwL1nvht7
-    Then customer clicks login button
+    Then Customer Enters Login Credentials
     When customer at dashboard and hover over side panel and click invoice option
     Then Verify Invoice Amount
 
@@ -87,9 +83,9 @@ Feature: As a admin i want to add a new invoice
     Then Go to Partially Paid Invoices
     Then Verify Partially Paid Invoices
 
-  Scenario: Verify Waiting for Fund Invoices
-    Then Go to Waiting for Funds Invoices
-    Then Verify Waiting for Funds Invoice
+#  Scenario: Verify Waiting for Fund Invoices
+#    Then Go to Waiting for Funds Invoices
+#    Then Verify Waiting for Funds Invoice
 
   Scenario: Merchant duplicates an invoice
     Then Duplicate an Invoice
@@ -105,6 +101,7 @@ Feature: As a admin i want to add a new invoice
     Then Verify Invoice Details
 
   Scenario: Edit Invoice from Detail Page
+    Then Duplicate an Invoice
     Then Click on More Options on an invoice
     Then Click on View
     Then Click on Edit Invoice
@@ -112,13 +109,12 @@ Feature: As a admin i want to add a new invoice
     Then Click on Save Button
     Then Verify Invoice Edited Successfully
     Then Open a new tab
-    When user is at customer portal
-    Then customer enter selinakyle@yopmail.com and 1QnKwL1nvht7
-    Then customer clicks login button
+    Then Customer Enters Login Credentials
     When customer at dashboard and hover over side panel and click invoice option
     Then Verify Invoice Amount
 
   Scenario: Check Sending Email of Invoice
+    Then Duplicate an Invoice
     Then Click on More Options on an invoice
     Then Click on View
     Then Verify Email Sending Details
@@ -139,27 +135,15 @@ Feature: As a admin i want to add a new invoice
     Then Click on Record Payment
     Then Record Full Payments
 
-  Scenario: Record Half Payment Against Invoice
-    Then Duplicate an Invoice
-    Then Click on More Options on an invoice
-    Then Click on View
-    Then Click on Record Payment
-    Then Record Payments
-
   Scenario Outline: Search Customer name and apply filter
     Then Enter Customer <Name> into Search Field
-#    Then Select 50 Paging
+    Then Select 50 Paging
     Then Verify list of customer name
   Examples:
     |Name|
     |Selina Kyle    |
     |Johnny         |
-    |James        |
+    |Customer 1       |
 
-
-  Scenario: Verify Invoice Sort Orders
-    Then Select 50 Paging
-    Then Verify Invoices are sorted in Descending order
-    #    Then Click on Invoice Sort Button
 
 

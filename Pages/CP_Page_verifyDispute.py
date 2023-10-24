@@ -1,16 +1,8 @@
-import datetime
-import os
+
 import time
-from random import randint
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-# from Elements.LoginElements import loginelements
-from allure_commons._allure import attach
-from allure_commons.types import AttachmentType
-from Constants.URLS import TestData
 
 
 
@@ -34,26 +26,20 @@ class Open_dispute_tag():
         # self.p1_subclass_for_inv_name=getclassforinv=       "//div[@class='ng-star-inserted']"
 
     def hovering(self):
-               self.driver.find_element(By.XPATH, self.panel).click()
-               self.driver.find_element(By.XPATH, self.inv_sp).click()
+        panel = WebDriverWait(self.driver,15).until(EC.presence_of_element_located((By.XPATH,self.panel)))
+        panel.click()
+        inv_sp = WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.XPATH, self.inv_sp)))
+        inv_sp.click()
 
     def catch_tag(self):
-        save_inv_name = self.driver.find_element(By.XPATH, self.getclassforinv)
-        time.sleep(5)
-        print(save_inv_name.text)
-        time.sleep(5)
-        save_tag_dispute = self.driver.find_element(By.XPATH, self.d_tagname)
-        # save_tag_dispute= save_inv_name.find_element(By.XPATH, self.d_tagname)
-        time.sleep(4)
-        print(save_tag_dispute.text)
-
-
-
-
-
-
-
-
+        # save_inv_name = self.driver.find_element(By.XPATH, self.getclassforinv)
+        # time.sleep(5)
+        # print(save_inv_name.text)
+        # time.sleep(5)
+        # save_tag_dispute = self.driver.find_element(By.XPATH, self.d_tagname)
+        # # save_tag_dispute= save_inv_name.find_element(By.XPATH, self.d_tagname)
+        # time.sleep(4)
+        # print(save_tag_dispute.text)
         save_inv_name = self.driver.find_element(By.XPATH, self.getclassforinv)
         time.sleep(7)
         # print(save_inv_name)
@@ -68,7 +54,8 @@ class Open_dispute_tag():
             # save_tag = save_inv_name.find_element(By.XPATH, self.d_tagname)
             # print(save_tag.text)
             # time.sleep(6)
-
+    def test_method(self):
+        self.hovering()
 
         # save_tag = save_inv_name.find_element(By.XPATH, self.d_tagname)
         # print(save_tag.text)

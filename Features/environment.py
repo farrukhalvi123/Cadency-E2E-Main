@@ -16,6 +16,7 @@ from Pages.LoginPage import LoginPage
 def before_scenario(context,scenario):
     launch_browser(context,scenario)
 
+
 def after_scenario(context, scenario):
     context.driver.close()
     context.driver.quit()
@@ -57,7 +58,7 @@ def launch_browser(context,scenario):
                 command_executor='https://speedhomebrowser_tiWF2J:s9coaxk36do24scdqy5Q@hub-cloud.browserstack.com/wd/hub',
                 desired_capabilities=desired_cap)  # we need to add the account url on which we want to run this test
         elif TestData.PLATFORM == 'local':
-            context.driver = webdriver.Chrome(options=options, executable_path= os.getcwd() +  '\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe')
+            context.driver = webdriver.Chrome(options=options, executable_path= r"C://Users//Lenovo//PycharmProjects//Cadency-E2E-Main//chromedriver-win64//chromedriver.exe")
         elif TestData.PLATFORM == 'docker':
             remote_url = os.getenv('SELENIUM_GRID_URL')
             # os.environ['DISPLAY'] = ':0'
@@ -72,4 +73,5 @@ def launch_browser(context,scenario):
     elif TestData.BROWSER == 'edge':
         context.driver = webdriver.Edge(executable_path=EdgeChromiumDriverManager().install())
         context.driver.maximize_window()
+
     context.cadency = cadencyweb(context.driver)
