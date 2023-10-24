@@ -11,7 +11,7 @@ Feature: samra
     Then click on Open
     Then take first invoice
     Then click on promise to pay button
-#    Then verify Ptop
+    Then verify Ptop
 
   Scenario: in ALl tab identifying all promise to pay invoice
     Then User Navigate To Invoice Tab
