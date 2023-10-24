@@ -9,6 +9,7 @@ def step_impl(context):
     context.cadency.invoice.ClickOnInvoiceTab()
 
 
+
 @then("User Clicks On Add Invoice Button")
 def step_impl(context):
     context.cadency.invoice.ClickOnAddButton()

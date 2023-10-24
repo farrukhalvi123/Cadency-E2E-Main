@@ -14,6 +14,7 @@ def step_impl(context):
 
 
 
+
 @then("customer enter {uname} and {pswd}")
 def step_impl(context,uname,pswd):
     context.cadency.Cportal_login.enter_username1(uname)
