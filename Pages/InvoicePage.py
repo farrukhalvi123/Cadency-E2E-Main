@@ -61,7 +61,7 @@ class InvoicePage(unittest.TestCase):
         self.TAXCOMP =  "//span[normalize-space()='Tax Component']"
         self.TAXRATE =  "//p-inputnumber[@placeholder='Tax %']"
         self.AMOUNT =  "//td[@class='td-amount max-width-100']"
-        self.CUSTOMERSEARCH = "searchText"
+        self.CUSTOMERSEARCH = "//input[@placeholder='Search']"
         self.INVSEARCHFIELD =  "//input[@placeholder='Search']"
         # self.INVOICE_NUMBER = "//a[normalize-space()='"+INV_NUM+"']"
         self.CSVICON =  "//div[@class='pages-section']//li[1]//div[1]"
@@ -213,8 +213,10 @@ class InvoicePage(unittest.TestCase):
         datefield = self.driver.find_element(By.XPATH,self.INVDUEDATE)
         datefield.send_keys(Keys.CONTROL + 'a' + Keys.NULL, dudate, Keys.ENTER)
     def add_an_item(self):
-        items = self.driver.find_elements(By.XPATH,self.ADDINVITEMS).click()
-        self.driver.find_element(By.ID,self.ADDITEMNAME).send_keys(WORDS)
+        items = self.driver.find_elements(By.XPATH,self.ADDINVITEMS)
+        items[0].click()
+        WebDriverWait(self.driver, 15).until(EC.presence_of_all_elements_located((By.ID,self.ADDITEMNAME))).send_keys(WORDS)
+        # self.driver.find_element(By.ID,self.ADDITEMNAME).send_keys(WORDS)
         n = 5
         self.driver.find_element(By.ID, self.ADDITEMCODE).send_keys(randinteger)
         self.driver.find_element(By.XPATH, self.ADDITEMUNITPRICEID).send_keys(randinteger)
@@ -223,17 +225,16 @@ class InvoicePage(unittest.TestCase):
 
 
     def Add_inv_items(self):
-        try:
             itemsdd = self.driver.find_elements(By.XPATH,self.INVITEMSDD)
             itemsdd[0].click()
             items = self.driver.find_elements(By.XPATH,self.ADDINVITEMS)
             print("this is the list of items",len(items))
-            items[2].click()
-        except:
-            self.add_an_item()
-        # taxdd = self.driver.find_elements(By.XPATH, self.TAXDD)
-        # taxdd[1].click()
-        # time.sleep(2)
+            numberofitems = len(items)
+            if numberofitems == 1:
+                self.add_an_item()
+            else:
+                items[1].click()
+
     def Save_invoice(self):
         SaveINV = self.driver.find_element(By.XPATH,self.SAVEBTN)
         self.driver.execute_script("arguments[0].click()",SaveINV)
@@ -731,7 +732,7 @@ class InvoicePage(unittest.TestCase):
     def searchfor_customer(self,name):
         global customname
         customname = name
-        self.driver.find_element(By.ID, self.CUSTOMERSEARCH).send_keys(name + Keys.ENTER)
+        self.driver.find_element(By.XPATH, self.CUSTOMERSEARCH).send_keys(name + Keys.ENTER)
 
     # def paging_50(self):
     #     self.driver.find_element(By.XPATH, self.PAGINGDD).click()
