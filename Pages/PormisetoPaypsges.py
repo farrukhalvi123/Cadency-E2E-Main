@@ -28,15 +28,17 @@ class Ptop():
         self.threedot_Action="//tbody/tr[1]/td[9]/div[2]/button[1]"
         self.paynowto_checkout="//a[normalize-space()='Pay Now']"
         self.drop_down="//span[@class='p-dropdown-trigger-icon ng-tns-c4207907238-0 pi pi-chevron-down']"
-        self.select_country="//li[@aria-label='Canada']"
-        self.paysafe="//a[@id='p-tabpanel-4-label']//div[@class='p-radiobutton-box']"
-        self.by_visa="//div[@id='p-tabpanel-4']//a[@class='inner-cards']"
-        self.Pay_now="//div[@id='p-tabpanel-8']//div[@class='cmn-content-body']//button[@type='button']"
-        self.Cardholder_name="//input[@placeholder='Cardholder Name']"
-        self.Cardno="//p[normalize-space()='Card Number']"
-        self.dateofexpiry="//input[@id='expiry-date']"
-        self.CVV_number="cvv"
-        self.Paynow_B="//button[@class='p-element p-button-primary btn-100 p-button p-component']"
+        self.select_country="//span[@class='shipcountry-item cmn-dropdown-item'][normalize-space()='United States']"
+        self.by_swift="//div[@class='transfer-method-content-box ng-star-inserted']//div[1]//a[1]"
+        # self.paysafe="//a[@id='p-tabpanel-4-label']//div[@class='p-radiobutton-box']"
+        # self.by_visa="//div[@id='p-tabpanel-4']//a[@class='inner-cards']"
+        self.Pay_now ="//button[@class='p-element p-button-primary p-button p-component']"
+        self.time_line="//tbody/tr[1]/td[7]/div[1][1]/span[1]/i[1]"
+        # self.Cardholder_name="//input[@placeholder='Cardholder Name']"
+        # self.Cardno="//p[normalize-space()='Card Number']"
+        # self.dateofexpiry="//input[@id='expiry-date']"
+        # self.CVV_number="cvv"
+        # self.Paynow_B="//button[@class='p-element p-button-primary btn-100 p-button p-component']"
 
 
  # self.getclassforinv = "//td[@class='max-width-300 overflow-hidden custom-status-wrapper statusCenter font-bold ng-star-inserted'][position() mod 2 = 1]"
@@ -122,6 +124,7 @@ class Ptop():
      time.sleep(10)
      self.driver.switch_to.window(self.driver.window_handles[1])
      time.sleep(5)
+     time
 
 
  def Checkout(self):
@@ -131,35 +134,60 @@ class Ptop():
      choosecountry=self.driver.find_element(By.XPATH,self.select_country)
      choosecountry.click()
      time.sleep(5)
- def select_payfe(self):
-     paysafeV=self.driver.find_element(By.XPATH,self.paysafe)
-     paysafeV.click()
-     time.sleep(10)
-     byvisa=self.driver.find_element(By.XPATH,self.by_visa)
-     byvisa.click()
-     time.sleep(10)
-     PAYNW=self.driver.find_element(By.XPATH,self.Pay_now)
+     bySwift=self.driver.find_element(By.XPATH,self.by_swift)
+     bySwift.click()
+     time.sleep(7)
+     PAYNW = self.driver.find_element(By.XPATH, self.Pay_now)
      PAYNW.click()
      time.sleep(10)
+     assert "Invoice Awaiting Payment" in self.driver.page_source
+     print ('Invoice Awaiting Payment >> identified ')
+     time.sleep(10)
+     self.driver.switch_to.window(self.driver.window_handles[0])
+     self.driver.refresh()
+     time.sleep(10)
+     timeline_dropdown=self.driver.find_element(By.XPATH,self.time_line)
+     timeline_dropdown.click()
+     time.sleep(5)
+     assert "Promise Fulfilled" in self.driver.page_source
+     print('Promise Fulfilled ')
+     time.sleep(5)
 
- def Cardholder_Name(self,cdholdername):
-     cardholderN=self.driver.find_element(By.XPATH,self.Cardholder_name)
-     cardholderN.clear()
-     cardholderN.send_keys(cdholdername)
 
- def Card_Number(self,CDnum):
-     Card_Numberforcard=self.driver.find_element(By.XPATH,self.Cardno)
-     Card_Numberforcard.clear()
-     Card_Numberforcard.send_keys(CDnum)
-
- def Expiry_date(self,dateE):
-     Edate=self.driver.find_element(By.XPATH,self.dateofexpiry)
-     Edate.clear()
-     Edate.send_keys(dateE)
-
- def CVV_no(self,noCVV):
-     CVVnumber=self.driver.find_element(By.ID,self.CVV_number)
-     CVVnumber.clear()
-     CVVnumber.send_keys(noCVV)
-     P_now=self.driver.find_element(By.XPATH,self.Paynow_B)
-     P_now.click()
+ # def select_payfe(self):
+ #     paysafeV=self.driver.find_element(By.XPATH,self.paysafe)
+ #     paysafeV.click()
+ #     time.sleep(10)
+ #     byvisa=self.driver.find_element(By.XPATH,self.by_visa)
+ #     byvisa.click()
+ #     time.sleep(10)
+ #     PAYNW=self.driver.find_element(By.XPATH,self.Pay_now)
+ #     PAYNW.click()
+ #     time.sleep(10)
+ #
+ # def Cardholder_Name(self,cdholdername):
+ #     cardholderN=self.driver.find_element(By.XPATH,self.Cardholder_name)
+ #     cardholderN.clear()
+ #     time.sleep(5)
+ #     cardholderN.send_keys(cdholdername)
+ #
+ # def Card_Number(self,CDnum):
+ #     Card_Numberforcard=self.driver.find_element(By.XPATH,self.Cardno)
+ #     # Card_Numberforcard.clear()
+ #     time.sleep(5)
+ #     Card_Numberforcard.send_keys(CDnum)
+ #
+ # def Expiry_date(self,dateE):
+ #     Edate=self.driver.find_element(By.XPATH,self.dateofexpiry)
+ #     Edate.clear()
+ #     time.sleep(5)
+ #     Edate.send_keys(dateE)
+ #
+ # def CVV_no(self,noCVV):
+ #     CVVnumber=self.driver.find_element(By.ID,self.CVV_number)
+ #     CVVnumber.clear()
+ #     time.sleep(5)
+ #     CVVnumber.send_keys(noCVV)
+ #     P_now=self.driver.find_element(By.XPATH,self.Paynow_B)
+ #     P_now.click()
+ #     time.sleep(5)

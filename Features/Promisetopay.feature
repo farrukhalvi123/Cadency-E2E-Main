@@ -18,11 +18,11 @@ Feature: samra
     Then  identifying all ptop invoice with invoice no
 
   Scenario: promise fullfilled
-#    Then User Navigate To Invoice Tab
-#    Then Duplicate an Invoice
-#    Then take first invoice
-#    Then click on promise to pay button
-#    Then go to new tab
+    Then User Navigate To Invoice Tab
+    Then Duplicate an Invoice
+    Then take first invoice
+    Then click on promise to pay button
+    Then go to new tab
 
 
     When user is at customer portal
@@ -30,8 +30,8 @@ Feature: samra
     Then customer clicks login button
     Then going to invoice section from Cportal and towards open tab
     Then select country from dropdown
-    Then Payment method via paysafe
-    Then make a Payment SAMRA and 4111111111111111 and 5/25 and 856
+#    Then Payment method via paysafe
+#    Then make a Payment SAMRA and 4111111111111111 and 5/25 and 856
 
 
 
