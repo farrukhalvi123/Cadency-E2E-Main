@@ -131,7 +131,7 @@ class InvoicePage(unittest.TestCase):
         self.driver.execute_script("arguments[0].click()",CART)
         INVT= self.driver.find_element(By.XPATH,self.INVOICETAB)
         self.driver.execute_script("arguments[0].click()", INVT)
-        time.sleep(15)
+        time.sleep(20)
     def close_leftsidemenu(self):
         self.logo = WebDriverWait(self.driver,15).until(EC.presence_of_element_located((By.XPATH,self.LOGO)))
         # self.logo = self.driver.find_element(By.XPATH,self.LOGO)
@@ -508,7 +508,7 @@ class InvoicePage(unittest.TestCase):
         moreoption[0].click()
 
     def duplicate_invoice(self):
-        time.sleep(2)
+        time.sleep(5)
         INVNUMBER = self.driver.find_elements(By.CLASS_NAME, self.INVOICEANDCUSTOMER)
         print(INVNUMBER[0].text)
         AMOUNTBALANCE = self.driver.find_elements(By.CLASS_NAME, self.AMOUNT_BALANCE)
@@ -516,10 +516,14 @@ class InvoicePage(unittest.TestCase):
         self.click_moreoptions()
         dup = self.driver.find_element(By.XPATH,self.DUPLICATE)
         self.driver.execute_script("arguments[0].click()",dup)
-        time.sleep(1)
+        time.sleep(5)
         price = self.driver.find_element(By.XPATH, self.PRICE)
         print(price.text)
         self.Save_invoice()
+        INVNUMBER = self.driver.find_elements(By.CLASS_NAME, self.INVOICEANDCUSTOMER)
+        print(INVNUMBER[0].text)
+        AMOUNTBALANCE = self.driver.find_elements(By.CLASS_NAME, self.AMOUNT_BALANCE)
+        print(AMOUNTBALANCE[0].text)
         AMOUNTBALANCE = self.driver.find_elements(By.CLASS_NAME, self.AMOUNT_BALANCE)
         assert AMOUNTBALANCE[0].text == AMOUNTBALANCE[2].text, "Invoice is not duplicate"
         Invoiceopen = self.driver.find_elements(By.CLASS_NAME,self.OPENSTATUS)
