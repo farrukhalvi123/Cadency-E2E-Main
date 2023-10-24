@@ -1,7 +1,7 @@
 class TestData:
     BROWSER = "chrome"
     PLATFORM = "local"
-    ENVIRONMENT = "Dev" # there are only three enviornments, DEV, STAGING and PRODUCTION
+    ENVIRONMENT = "Staging" # there are only three enviornments, DEV, STAGING and PRODUCTION
     CADENCY_MAIN = "http://10.4.4.20:6120/login"
     CADENCY_MANAGEMENT = "http://10.4.4.20:6121/login"
     CUSTOMERMANAGEMENT = "http://10.4.4.20:6122/dashboard"

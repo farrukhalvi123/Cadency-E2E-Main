@@ -59,7 +59,7 @@
       <recent name="C:\Users\Lenovo\PycharmProjects\Cadency-E2E-Main\Features\Steps" />
     </key>
   </component>
-  <component name="RunManager" selected="Behave.Login.feature">
+  <component name="RunManager" selected="Behave.Normal_Invoice.feature">
     <configuration name="Login.feature" type="PyBehaveRunConfigurationType" factoryName="Behave" temporary="true">
       <module name="Cadency-E2E-Main" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -135,8 +135,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Behave.Login.feature" />
         <item itemvalue="Behave.Normal_Invoice.feature" />
+        <item itemvalue="Behave.Login.feature" />
         <item itemvalue="Behave.Normal_Invoice.feature:Add Normal Invoice" />
         <item itemvalue="Behave.Normal_Invoice.feature:View and Verify Invoice Details" />
         <item itemvalue="Behave.Normal_Invoice.feature:Check Sending Email of Invoice" />
