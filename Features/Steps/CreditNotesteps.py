@@ -44,3 +44,7 @@ def step_impl(context):
 @then("Go to Credit Notes")
 def step_impl(context):
     context.cadency.creditnote.go_to_creditnotes()
+
+@then("get second CN no from text")
+def step_impl(context):
+    context.cadency.creditnote.second_takecn()

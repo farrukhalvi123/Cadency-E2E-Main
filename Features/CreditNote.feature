@@ -7,13 +7,15 @@ Feature: samra
     Then User Enters khanbro and s3gxtMerqGtz
     Then User Clicks on Login Button
     Then Open Right Side Panel
-#    Then Open Right Side Panel
-    #Then User Navigate To Invoice Tab
+    Then click on customer and receivables tag
+    Then take to CN page
+#    Then Open R ight Side Panel
+#    Then User Navigate To Invoice Tab
 
 Scenario: comparing credit note from last to new CN
 
-  Then click on customer and receivables tag
-  Then take to CN page
+#  Then click on customer and receivables tag
+
   Then get first CN no from text
   Then Open Right Side Panel
   Then click on customer and receivables tag
@@ -23,7 +25,7 @@ Scenario: comparing credit note from last to new CN
   Then enter values and save
   Then Open Right Side Panel
   Then take to CN page
-  Then get first CN no from text
+  Then get second CN no from text
 
 #  Scenario: credit notes
 #   Then click on Open
