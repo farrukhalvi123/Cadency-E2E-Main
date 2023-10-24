@@ -1,9 +1,7 @@
 Feature: I want to Login with new user & verify permissions
 
  Background:
-   Then User Navigates to Admin Portal
-   Then Enters Credentials Talhaadmin and Talha123 and login into system
-   Then Open Left Panel
+   Then Admin Enters Login Credentials
 
  Scenario: Verifying Permissions
    Then Click On Dashboard

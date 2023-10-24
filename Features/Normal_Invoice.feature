@@ -2,9 +2,7 @@
 Feature: As a admin i want to add a new invoice
 
   Background: Login & Redirect To Invoice Page
-    Then User Navigates to Merchant Portal
-    Then User Enters jaxsonbriggs and 7sItGjWVfZgc
-    Then User Clicks on Login Button
+    Then User Logins with Main Credentials
     Then Open Right Side Panel
     Then User Navigate To Invoice Tab
     Then Close Left Side Menu
@@ -48,9 +46,7 @@ Feature: As a admin i want to add a new invoice
   Scenario: Invoice Creation and verification on Customer Portal
     Then Invoice has Been Created
     Then Open a new tab
-    When user is at customer portal
-    Then customer enter tbm and Talha123
-    Then customer clicks login button
+    Then Customer Enters Login Credentials
     When customer at dashboard and hover over side panel and click invoice option
     Then Verify Invoice Amount
 
@@ -113,9 +109,7 @@ Feature: As a admin i want to add a new invoice
     Then Click on Save Button
     Then Verify Invoice Edited Successfully
     Then Open a new tab
-    When user is at customer portal
-    Then customer enter tbm and Talha123
-    Then customer clicks login button
+    Then Customer Enters Login Credentials
     When customer at dashboard and hover over side panel and click invoice option
     Then Verify Invoice Amount
 

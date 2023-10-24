@@ -95,6 +95,7 @@ def step_impl(context):
 @step("Adding Items Discount")
 def step_impl(context):
     context.cadency.invoice.enter_discount()
+    time.sleep(1)
 
 
 @step("Select Tax")
@@ -338,7 +339,7 @@ def step_impl(context):
 @then("Enter Customer {Name} into Search Field")
 def step_impl(context,Name):
    context.cadency.invoice.searchfor_customer(Name)
-   time.sleep(10)
+   time.sleep(2)
 
 
 @then("Verify list of customer name")

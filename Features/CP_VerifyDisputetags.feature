@@ -2,9 +2,7 @@
 Feature: Open customer portal and search for anyone invoive from "Invoices" marked as 'disputed' & 'open'
   and verify this thing on 'Account statemnet'
  Background:
-   When user is at customer portal
-   Then customer enter selinakyle@yopmail.com and 1QnKwL1nvht7
-   Then customer clicks login button
+   Then Customer Enters Login Credentials
 
   Scenario: go to invoices, and pick any invoice with status disputed and open
     When customer at dashboard and hover over side panel and click invoice option

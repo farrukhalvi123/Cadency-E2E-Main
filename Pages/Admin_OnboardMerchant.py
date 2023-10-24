@@ -1,18 +1,9 @@
-import datetime
+
 import os
 import time
-
-from selenium.webdriver import ActionChains
-from selenium.webdriver.common.keys import Keys
-from random import randint
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.select import Select
-from allure_commons._allure import attach
-from allure_commons.types import AttachmentType
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from Constants.URLS import TestData
 
 
 class OnboardingMerchant():
@@ -145,7 +136,8 @@ class OnboardingMerchant():
 
     def click_merchant_filters(self):
         element = self.driver.find_elements(By.XPATH, self.ONBOARDMERCHANTFILTERS)
-        element[5].click()
+        self.driver.execute_script("arguments[0].click",element[4])
+        # element[5].click()
         time.sleep(3)
 
     def select_entity_status_filters(self):

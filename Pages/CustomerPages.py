@@ -7,7 +7,6 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from Constants.URLS import TestData
 import unittest
 
 
@@ -115,7 +114,7 @@ class CustomerPages(unittest.TestCase):
         self.driver.execute_script("arguments[0].click()", custrectab)
         customertab = self.driver.find_element(By.XPATH,self.CUSTOMERTAB)
         self.driver.execute_script("arguments[0].click()",customertab)
-        time.sleep(5)
+        time.sleep(10)
 
     def customer_number(self):
         time.sleep(5)
@@ -305,7 +304,7 @@ class CustomerPages(unittest.TestCase):
         element = WebDriverWait(self.driver,5).until(EC.presence_of_element_located((By.ID, self.THREEDOTSBUTTON)))
         element.click()
         self.driver.find_element(By.XPATH,self.VIEWCUSTOMER).click()
-        time.sleep(4)
+        time.sleep(10)
 
     def verify_invoice_tiles(self):
         self.driver.find_element(By.XPATH,self.INVOICETILES)
@@ -338,7 +337,7 @@ class CustomerPages(unittest.TestCase):
             time.sleep(2)
             fiftycount = WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.XPATH,self.FIFTYITEMS)))
             fiftycount.click()
-            time.sleep(5)
+            time.sleep(10)
         except:
             assert "No records found" in self.driver.page_source
             print("No records found hence paging disabled")
@@ -501,11 +500,12 @@ class CustomerPages(unittest.TestCase):
                 numeric_amounts.append(numeric_amount)
         total_balance = sum(numeric_amounts)
         print(f"Total Balance: {total_balance:.2f}")
+    def get_allinvoices(self):
+        self.paging_50()
+        time.sleep(20)
         inv_details = self.driver.find_elements(By.XPATH, self.count_openinvoices_RBN)
         invnumber_element = inv_details[0]  # WebElement containing the invoice number
         invnumber_text = invnumber_element.text  # Get the text content of the WebElement
-
-        # Convert the text to an integer
         actualinvnumber = int(invnumber_text)
         print(actualinvnumber)
         invoice_numbers = self.driver.find_elements(By.CLASS_NAME, "p-element.title-heading-1.text-primary-3.dot-line")
@@ -516,12 +516,12 @@ class CustomerPages(unittest.TestCase):
                                                         "p-element.title-heading-1.text-primary-3.dot-line")
             invcount = int(len(invoice_numbers))
 
-            suminvoicenum += invcount
+            suminvoicenum = suminvoicenum + invcount
             print("this is the count of invoice numbers",invcount,suminvoicenum)
             try:
              self.driver.find_element(By.XPATH,
                                          "//button[@class='p-ripple p-element p-paginator-next p-paginator-element p-link']").click()
-             time.sleep(5)
+             time.sleep(20)
             except:
                 print("next button is now disbled")
         assert suminvoicenum == actualinvnumber, "Invoice count donot match"
