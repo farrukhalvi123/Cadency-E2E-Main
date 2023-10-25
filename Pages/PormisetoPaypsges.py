@@ -22,6 +22,9 @@ class Ptop():
         self.identifyinginvcol="max-width-300.ng-star-inserted"
         self.newptopalltab="//span[@class='cus-minibadge badge promise-to-pay width-90 text-center justify-content-center ng-star-inserted']"
         self.hovering = "//a[@class='toogle-icon full-content']"
+        self.ptoptab="//a[@id='p-tabpanel-21-label']"
+        self.ACtionB="//button[@class='p-element more-vert-btn p-button p-component']"
+        self.View="//a[normalize-space()='View']"
         # self.Invoice_section="//p[normalize-space()='Invoices']"
         # self.towards_opentab="//a[@id='p-tabpanel-9-label']"
         self.justpanel=Open_dispute_tag(driver)
@@ -34,6 +37,7 @@ class Ptop():
         # self.by_visa="//div[@id='p-tabpanel-4']//a[@class='inner-cards']"
         self.Pay_now ="//button[@class='p-element p-button-primary p-button p-component']"
         self.time_line="//tbody/tr[1]/td[7]/div[1][1]/span[1]/i[1]"
+
         # self.Cardholder_name="//input[@placeholder='Cardholder Name']"
         # self.Cardno="//p[normalize-space()='Card Number']"
         # self.dateofexpiry="//input[@id='expiry-date']"
@@ -153,6 +157,16 @@ class Ptop():
      print('Promise Fulfilled ')
      time.sleep(5)
 
+ def fullfilmentbyrecordpayment(self):
+      promisetopaytab=self.driver.find_element(By.XPATH,self.ptoptab)
+      promisetopaytab.click()
+      time.sleep(5)
+      actionbutton=self.driver.find_element(By.XPATH,self.ACtionB)
+      actionbutton.click()
+      time.sleep(5)
+      viewdetails=self.driver.find_element(By.XPATH,self.View)
+      viewdetails.click()
+      time.sleep(5)
 
  # def select_payfe(self):
  #     paysafeV=self.driver.find_element(By.XPATH,self.paysafe)

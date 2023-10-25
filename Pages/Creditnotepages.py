@@ -43,8 +43,8 @@ class Cns():
 
 
     def Opentab(self):
-        openfil = self.driver.find_element(By.XPATH, self.open_filter)
-        # driver.execute_script("arguments[3].click;", openfil)
+
+        openfil = WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.XPATH, self.open_filter)))
         openfil.click()
         time.sleep(3)
 

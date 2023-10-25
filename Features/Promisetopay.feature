@@ -1,9 +1,7 @@
 # Created by samra  at 3/28/2023
 Feature: samra
   Background:
-    Then User Navigates to Merchant Portal
-    Then User Enters josephjoss and SSamra1235
-    Then User Clicks on Login Button
+    Then User Logins with Main Credentials
     Then Open Right Side Panel
 
   Scenario:  Login & Redirect To Invoice Page
@@ -32,7 +30,12 @@ Feature: samra
     Then select country from dropdown
 #    Then Payment method via paysafe
 #    Then make a Payment SAMRA and 4111111111111111 and 5/25 and 856
-
+  Scenario:
+    Then User Navigate To Invoice Tab
+    Then click on Open
+    Then take first invoice
+    Then click on promise to pay button
+    Then again move towards PtoPay tab
 
 
 
