@@ -190,7 +190,7 @@ class Ptop():
      cancel = cancel_elements[1]
      cancel.click()
      time.sleep(5)
-     alltabone=self.driver.find_element(salltab
+     # alltabone=self.driver.find_element(salltab
 
 
 
