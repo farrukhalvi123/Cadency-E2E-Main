@@ -55,6 +55,7 @@ def step_impl(context):
 #     context.cadency.PromisetoPay.Card_Number(CardNumber)
 #     context.cadency.PromisetoPay.Expiry_date(Expirydate)
 #     context.cadency.PromisetoPay.CVV_no(CVV)
-@then("again move towards PtoPay tab")
+
+@then("Record Payment manually")
 def step_impl(context):
-    context.cadency.PromisetoPay.fullfilmentbyrecordpayment()
+    context.cadency.PromisetoPay.Manuallyrecordpayment()

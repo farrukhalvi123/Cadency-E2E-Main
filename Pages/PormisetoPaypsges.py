@@ -22,7 +22,7 @@ class Ptop():
         self.identifyinginvcol="max-width-300.ng-star-inserted"
         self.newptopalltab="//span[@class='cus-minibadge badge promise-to-pay width-90 text-center justify-content-center ng-star-inserted']"
         self.hovering = "//a[@class='toogle-icon full-content']"
-        self.ptoptab="//a[@id='p-tabpanel-21-label']"
+        self.ptoptab="p-ripple.p-element.p-tabview-nav-link"
         self.ACtionB="//button[@class='p-element more-vert-btn p-button p-component']"
         self.View="//a[normalize-space()='View']"
         # self.Invoice_section="//p[normalize-space()='Invoices']"
@@ -37,6 +37,13 @@ class Ptop():
         # self.by_visa="//div[@id='p-tabpanel-4']//a[@class='inner-cards']"
         self.Pay_now ="//button[@class='p-element p-button-primary p-button p-component']"
         self.time_line="//tbody/tr[1]/td[7]/div[1][1]/span[1]/i[1]"
+        self.action2="//div[@class='p-component-overlay p-sidebar-mask p-component-overlay-enter p-component-overlay-leave']"
+        self.Viewagain="//a[normalize-space()='View']"
+        self.Record_manually="//button[@class='p-element p-icon-button overlay-primary-7 p-button p-component ng-star-inserted']"
+        self.payment_mode="paymentTypeId"
+        self.by_cashpayment = "//span[@class='ng-star-inserted'][normalize-space()='Visa']"
+        self.save_recordpayemnt="//button[@type='submit']"
+        self.alltab="p-ripple p-element p-tabview-nav-link"
 
         # self.Cardholder_name="//input[@placeholder='Cardholder Name']"
         # self.Cardno="//p[normalize-space()='Card Number']"
@@ -72,10 +79,10 @@ class Ptop():
      save=self.driver.find_element(By.XPATH, self.submit)
      save.click()
      time.sleep(6)
-     cancel_elements = self.driver.find_elements(By.CLASS_NAME, self.close)
-     cancel = cancel_elements[1]
-     cancel.click()
-     time.sleep(15)
+     # cancel_elements = self.driver.find_elements(By.CLASS_NAME, self.close)
+     # cancel = cancel_elements[1]
+     # cancel.click()
+     # time.sleep(15)
 
      # pinvoice=self.driver.find_element(By.XPATH, self.invoicetag)
      # pinvoice.click()
@@ -131,6 +138,8 @@ class Ptop():
 
 
 
+
+
  def Checkout(self):
      selectionbydropdown=self.driver.find_element(By.XPATH,self.drop_down)
      selectionbydropdown.click()
@@ -157,16 +166,39 @@ class Ptop():
      print('Promise Fulfilled ')
      time.sleep(5)
 
- def fullfilmentbyrecordpayment(self):
-      promisetopaytab=self.driver.find_element(By.XPATH,self.ptoptab)
-      promisetopaytab.click()
-      time.sleep(5)
-      actionbutton=self.driver.find_element(By.XPATH,self.ACtionB)
-      actionbutton.click()
-      time.sleep(5)
-      viewdetails=self.driver.find_element(By.XPATH,self.View)
-      viewdetails.click()
-      time.sleep(5)
+ def Manuallyrecordpayment(self):
+     # time.sleep(3)
+     # actionthreedots=self.driver.find_element(By.XPATH,self.action2)
+     # actionthreedots.click()
+     # time.sleep(3)
+     # viewss=self.driver.find_element(By.XPATH,self.Viewagain)
+     # viewss.click()
+     # time.sleep(3)
+     byrecordpayment=self.driver.find_element(By.XPATH,self.Record_manually)
+     byrecordpayment.click()
+     time.sleep(5)
+     paymodedd = self.driver.find_element(By.ID, self.payment_mode)
+     paymodedd.click()
+     time.sleep(5)
+     bycash=self.driver.find_element(By.XPATH,self.by_cashpayment)
+     bycash.click()
+     time.sleep(3)
+     savedmanually=self.driver.find_element(By.XPATH,self.save_recordpayemnt)
+     savedmanually.click()
+     time.sleep(5)
+     cancel_elements = self.driver.find_elements(By.CLASS_NAME, self.close)
+     cancel = cancel_elements[1]
+     cancel.click()
+     time.sleep(5)
+     alltabone=self.driver.find_element(salltab
+
+
+
+
+
+
+
+
 
  # def select_payfe(self):
  #     paysafeV=self.driver.find_element(By.XPATH,self.paysafe)

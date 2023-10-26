@@ -3,9 +3,10 @@ Feature: samra
   Background:
     Then User Logins with Main Credentials
     Then Open Right Side Panel
+    Then User Navigate To Invoice Tab
+    Then Close Left Side Menu
 
   Scenario:  Login & Redirect To Invoice Page
-    Then User Navigate To Invoice Tab
     Then click on Open
     Then take first invoice
     Then click on promise to pay button
@@ -16,13 +17,10 @@ Feature: samra
     Then  identifying all ptop invoice with invoice no
 
   Scenario: promise fullfilled
-    Then User Navigate To Invoice Tab
     Then Duplicate an Invoice
     Then take first invoice
     Then click on promise to pay button
     Then go to new tab
-
-
     When user is at customer portal
     Then customer enter WD and tYXPthyjyS3V
     Then customer clicks login button
@@ -30,12 +28,12 @@ Feature: samra
     Then select country from dropdown
 #    Then Payment method via paysafe
 #    Then make a Payment SAMRA and 4111111111111111 and 5/25 and 856
-  Scenario:
-    Then User Navigate To Invoice Tab
+  Scenario: Record Payment
     Then click on Open
     Then take first invoice
     Then click on promise to pay button
-    Then again move towards PtoPay tab
+    Then Record Payment manually
+
 
 
 
